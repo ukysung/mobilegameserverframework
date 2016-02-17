@@ -25,7 +25,14 @@ msg_head_size = 8
 log = None
 cfg = {}
 mst = {}
-players = []
+
+area_lobby = 1
+area_town = 2
+area_dungeon = 3
+area_pvp = 4
+
+area_types = []
+area_players = []
 
 @asyncio.coroutine
 def handle_message_no_1():
@@ -40,22 +47,29 @@ class GamePlayServer(asyncio.Protocol):
 		self.timeout_sec = 600.0
 		self.buffer = b''
 
+		self.area_idx = 0
+		self.pos_x = 0
+		self.pos_y = 0
+
 	@asyncio.coroutine
 	def handle_received(self, req_msg_type, req_msg_body):
 		if handlers[req_msg_type] is None:
 			return
 
-		(ack_msg_type, ack_msg_body) = yield from handlers[req_msg_type](req_msg_type, req_msg_body)
+		(ack_msg_type, ack_msg_body, broadcast) = yield from handlers[req_msg_type](req_msg_type, req_msg_body)
 		ack = struct.pack('ii', ack_msg_type, msg_head_size + len(ack_msg_body)) + ack_msg_body
 
-		for player in players:
-			if player is not self:
-				player.transport.write(ack)
+		if broadcast:
+			for player in area_players[self.area_idx]:
+				if player is not self:
+					player.transport.write(ack)
+		else:
+			self.transport.write(ack)
 
 	def connection_made(self, transport):
 		self.transport = transport
 		self.h_timeout = asyncio.get_evelop_loop().call_later(self.timeout_sec, self.connection_timed_out)
-		players.append(self)
+		area_players[self.area_idx].append(self)
 
 	def data_received(self, data):
 		self.h_timeout.cancel()
@@ -86,11 +100,11 @@ class GamePlayServer(asyncio.Protocol):
 		pass
 
 	def connection_lost(self, ex):
-		players.remove(self)
+		area_players[self.area_idx].remove(self)
 		self.h_timeout.cancel()
 
 	def connection_timed_out(self):
-		players.remove(self)
+		area_players[self.area_idx].remove(self)
 		self.transport.close()
 
 def main():
@@ -144,6 +158,10 @@ def main():
 	log = logging.getLogger()
 	log.setLevel(logging.DEBUG)
 	log.addHandler(log_handler)
+
+	# area
+	area_types.append(area_lobby)
+	area_players.append([])
 
 	# server
 	server_id = 'server' + server_seq
