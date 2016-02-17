@@ -41,7 +41,7 @@ def request_handler(req_msg_type, req_msg_body):
 		return ''
 
 	(ack_msg_type, ack_msg_body) = yield from handlers[req_msg_type](req_msg_type, req_msg_body)
-	return struct.pack('ii', ack_msg_type, head_size + len(ack_msg_body), 0, 0) + ack_msg_body
+	return struct.pack('ii', ack_msg_type, msg_head_size + len(ack_msg_body)) + ack_msg_body
 
 @asyncio.coroutine
 def packet_handler(reader, writer):

@@ -41,12 +41,16 @@ class GamePlayServer(asyncio.Protocol):
 		self.buffer = b''
 
 	@asyncio.coroutine
-	def handle_received(self, msg_type, msg_body):
+	def handle_received(self, req_msg_type, req_msg_body):
+		if handlers[req_msg_type] is None:
+			return
 
-		#for player in players:
-			#if player is not self:
-				#player.transport.write(' ')
-		pass
+		(ack_msg_type, ack_msg_body) = yield from handlers[req_msg_type](req_msg_type, req_msg_body)
+		ack = struct.pack('ii', ack_msg_type, msg_head_size + len(ack_msg_body)) + ack_msg_body
+
+		for player in players:
+			if player is not self:
+				player.transport.write(ack)
 
 	def connection_made(self, transport):
 		self.transport = transport
@@ -56,6 +60,9 @@ class GamePlayServer(asyncio.Protocol):
 	def data_received(self, data):
 		self.h_timeout.cancel()
 		self.h_timeout = asyncio.get_event_loop().call_later(self.timeout_sec, self.connection_timed_out)
+
+		if len(data) > 8192:
+			return
 
 		self.buffer += data
 		msg_head_offset = 0
