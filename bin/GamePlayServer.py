@@ -25,9 +25,9 @@ handlers = {}
 players = []
 
 class GamePlayServer(asyncio.Protocol):
-	timeout_sec = 600.0
+	connection_timeout_sec = 600.0
 
-	def close_connection(self):
+	def connection_timed_out(self):
 		players.remove(self)
 		self.transport.close()
 
@@ -37,12 +37,12 @@ class GamePlayServer(asyncio.Protocol):
 
 	def connection_made(self, transport):
 		self.transport = transport
-		self.h_timeout = asyncio.get_evelop_loop().call_later(self.timeout_sec, self.close_connection)
+		self.h_timeout = asyncio.get_evelop_loop().call_later(self.connection_timeout_sec, self.connection_timed_out)
 		players.append(self)
 
 	def data_received(self, data):
 		self.h_timeout.cancel()
-		self.h_timeout = asyncio.get_event_loop().call_later(self.timeout_sec, self.close_connection)
+		self.h_timeout = asyncio.get_event_loop().call_later(self.connection_timeout_sec, self.connection_timed_out)
 		asyncio.Task(self.handle_received(data))
 
 	def eof_received(self):
