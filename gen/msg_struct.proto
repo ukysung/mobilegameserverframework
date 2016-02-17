@@ -1,0 +1,30 @@
+
+import "msg_enum.proto";
+
+package msg;
+
+// common
+
+	message vector3
+	{
+		required float x = 1;
+		required float y = 2;
+		required float z = 3;
+	}
+
+// character
+	
+	message char_info
+	{
+		required uint64 charid = 1;
+	}
+
+// item
+
+	message equip_item
+	{
+		required uint64 itemid = 1;
+		required part_type p_type = 2;
+	}
+	
+// end

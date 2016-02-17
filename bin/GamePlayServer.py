@@ -7,6 +7,10 @@ import sys
 import signal
 
 import google.protobuf
+import msg_type_play_pb2
+import msg_enum_pb2
+import msg_struct_pb2
+import msg_packet_play_pb2
 
 '''
 struct
@@ -58,7 +62,7 @@ def main():
 		sys.exit()
 
 	phase = sys.argv[1]
-	server_id = sys.argv[2]
+	server_seq = sys.argv[2]
 
 	# cfg
 	with open('../cfg/' + phase + '.json', encoding='utf-8') as cfg_file:
@@ -66,7 +70,7 @@ def main():
 
 	# log
 	log_formatter = logging.Formatter('%(asctime)s,%(levelname)s,%(message)s')
-	log_handler = logging.handlers.TimedRotatingFileHandler('../log/game_play_server_log_' + server_id + '.csv', when='M', interval=1)
+	log_handler = logging.handlers.TimedRotatingFileHandler('../log/game_play_server_' + server_seq + '.csv', when='M', interval=1)
 	log_handler.setFormatter(log_formatter)
 
 	log = logging.getLogger()

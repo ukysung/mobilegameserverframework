@@ -1,0 +1,47 @@
+
+import "msg_error.proto";
+import "msg_struct.proto";
+
+package msg;
+
+// user
+
+	message sign_up_req
+	{
+		required string useremail = 1;
+		required string password = 2;
+		required string retypepassword = 3;
+	}
+
+	message sign_up_ack
+	{
+		required err_type err_code = 1;
+		required uint64 userid = 2;
+	}
+
+	message sign_in_req
+	{
+		required string useremail = 1;
+		required string password = 2;
+	}
+
+	message sign_in_ack
+	{
+		required err_type err_code = 1;
+		required uint64 userid = 2;
+	}
+
+// character
+
+	message get_char_list_req
+	{
+		required uint64 userid = 1;
+	}
+
+	message get_char_list_ack
+	{
+		required err_type err_code = 1;
+		repeated char_info char_list = 2;
+	}
+	
+// end

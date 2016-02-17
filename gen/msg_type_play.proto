@@ -1,0 +1,8 @@
+
+package msg;
+
+enum type_play
+{
+	t_enter_town_req = 21001;
+	t_enter_town_ack = 21002;
+}

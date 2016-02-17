@@ -1,0 +1,14 @@
+
+package msg;
+
+enum type_data
+{
+	t_sign_up_req = 11001;
+	t_sign_up_ack = 11002;
+
+	t_sign_in_req = 11101;
+	t_sign_in_ack = 11102;
+
+	t_get_char_list_req = 11201;
+	t_get_char_list_ack = 11202;
+}
