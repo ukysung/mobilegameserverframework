@@ -7,10 +7,6 @@ import sys
 import signal
 
 import google.protobuf
-import game_client.CLIENT_GAME_NET_PROTOCOL_RESULT_pb2
-import game_client.CLIENT_GAME_NET_PROTOCOL_pb2
-import db_packet.db_msg_pb2
-import db_table.db_table_pb2
 
 '''
 struct
