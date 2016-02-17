@@ -87,12 +87,35 @@ def main():
 		cfg = json.loads(cfg_file.read())
 
 	# log
+	log_level = None
+	log_rotation = None
+
+	if cfg['log']['level'] == 'debug':
+		log_level = logging.DEBUG
+	elif cfg['log']['level'] == 'info':
+		log_level = logging.INFO
+	elif cfg['log']['level'] == 'warn':
+		log_level = logging.WARNING
+	elif cfg['log']['level'] == 'error':
+		log_level = logging.ERROR
+	else:
+		log_level = logging.DEBUG
+
+	if cfg['log']['rotation'] == 'every_minute':
+		log_rotation = 'M'
+	elif cfg['log']['rotation'] == 'hourly':
+		log_rotation = 'H'
+	elif cfg['log']['rotation'] == 'daily':
+		log_rotation = 'D'
+	else:
+		log_rotation = 'M'
+
 	log_formatter = logging.Formatter('%(asctime)s,%(levelname)s,%(message)s')
-	log_handler = logging.handlers.TimedRotatingFileHandler('../log/game_data_server_' + server_seq + '.csv', when='M', interval=1)
+	log_handler = logging.handlers.TimedRotatingFileHandler('../log/game_data_server_' + server_seq + '.csv', when=log_rotation, interval=1)
 	log_handler.setFormatter(log_formatter)
 
 	log = logging.getLogger()
-	log.setLevel(logging.DEBUG)
+	log.setLevel(log_level)
 	log.addHandler(log_handler)
 
 	# server
@@ -100,9 +123,11 @@ def main():
 	server = loop.run_until_complete(asyncio.start_server(connection_handler, 'localhost', 50001))
 
 	try:
+		log.info('game_data_server_%s starting..', server_seq)
 		loop.run_forever()
 
 	except KeyboardInterrupt:
+		log.info('keyboard interrupt..')
 		pass
 
 	server.close()
