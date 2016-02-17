@@ -75,7 +75,7 @@ def connection_handler(reader, writer):
 	task.add_done_callback(task_done)
 
 def main():
-	if len(sys.argv) < 2:
+	if len(sys.argv) < 3:
 		print('Usage: sudo python3 ./GameDataServer.py develop 00')
 		sys.exit()
 

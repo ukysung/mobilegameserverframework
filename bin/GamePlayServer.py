@@ -57,7 +57,7 @@ class GamePlayServer(asyncio.Protocol):
 		self.h_timeout.cancel()
 
 def main():
-	if len(sys.argv) < 2:
+	if len(sys.argv) < 3:
 		print('Usage: sudo python3 ./GamePlayServer.py develop 00')
 		sys.exit()
 

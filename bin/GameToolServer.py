@@ -1,7 +1,14 @@
 
+import sys
 from flask import Flask, g, request, make_response, session, render_template, redirect
 from werkzeug import secure_filename
 import pymysql, redis, urllib.parse, http.client, json, hashlib
+
+if len(sys.argv) < 2:
+	print('Usage: sudo python3 ./GameToolServer.py develop')
+	sys.exit()
+
+phase = sys.argv[1]
 
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -9,8 +16,6 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 app = Flask(__name__)
 app.secret_key = 'app_secret_key'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-phase = 'develop'
 
 cfg = {}
 with open('../cfg/' + phase + '.json', encoding='utf-8') as cfg_file:
