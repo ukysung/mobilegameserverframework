@@ -25,29 +25,55 @@ msg_head_size = 8
 log = None
 cfg = {}
 mst = {}
-handlers = {}
 players = []
 
-class GamePlayServer(asyncio.Protocol):
-	connection_timeout_sec = 600.0
+@asyncio.coroutine
+def handle_message_no_1():
+	return ''
 
-	def connection_timed_out(self):
-		players.remove(self)
-		self.transport.close()
+handlers = {
+	1:handle_message_no_1,
+}
+
+class GamePlayServer(asyncio.Protocol):
+	def __init__(self):
+		self.timeout_sec = 600.0
+		self.buffer = b''
 
 	@asyncio.coroutine
-	def handle_received(self, data):
+	def handle_received(self, msg_type, msg_body):
+
+		#for player in players:
+			#if player is not self:
+				#player.transport.write(' ')
 		pass
 
 	def connection_made(self, transport):
 		self.transport = transport
-		self.h_timeout = asyncio.get_evelop_loop().call_later(self.connection_timeout_sec, self.connection_timed_out)
+		self.h_timeout = asyncio.get_evelop_loop().call_later(self.timeout_sec, self.connection_timed_out)
 		players.append(self)
 
 	def data_received(self, data):
 		self.h_timeout.cancel()
-		self.h_timeout = asyncio.get_event_loop().call_later(self.connection_timeout_sec, self.connection_timed_out)
-		asyncio.Task(self.handle_received(data))
+		self.h_timeout = asyncio.get_event_loop().call_later(self.timeout_sec, self.connection_timed_out)
+
+		self.buffer += data
+		msg_head_offset = 0
+
+		while len(self.buffer) >= (msg_head_offset + msg_head_size):
+			msg_body_offset = msg_head_offset + msg_head_size
+			(msg_type, msg_size) = struct.unpack('ii', self.buffer[msg_head_offset : msg_body_offset])
+
+			msg_end_offset = msg_head_offset + msg_size
+			if len(self.buffer) < msg_end_offset:
+				break
+
+			msg_body = self.buffer[msg_body_offset : msg_end_offset]
+			msg_head_offset = msg_end_offset
+
+			asyncio.Task(self.handle_received(msg_type, msg_body))
+
+		self.buffer = self.buffer[msg_head_offset : ]
 
 	def eof_received(self):
 		pass
@@ -55,6 +81,10 @@ class GamePlayServer(asyncio.Protocol):
 	def connection_lost(self, ex):
 		players.remove(self)
 		self.h_timeout.cancel()
+
+	def connection_timed_out(self):
+		players.remove(self)
+		self.transport.close()
 
 def main():
 	if len(sys.argv) < 3:
