@@ -109,11 +109,13 @@ def main():
 	log.addHandler(log_handler)
 
 	# server
+	server_id = 'server' + server_seq
+
 	loop = asyncio.get_event_loop()
 	loop.add_signal_handler(signal.SIGINT, loop.stop)
 	loop.add_signal_handler(signal.SIGTERM, loop.stop)
 
-	f = loop.create_server(GamePlayServer, port=50002)
+	f = loop.create_server(GamePlayServer, port=cfg[server_id]['play_port'])
 	server = loop.run_until_complete(f)
 
 	try:

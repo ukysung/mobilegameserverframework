@@ -119,8 +119,10 @@ def main():
 	log.addHandler(log_handler)
 
 	# server
+	server_id = 'server' + server_seq
+
 	loop = asyncio.get_event_loop()
-	server = loop.run_until_complete(asyncio.start_server(connection_handler, 'localhost', 50001))
+	server = loop.run_until_complete(asyncio.start_server(connection_handler, cfg[server_id]['address'], cfg[server_id]['data_port']))
 
 	try:
 		log.info('game_data_server_%s starting..', server_seq)
