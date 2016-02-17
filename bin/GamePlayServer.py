@@ -16,7 +16,7 @@ struct
 }
 // totally 8 bytes
 '''
-msg_head_size = 6
+msg_head_size = 8
 
 log = None
 cfg = {}
