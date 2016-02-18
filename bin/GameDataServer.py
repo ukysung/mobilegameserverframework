@@ -25,54 +25,71 @@ msg_head_size = 8
 log = None
 cfg = {}
 mst = {}
+sessions = []
 
 @asyncio.coroutine
 def handle_message_no_1():
 	return ''
 
-players = {}
 handlers = {
 	1:handle_message_no_1,
 }
 
-@asyncio.coroutine
-def request_handler(req_msg_type, req_msg_body):
-	if handlers[req_msg_type] is None:
-		return ''
+class GameDataServer(asyncio.Protocol):
+	def __init__(self):
+		self.timeout_sec = 600.0
+		self.buffer = b''
 
-	(ack_msg_type, ack_msg_body) = yield from handlers[req_msg_type](req_msg_type, req_msg_body)
-	return struct.pack('ii', ack_msg_type, msg_head_size + len(ack_msg_body)) + ack_msg_body
+	@asyncio.coroutine
+	def handle_received(self, req_msg_type, req_msg_body):
+		if handlers[req_msg_type] is None:
+			return
 
-@asyncio.coroutine
-def packet_handler(reader, writer):
-	while True:
-		req_msg_head = yield from reader.read(msg_head_size)
-		if len(req_msg_head) == 0:
-			break
+		(ack_msg_type, ack_msg_body) = yield from handlers[req_msg_type](req_msg_type, req_msg_body)
+		ack = struct.pack('ii', ack_msg_type, msg_head_size + len(ack_msg_body)) + ack_msg_body
 
-		(req_msg_type, req_msg_size) = struct.unpack('ii', req_msg_head)
-		req_msg_body_size = req_msg_size - msg_head_size
-		if req_msg_body_size <= 0 or req_msg_body_size > 8192:
-			break
+		self.transport.write(ack)
 
-		req_msg_body = yield from reader.read(req_msg_body_size)
-		if len(req_msg_body) == 0:
-			break
+	def connection_made(self, transport):
+		self.transport = transport
+		self.h_timeout = asyncio.get_evelop_loop().call_later(self.timeout_sec, self.connection_timed_out)
+		sessions.append(self)
 
-		ack = yield from request_handler(req_msg_type, req_msg_body)
-		writer.write(ack)
+	def data_received(self, data):
+		self.h_timeout.cancel()
+		self.h_timeout = asyncio.get_event_loop().call_later(self.timeout_sec, self.connection_timed_out)
 
-		# this enables us to have flow control in our connection
-		writer.drain()
+		if len(data) > 8192:
+			return
 
-def connection_handler(reader, writer):
-	task = asyncio.Task(request_handler(reader, writer))
-	players[task] = (reader, writer)
+		self.buffer += data
+		msg_head_offset = 0
 
-	def task_done(task):
-		del players[task]
+		while len(self.buffer) >= (msg_head_offset + msg_head_size):
+			msg_body_offset = msg_head_offset + msg_head_size
+			(msg_type, msg_size) = struct.unpack('ii', self.buffer[msg_head_offset : msg_body_offset])
 
-	task.add_done_callback(task_done)
+			msg_end_offset = msg_head_offset + msg_size
+			if len(self.buffer) < msg_end_offset:
+				break
+
+			msg_body = self.buffer[msg_body_offset : msg_end_offset]
+			msg_head_offset = msg_end_offset
+
+			asyncio.Task(self.handle_received(msg_type, msg_body))
+
+		self.buffer = self.buffer[msg_head_offset : ]
+
+	def eof_received(self):
+		pass
+
+	def connection_lost(self, ex):
+		sessions.remove(self)
+		self.h_timeout.cancel()
+
+	def connection_timed_out(self):
+		sessions.remove(self)
+		self.transport.close()
 
 def main():
 	if len(sys.argv) < 3:
@@ -122,7 +139,11 @@ def main():
 	server_id = 'server' + server_seq
 
 	loop = asyncio.get_event_loop()
-	server = loop.run_until_complete(asyncio.start_server(connection_handler, cfg[server_id]['address'], cfg[server_id]['data_port']))
+	loop.add_signal_handler(signal.SIGINT, loop.stop)
+	loop.add_signal_handler(signal.SIGTERM, loop.stop)
+
+	f = loop.create_server(GameDataServer, port=cfg[server_id]['data_port'])
+	server = loop.run_until_complete(f)
 
 	try:
 		log.info('game_data_server_%s starting..', server_seq)

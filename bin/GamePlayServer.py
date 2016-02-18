@@ -151,14 +151,6 @@ def main():
 	log.setLevel(log_level)
 	log.addHandler(log_handler)
 
-	log_formatter = logging.Formatter('%(asctime)s,%(levelname)s,%(message)s')
-	log_handler = logging.handlers.TimedRotatingFileHandler('../log/game_play_server_' + server_seq + '.csv', when='M', interval=1)
-	log_handler.setFormatter(log_formatter)
-
-	log = logging.getLogger()
-	log.setLevel(logging.DEBUG)
-	log.addHandler(log_handler)
-
 	# area
 	area_types.append(area_lobby)
 	area_players.append([])
