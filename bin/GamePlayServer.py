@@ -22,7 +22,7 @@ struct
 '''
 msg_head_size = 8
 
-log = None
+log = logging.getLogger()
 cfg = {}
 mst = {}
 
@@ -147,7 +147,6 @@ def main():
 	log_handler = logging.handlers.TimedRotatingFileHandler('../log/game_play_server_' + server_seq + '.csv', when=log_rotation, interval=1)
 	log_handler.setFormatter(log_formatter)
 
-	log = logging.getLogger()
 	log.setLevel(log_level)
 	log.addHandler(log_handler)
 
