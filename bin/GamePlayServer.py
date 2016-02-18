@@ -83,18 +83,18 @@ class GamePlayServer(asyncio.Protocol):
 
 		while len(self.msg_buffer) >= (msg_head_offset + msg_head_size):
 			msg_body_offset = msg_head_offset + msg_head_size
-			(msg_type, msg_size) = struct.unpack('ii', self.msg_buffer[msg_head_offset : msg_body_offset])
+			(msg_type, msg_size) = struct.unpack('ii', self.msg_buffer[msg_head_offset:msg_body_offset])
 
 			msg_end_offset = msg_head_offset + msg_size
 			if len(self.msg_buffer) < msg_end_offset:
 				break
 
-			msg_body = self.msg_buffer[msg_body_offset : msg_end_offset]
+			msg_body = self.msg_buffer[msg_body_offset:msg_end_offset]
 			msg_head_offset = msg_end_offset
 
 			asyncio.Task(self.handle_received(msg_type, msg_body))
 
-		self.msg_buffer = self.msg_buffer[msg_head_offset : ]
+		self.msg_buffer = self.msg_buffer[msg_head_offset:]
 
 	def eof_received(self):
 		pass

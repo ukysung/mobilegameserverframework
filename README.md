@@ -12,3 +12,4 @@ mobilegameserver
 * sudo pip3 install pymysql
 * sudo pip3 install redis
 * sudo pip3 install protobuf==3.0.0-beta-2
+* sudo pip3 install pycrypto
