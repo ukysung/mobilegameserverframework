@@ -90,10 +90,10 @@
 		{
 			"address" : "127.0.0.1",
 
-			"data_port" : 41000,
+			"data_port" : 51000,
 			"data_timeout_sec" : 1800,
 
-			"play_port" : 42000,
+			"play_port" : 52000,
 			"play_timeout_sec" : 600
 		},
 
@@ -101,10 +101,10 @@
 		{
 			"address" : "127.0.0.1",
 
-			"data_port" : 41001,
+			"data_port" : 51001,
 			"data_timeout_sec" : 1800,
 
-			"play_port" : 42001,
+			"play_port" : 52001,
 			"play_timeout_sec" : 600
 		},
 
