@@ -145,8 +145,11 @@ def main():
 	f = loop.create_server(GameDataServer, port=cfg[server_id]['data_port'])
 	server = loop.run_until_complete(f)
 
+	for s in server.sockets:
+		print('game_data_server_{} starting.. {}'.format(server_seq, s.getsockname()))
+
 	try:
-		log.info('game_data_server_%s starting..', server_seq)
+		log.info('game_data_server_%s starting.. port %s', server_seq, cfg[server_id]['data_port'])
 		loop.run_forever()
 
 	except KeyboardInterrupt:
