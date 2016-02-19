@@ -1,10 +1,16 @@
 
+import sys
 from os import listdir
 from os.path import isfile, join
 import xml.etree.ElementTree as ET
 
 def main():
-	path = '../mst'
+	if len(sys.argv) < 2:
+		print('Usage: python3 ./GameMasterData.py develop')
+		sys.exit()
+
+	phase = sys.argv[1]
+	path = '../mst/' + phase
 	files = [f for f in listdir(path) if isfile(join(path, f))]
 
 	ns = '{urn:schemas-microsoft-com:office:spreadsheet}'
