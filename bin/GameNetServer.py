@@ -8,6 +8,7 @@ class Player():
 		self.loop = self.net.loop
 		self.sock = sock
 		self.addr = addr
+		self.is_running = True
 
 		asyncio.Task(self.player_main())
 
@@ -27,7 +28,7 @@ class Player():
 
 	@asyncio.coroutine
 	def player_loop(self):
-		while True:
+		while self.is_running:
 			buf = yield from self.loop.sock_recv(self.sock, 1024)
 			if buf == b'':
 				break
@@ -42,6 +43,7 @@ class GameNetServer():
 		self.net_sock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 		self.net_sock.bind(('',port))
 		self.net_sock.listen(0)
+		self.is_running = True
 
 		self.areas = []
 		asyncio.Task(self.run())
@@ -56,7 +58,7 @@ class GameNetServer():
 
 	@asyncio.coroutine
 	def run(self):
-		while True:
+		while self.is_running:
 			player_sock, player_addr = yield from self.loop.sock_accept(self.net_sock)
 			player_sock.setblocking(0)
 			player = Player(self, player_sock, player_addr)
@@ -68,11 +70,7 @@ def main():
 	loop.add_signal_handler(signal.SIGINT, loop.stop)
 	loop.add_signal_handler(signal.SIGTERM, loop.stop)
 
-	f = loop.create_server(GameNetServer, port=1234)
-	server = loop.run_until_complete(f)
-
-	for s in server.sockets:
-		print('game_net_server starting.. {}'.format(s.getsockname()))
+	GameNetServer(loop, 1234)
 
 	try:
 		loop.run_forever()
@@ -80,8 +78,6 @@ def main():
 	except KeyboardInterrupt:
 		pass
 
-	server.close()
-	loop.run_until_complete(server.wait_closed())
 	loop.close()
 
 if __name__ == '__main__':
