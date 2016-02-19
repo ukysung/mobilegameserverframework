@@ -154,7 +154,7 @@ def user_post():
 @app.route('/forum/index/<page>')
 @app.route('/forum/index/<page>/<field>/<keyword>')
 def forum_index(page=1, field=0, keyword=''):
-	if ('userid' in session) == False or session['userid'] == '':
+	if 'userid' not in session or session['userid'] == '':
 		return redirect('/user/signin')
 
 	res = {'phase':phase, 'session':session}
@@ -170,7 +170,7 @@ def forum_index(page=1, field=0, keyword=''):
 
 @app.route('/forum/show/<seq>')
 def forum_show(seq):
-	if ('userid' in session) == False or session['userid'] == '':
+	if 'userid' not in session or session['userid'] == '':
 		return redirect('/user/signin')
 
 	res = {'phase':phase, 'session':session}
@@ -183,7 +183,7 @@ def forum_show(seq):
 
 @app.route('/forum/form/<seq>', defaults={'seq':None})
 def forum_update(seq):
-	if ('userid' in session) == False or session['userid'] == '':
+	if 'userid' not in session or session['userid'] == '':
 		return redirect('/user/signin')
 
 	res = {'phase':phase, 'session':session}
@@ -191,7 +191,7 @@ def forum_update(seq):
 
 @app.route('/forum/delete/<seq>')
 def forum_delete(seq):
-	if ('userid' in session) == False or session['userid'] == '':
+	if 'userid' not in session or session['userid'] == '':
 		return redirect('/user/signin')
 
 	res = {'phase':phase, 'session':session}
