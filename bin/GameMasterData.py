@@ -10,6 +10,7 @@ def main():
 		sys.exit()
 
 	phase = sys.argv[1]
+
 	path = '../mst/' + phase
 	files = [f for f in listdir(path) if isfile(join(path, f))]
 

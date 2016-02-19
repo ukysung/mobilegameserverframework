@@ -32,9 +32,11 @@ area_lobby = 1
 area_town = 2
 area_dungeon = 3
 area_pvp = 4
+area_raid = 5
 
 area_types = []
 area_players = []
+area_monsters = []
 
 @asyncio.coroutine
 def handle_message_no_1():
@@ -155,6 +157,7 @@ def main():
 	# area
 	area_types.append(area_lobby)
 	area_players.append([])
+	area_monsters.append([])
 
 	# server
 	server_id = 'server' + server_seq
