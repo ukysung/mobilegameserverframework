@@ -71,7 +71,7 @@ class GamePlayServer(asyncio.Protocol):
 
 	def connection_made(self, transport):
 		self.transport = transport
-		self.h_timeout = asyncio.get_evelop_loop().call_later(self.timeout_sec, self.connection_timed_out)
+		self.h_timeout = asyncio.get_event_loop().call_later(self.timeout_sec, self.connection_timed_out)
 		area_players[self.area_idx].append(self)
 
 	def data_received(self, data):
