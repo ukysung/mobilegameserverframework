@@ -86,11 +86,10 @@ class GameDataServer(asyncio.Protocol):
 		pass
 
 	def connection_lost(self, ex):
-		sessions.remove(self)
 		self.h_timeout.cancel()
+		sessions.remove(self)
 
 	def connection_timed_out(self):
-		sessions.remove(self)
 		self.transport.close()
 
 def main():

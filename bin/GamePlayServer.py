@@ -103,11 +103,10 @@ class GamePlayServer(asyncio.Protocol):
 		pass
 
 	def connection_lost(self, ex):
-		area_players[self.area_idx].remove(self)
 		self.h_timeout.cancel()
+		area_players[self.area_idx].remove(self)
 
 	def connection_timed_out(self):
-		area_players[self.area_idx].remove(self)
 		self.transport.close()
 
 def main():
