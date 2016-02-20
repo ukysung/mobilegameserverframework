@@ -12,7 +12,7 @@ import msg_enum_pb2
 import msg_struct_pb2
 import msg_packet_play_pb2
 
-import AESCrypt
+import AESCrypto
 
 '''
 struct
@@ -31,8 +31,7 @@ mst = {}
 area_lobby = 1
 area_town = 2
 area_dungeon = 3
-area_pvp = 4
-area_raid = 5
+area_arena = 4
 
 area_types = []
 area_players = []

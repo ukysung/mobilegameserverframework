@@ -12,7 +12,7 @@ import msg_enum_pb2
 import msg_struct_pb2
 import msg_packet_data_pb2
 
-import AESCrypt
+import AESCrypto
 
 '''
 struct

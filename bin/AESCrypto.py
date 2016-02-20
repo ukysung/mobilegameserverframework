@@ -4,7 +4,7 @@ from Crypto import Random
 from Crypto.Cipher import AES
 import base64
 
-class AESCrypt:
+class AESCrypto:
 	def __init__(self, key):
 		self.block_size = 32
 		self.key = hashlib.sha256(key.encode()).digest()
