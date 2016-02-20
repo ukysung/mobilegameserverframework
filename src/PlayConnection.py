@@ -1,77 +1,26 @@
 
-import logging, logging.handlers
-import json
-import multiprocessing
+import g
 import asyncio
 import struct
-import sys
-import signal
-import time
 
-import google.protobuf
-'''
-import msg_type_play_pb2
-import msg_enum_pb2
-import msg_struct_pb2
-import msg_packet_play_pb2
-
-import AESCrypto
-'''
-
-from GameChannel import GameChannel
-from Session import Session
-
-'''
-struct
-{
-	int32_t msg_type; // 4 bytes
-	int32_t msg_size; // 4 bytes
-}
-// totally 8 bytes
-'''
-msg_head_size = 8
-
-log = logging.getLogger()
-cfg = {}
-mst = {}
-connections = []
+import msg_header
 
 @asyncio.coroutine
 def handle_message_no_1(req_msg_type, req_msg_body):
 	print('message_no_1')
+	#return (0, req_msg_body)
 	return req_msg_body
 
-handlers = {
-	1:handle_message_no_1,
-}
+g.handlers[1] = handle_message_no_1
 
-def init_pool():
-	signal.signal(signal.SIGINT, signal.SIG_IGN)
-
-channel = GameChannel()
-channel_service = multiprocessing.Pool(1, init_pool)
-
-class GamePlayServer(asyncio.Protocol):
+class PlayConnection(asyncio.Protocol):
 	def __init__(self):
 		self.timeout_sec = 1800.0
 		self.msg_buffer = b''
 
-	@asyncio.coroutine
-	def handle_received(self, req_msg_type, req_msg_body):
-		print('handle_received')
-		if handlers[req_msg_type] is None:
-			return
-
-		(ack_msg_type, ack_msg_body) = yield from handlers[req_msg_type](req_msg_type, req_msg_body)
-		ack = struct.pack('ii', ack_msg_type, msg_head_size + len(ack_msg_body)) + ack_msg_body
-
-		self.transport.write(ack)
-
 	def connection_made(self, transport):
 		self.transport = transport
 		self.h_timeout = asyncio.get_event_loop().call_later(self.timeout_sec, self.connection_timed_out)
-		connections.append(self)
-		session = Session(self)
 
 	def data_received(self, data):
 		self.h_timeout.cancel()
@@ -79,12 +28,12 @@ class GamePlayServer(asyncio.Protocol):
 
 		print(data)
 		return
-		if len(data) > 8192:
-			return
 
 		self.msg_buffer += data
-		msg_head_offset = 0
+		#channel_service.apply_async(channel.receive, self.msg_buffer)
+		return
 
+		msg_head_offset = 0
 		while len(self.msg_buffer) >= (msg_head_offset + msg_head_size):
 			msg_body_offset = msg_head_offset + msg_head_size
 			(msg_type, msg_size) = struct.unpack('ii', self.msg_buffer[msg_head_offset:msg_body_offset])
@@ -110,13 +59,10 @@ class GamePlayServer(asyncio.Protocol):
 
 	def connection_lost(self, ex):
 		self.h_timeout.cancel()
-		connections.remove(self)
+		#connections.remove(self)
 
 	def connection_timed_out(self):
 		self.transport.close()
-
-	def set_session(self, sess):
-		self.sess = sess
 
 def main():
 	if len(sys.argv) < 3:
@@ -162,9 +108,11 @@ def main():
 	log.addHandler(log_handler)
 
 	# channel_service
+	print(2)
 	channel_service.apply_async(channel.run)
+	print(3)
 
-	# server
+	# play_server
 	server_id = 'server' + server_seq
 
 	# play_server
@@ -184,18 +132,11 @@ def main():
 
 	except KeyboardInterrupt:
 		log.info('keyboard interrupt..')
-		play_server.close()
-		loop.run_until_complete(play_server.wait_closed())
-		loop.close()
+		pass
 
-		channel_service.apply_async(channel.stop)
-
-	else:
-		play_server.close()
-		loop.run_until_complete(play_server.wait_closed())
-		loop.close()
-
-		channel_service.apply_async(channel.stop)
+	play_server.close()
+	loop.run_until_complete(play_server.wait_closed())
+	loop.close()
 
 if __name__ == '__main__':
 	main()
