@@ -7,4 +7,4 @@ struct
 }
 // totally 8 bytes
 '''
-msg_head_size = 8
+size = 8

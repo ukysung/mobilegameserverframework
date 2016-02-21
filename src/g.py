@@ -4,7 +4,10 @@
 log = None
 cfg = {}
 mst = {}
-sessions = []
-players = []
 handlers  = {}
 
+sess_idx = 0
+sessions = {}
+
+incoming = None
+outgoing = None

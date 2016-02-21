@@ -93,8 +93,8 @@
 			"data_port" : 31000,
 			"data_timeout_sec" : 1800,
 
-			"play_port" : 32000,
-			"play_timeout_sec" : 600
+			"channel_port" : 32000,
+			"channel_timeout_sec" : 600
 		},
 
 		"server01":
@@ -104,8 +104,8 @@
 			"data_port" : 31001,
 			"data_timeout_sec" : 1800,
 
-			"play_port" : 32001,
-			"play_timeout_sec" : 600
+			"channel_port" : 32001,
+			"channel_timeout_sec" : 600
 		},
 
 	"//end" : 0
