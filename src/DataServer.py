@@ -9,6 +9,28 @@ import signal
 import g
 from DataConnection import DataConnection
 
+def get_log_level(cfg):
+    if cfg['log']['level'] == 'debug':
+        return logging.DEBUG
+    elif cfg['log']['level'] == 'info':
+        return logging.INFO
+    elif cfg['log']['level'] == 'warn':
+        return logging.WARNING
+    elif cfg['log']['level'] == 'error':
+        return logging.ERROR
+    else:
+        return logging.DEBUG
+
+def get_log_rotation(cfg):
+    if cfg['log']['rotation'] == 'every_minute':
+        return 'M'
+    elif cfg['log']['rotation'] == 'hourly':
+        return 'H'
+    elif cfg['log']['rotation'] == 'daily':
+        return 'D'
+    else:
+        return 'M'
+
 def main():
     if len(sys.argv) < 3:
         print('Usage: sudo python3 ./DataServer.py develop 00')
@@ -19,40 +41,16 @@ def main():
 
     # cfg
     with open('../cfg/' + phase + '.json', encoding='utf-8') as cfg_file:
-        g.cfg = json.loads(cfg_file.read())
-
-    # log
-    log_level = None
-    log_rotation = None
-
-    if g.cfg['log']['level'] == 'debug':
-        log_level = logging.DEBUG
-    elif g.cfg['log']['level'] == 'info':
-        log_level = logging.INFO
-    elif g.cfg['log']['level'] == 'warn':
-        log_level = logging.WARNING
-    elif g.cfg['log']['level'] == 'error':
-        log_level = logging.ERROR
-    else:
-        log_level = logging.DEBUG
-
-    if g.cfg['log']['rotation'] == 'every_minute':
-        log_rotation = 'M'
-    elif g.cfg['log']['rotation'] == 'hourly':
-        log_rotation = 'H'
-    elif g.cfg['log']['rotation'] == 'daily':
-        log_rotation = 'D'
-    else:
-        log_rotation = 'M'
+        g.CFG = json.loads(cfg_file.read())
 
     log_formatter = logging.Formatter('%(asctime)s,%(levelname)s,%(message)s')
     log_handler = logging.handlers.TimedRotatingFileHandler(
-        '../log/data_server_' + server_seq + '.csv', when=log_rotation, interval=1)
+        '../log/data_server_' + server_seq + '.csv', when=get_log_rotation(g.CFG), interval=1)
     log_handler.setFormatter(log_formatter)
 
-    g.log = logging.getLogger()
-    g.log.setLevel(log_level)
-    g.log.addHandler(log_handler)
+    g.LOG = logging.getLogger()
+    g.LOG.setLevel(get_log_level(g.CFG))
+    g.LOG.addHandler(log_handler)
 
     # data_server
     server_id = 'server' + server_seq
@@ -61,18 +59,18 @@ def main():
     loop.add_signal_handler(signal.SIGINT, loop.stop)
     loop.add_signal_handler(signal.SIGTERM, loop.stop)
 
-    coro = loop.create_server(DataConnection, port=g.cfg[server_id]['data_port'])
+    coro = loop.create_server(DataConnection, port=g.CFG[server_id]['data_port'])
     data_server = loop.run_until_complete(coro)
 
     for sock in data_server.sockets:
         print('data_server_{} starting.. {}'.format(server_seq, sock.getsockname()))
 
     try:
-        g.log.info('data_server_%s starting.. port %s', server_seq, g.cfg[server_id]['data_port'])
+        g.LOG.info('data_server_%s starting.. port %s', server_seq, g.CFG[server_id]['data_port'])
         loop.run_forever()
 
     except KeyboardInterrupt:
-        g.log.info('keyboard interrupt..')
+        g.LOG.info('keyboard interrupt..')
 
     data_server.close()
     loop.run_until_complete(data_server.wait_closed())
