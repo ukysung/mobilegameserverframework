@@ -1,13 +1,13 @@
 
 # global
 
-log = None
-cfg = {}
-mst = {}
-handlers  = {}
+LOG = None
+CFG = {}
+MST = {}
+HANDLERS = {}
 
-sess_idx = 0
-sessions = {}
+SESS_IDX = 0
+SESSIONS = {}
 
-incoming = None
-outgoing = None
+INCOMING = None
+OUTGOING = None

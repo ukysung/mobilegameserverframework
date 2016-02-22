@@ -1,10 +1,11 @@
 
 class Player:
-	def __init__(self, area_idx):
-		self.area_idx = area_idx
+    def __init__(self, area_idx):
+        self.area_idx = area_idx
 
-		self.sess.set_player(self)
+    @classmethod
+    def run(cls):
+        print('player_run')
 
-	def run(self):
-		print('player_run')
-
+    def stop(self):
+        pass

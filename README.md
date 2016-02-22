@@ -13,3 +13,15 @@ mobilegameserver
 * sudo pip3 install redis
 * sudo pip3 install protobuf==3.0.0-beta-2
 * sudo pip3 install pycrypto
+
+* sudo apt-get remove pylint --purge
+* sudo apt-get autoremove
+* sudo pip3 install pylint
+* sudo apt-get instlal python3-tk
+* pylint --disable=missing-docstring ./AESCrypto.py
+
+vim ~/.vimrc
+```
+set expandtab
+set tabstop=4
+```
