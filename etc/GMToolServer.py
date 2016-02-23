@@ -26,7 +26,7 @@ APP.secret_key = 'APP_secret_key'
 APP.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 CFG = {}
-with open('../CFG/' + PHASE + '.json', encoding='utf-8') as cfg_file:
+with open('../cfg/' + PHASE + '.json', encoding='utf-8') as cfg_file:
     CFG = json.loads(cfg_file.read())
 
 def allowed_file(filename):
