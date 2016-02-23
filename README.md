@@ -17,7 +17,6 @@ mobilegameserver
 * sudo apt-get remove pylint --purge
 * sudo apt-get autoremove
 * sudo pip3 install pylint
-* sudo apt-get instlal python3-tk
 * pylint --disable=missing-docstring ./AESCrypto.py
 
 vim ~/.vimrc
