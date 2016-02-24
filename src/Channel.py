@@ -49,6 +49,7 @@ class Channel:
                     print('remove_player')
                     area_id = self.players[conn_id].area_id
                     self.areas[area_id].player_conn_ids.remove(conn_id)
+                    del self.players[conn_id]
 
                 else:
                     print(req_msg_type)
