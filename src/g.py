@@ -2,12 +2,5 @@
 # global
 
 LOG = None
-CFG = {}
-MST = {}
-HANDLERS = {}
+CONN_ID = 0
 
-SESS_IDX = 0
-SESSIONS = {}
-
-INCOMING = None
-OUTGOING = None

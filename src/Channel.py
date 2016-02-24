@@ -2,53 +2,74 @@
 import time
 import signal
 
+import g
 from Area import AREA_LOBBY, AREA_TOWN, AREA_DUNGEON, AREA_ARENA, Area
 from Player import Player
 
-CHANNEL_ADD_PLAYER = 1
-CHANNEL_REMOVE_PLAYER = 2
+CHANNEL_ADD_PLAYER = -1
+CHANNEL_REMOVE_PLAYER = -2
+
+def handle_message_no_1(conn_id, req_msg_type, req_msg_body):
+    return (conn_id, 1, b'handle_message_no_1:' + req_msg_body, True)
+
+HANDLERS = {}
+HANDLERS[1] = handle_message_no_1
 
 class Channel:
     def __init__(self):
         signal.signal(signal.SIGINT, self.stop)
         signal.signal(signal.SIGTERM, self.stop)
 
-        self.mst = {}
         self.is_running = True
-        self.process_incoming_max = 100
-        self.area_idx = 0
+        self.max = 100
+        self.players = {}
+        self.area_id = 0
         self.areas = {}
-        self.areas[self.area_idx] = Area(AREA_LOBBY)
+        self.areas[self.area_id] = Area(AREA_LOBBY)
+        self.area_id += 1
 
     def run(self, incoming, outgoing):
-        print('channel_run')
-
-        process_incoming = False
         while self.is_running:
-            if process_incoming:
-                #print('incoming')
-                i = 0
-                less_than_max = i < self.process_incoming_max
-                not_empty = not incoming.empty()
-                while less_than_max and not_empty:
-                    i += 1
+            i = 0
+            while i < self.max and not incoming.empty():
+                i += 1
 
-                    (msg_type, msg_body) = incoming.get()
-                    if msg_type == CHANNEL_ADD_PLAYER:
-                        self.areas[0][msg_body] = Player(msg_body)
+                print('incoming_get')
+                (conn_id, req_msg_type, req_msg_body) = incoming.get()
+                print(conn_id)
+                print(req_msg_type)
+                print(req_msg_body)
+                if req_msg_type == CHANNEL_ADD_PLAYER:
+                    print('add_player')
+                    area_id = 0
+                    self.players[conn_id] = Player(area_id)
+                    self.areas[area_id].player_conn_ids.append(conn_id)
 
-                print('process_incoming')
-                time.sleep(1)
-                process_incoming = False
+                elif req_msg_type == CHANNEL_REMOVE_PLAYER:
+                    print('remove_player')
+                    area_id = self.players[conn_id].area_id
+                    self.areas[area_id].player_conn_ids.remove(conn_id)
 
-            else:
-                for area in self.areas.values():
-                    area.run()
-                print('loop')
-                time.sleep(1)
-                process_incoming = True
+                else:
+                    print(req_msg_type)
+                    print('else')
+                    if HANDLERS[req_msg_type] is not None:
+                        (conn_id, ack_msg_type, ack_msg_body, broadcast) = HANDLERS[req_msg_type](
+                            conn_id, req_msg_type, req_msg_body)
+
+                    if broadcast:
+                        area_id = self.players[conn_id].area_id
+                        for player_conn_id in self.areas[area_id].player_conn_ids:
+                            outgoing.put([player_conn_id, ack_msg_type, ack_msg_body])
+
+                    else:
+                        outgoing.put([conn_id, ack_msg_type, ack_msg_body])
+
+            for area in self.areas.values():
+                area.run()
+
+            time.sleep(3.0 / 1000.0)
 
     def stop(self, signal_num, frame_obj):
-        print('stop_called')
         self.is_running = False
 

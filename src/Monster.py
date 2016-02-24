@@ -1,7 +1,7 @@
 
 class Monster:
-    def __init__(self, area_idx):
-        self.area_idx = area_idx
+    def __init__(self, area_id):
+        self.area_id = area_id
 
     @classmethod
     def run(cls):

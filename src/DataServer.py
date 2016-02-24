@@ -41,15 +41,15 @@ def main():
 
     # cfg
     with open('../cfg/' + phase + '.json', encoding='utf-8') as cfg_file:
-        g.CFG = json.loads(cfg_file.read())
+        cfg = json.loads(cfg_file.read())
 
     log_formatter = logging.Formatter('%(asctime)s,%(levelname)s,%(message)s')
     log_handler = logging.handlers.TimedRotatingFileHandler(
-        '../log/data_server_' + server_seq + '.csv', when=get_log_rotation(g.CFG), interval=1)
+        '../log/data_server_' + server_seq + '.csv', when=get_log_rotation(cfg), interval=1)
     log_handler.setFormatter(log_formatter)
 
     g.LOG = logging.getLogger()
-    g.LOG.setLevel(get_log_level(g.CFG))
+    g.LOG.setLevel(get_log_level(cfg))
     g.LOG.addHandler(log_handler)
 
     # data_server
@@ -59,14 +59,14 @@ def main():
     loop.add_signal_handler(signal.SIGINT, loop.stop)
     loop.add_signal_handler(signal.SIGTERM, loop.stop)
 
-    coro = loop.create_server(DataConnection, port=g.CFG[server_id]['data_port'])
+    coro = loop.create_server(DataConnection, port=cfg[server_id]['data_port'])
     data_server = loop.run_until_complete(coro)
 
     for sock in data_server.sockets:
         print('data_server_{} starting.. {}'.format(server_seq, sock.getsockname()))
 
     try:
-        g.LOG.info('data_server_%s starting.. port %s', server_seq, g.CFG[server_id]['data_port'])
+        g.LOG.info('data_server_%s starting.. port %s', server_seq, cfg[server_id]['data_port'])
         loop.run_forever()
 
     except KeyboardInterrupt:

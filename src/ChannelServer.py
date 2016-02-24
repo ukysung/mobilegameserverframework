@@ -8,8 +8,12 @@ import sys
 import signal
 
 import g
-from ChannelConnection import handle_outgoing, ChannelConnection
+from ChannelConnection import INCOMING, OUTGOING, handle_outgoing, ChannelConnection
 from Channel import Channel
+
+def init_pool():
+    signal.signal(signal.SIGINT, signal.SIG_IGN)
+    signal.signal(signal.SIGTERM, signal.SIG_IGN)
 
 def get_log_level(cfg):
     if cfg['log']['level'] == 'debug':
@@ -43,24 +47,20 @@ def main():
 
     # cfg
     with open('../cfg/' + phase + '.json', encoding='utf-8') as cfg_file:
-        g.CFG = json.loads(cfg_file.read())
+        cfg = json.loads(cfg_file.read())
 
     log_formatter = logging.Formatter('%(asctime)s,%(levelname)s,%(message)s')
     log_handler = logging.handlers.TimedRotatingFileHandler(
-        '../log/channel_server_' + server_seq + '.csv', when=get_log_rotation(g.CFG), interval=1)
+        '../log/channel_server_' + server_seq + '.csv', when=get_log_rotation(cfg), interval=1)
     log_handler.setFormatter(log_formatter)
 
     g.LOG = logging.getLogger()
-    g.LOG.setLevel(get_log_level(g.CFG))
+    g.LOG.setLevel(get_log_level(cfg))
     g.LOG.addHandler(log_handler)
-
-    # multiprocessing
-    g.incoming = multiprocessing.Queue()
-    g.outgoing = multiprocessing.Queue()
 
     # channel
     channel = Channel()
-    process = multiprocessing.Process(target=channel.run, args=(g.incoming, g.outgoing))
+    process = multiprocessing.Process(target=channel.run, args=(INCOMING, OUTGOING))
     process.start()
 
     # channel_server
@@ -70,7 +70,7 @@ def main():
     loop.add_signal_handler(signal.SIGINT, loop.stop)
     loop.add_signal_handler(signal.SIGTERM, loop.stop)
 
-    coro = loop.create_server(ChannelConnection, port=g.CFG[server_id]['channel_port'])
+    coro = loop.create_server(ChannelConnection, port=cfg[server_id]['channel_port'])
     channel_server = loop.run_until_complete(coro)
 
     for sock in channel_server.sockets:
@@ -78,8 +78,8 @@ def main():
 
     try:
         g.LOG.info('channel_server_%s starting.. port %s',
-                   server_seq, g.CFG[server_id]['channel_port'])
-        loop.create_task(handle_outgoing())
+                   server_seq, cfg[server_id]['channel_port'])
+        loop.create_task(handle_outgoing(OUTGOING))
         loop.run_forever()
 
     except KeyboardInterrupt:
@@ -90,8 +90,9 @@ def main():
     loop.run_until_complete(channel_server.wait_closed())
     loop.close()
 
-    g.incoming.close()
-    g.outgoing.close()
+    INCOMING.close()
+    OUTGOING.close()
+
     process.join()
 
 if __name__ == '__main__':
