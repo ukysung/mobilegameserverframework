@@ -21,7 +21,7 @@ class Channel:
         signal.signal(signal.SIGTERM, self.stop)
 
         self.is_running = True
-        self.max = 100
+        self.get_max = 100
         self.players = {}
         self.area_id = 0
         self.areas = {}
@@ -31,7 +31,7 @@ class Channel:
     def run(self, incoming, outgoing):
         while self.is_running:
             i = 0
-            while i < self.max and not incoming.empty():
+            while i < self.get_max and not incoming.empty():
                 i += 1
 
                 print('incoming_get')
