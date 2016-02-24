@@ -30,6 +30,8 @@ class Channel:
 
     def run(self, incoming, outgoing):
         while self.is_running:
+            time.sleep(3.0 / 1000.0)
+
             i = 0
             while i < self.get_max and not incoming.empty():
                 i += 1
@@ -66,10 +68,11 @@ class Channel:
                     else:
                         outgoing.put([conn_id, ack_msg_type, ack_msg_body])
 
+            for player in self.players.values():
+                player.run()
+
             for area in self.areas.values():
                 area.run()
-
-            time.sleep(3.0 / 1000.0)
 
     def stop(self, signal_num, frame_obj):
         self.is_running = False

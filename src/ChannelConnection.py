@@ -25,6 +25,7 @@ def handle_outgoing(outgoing):
     for item in arr:
         CONNS[item[0]].transport.write(b'steve:' + item[2])
 
+    time.sleep(3.0 / 1000.0)
     asyncio.Task(handle_outgoing(outgoing))
 
 class ChannelConnection(asyncio.Protocol):
