@@ -28,9 +28,16 @@ class Channel:
         self.areas[self.area_id] = Area(AREA_LOBBY)
         self.area_id += 1
 
+        self.curr_time = 0
+        self.delta_time = 0
+        self.last_time = 0
+
     def run(self, incoming, outgoing):
         while self.is_running:
             time.sleep(3.0 / 1000.0)
+
+            self.curr_time = time.time()
+            self.delta_time = (self.curr_time - self.last_time) * 1000
 
             i = 0
             while i < self.get_max and not incoming.empty():
@@ -69,10 +76,12 @@ class Channel:
                         outgoing.put([conn_id, ack_msg_type, ack_msg_body])
 
             for player in self.players.values():
-                player.run()
+                player.run(self.delta_time)
 
             for area in self.areas.values():
-                area.run()
+                area.run(self.delta_time)
+
+            self.last_time = self.curr_time
 
     def stop(self, signal_num, frame_obj):
         self.is_running = False
