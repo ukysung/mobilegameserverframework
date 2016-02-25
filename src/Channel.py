@@ -6,7 +6,7 @@ import g
 from Area import AREA_LOBBY, AREA_TOWN, AREA_DUNGEON, AREA_ARENA, Area
 from Player import Player
 
-from Channel_handle_message_no_1 import handle_message_no_1
+from channel_handle_message_no_1 import handle_message_no_1
 
 CHANNEL_ADD_PLAYER = -1
 CHANNEL_REMOVE_PLAYER = -2

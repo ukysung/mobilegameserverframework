@@ -3,7 +3,7 @@ import asyncio
 
 import g
 
-from Data_handle_message_no_1 import handle_message_no_1
+from data_handle_message_no_1 import handle_message_no_1
 
 HANDLERS = {
     1:handle_message_no_1,
