@@ -2,8 +2,10 @@
 import time
 import multiprocessing
 import asyncio
+import struct
 
 import g
+import msg_header
 from Channel import CHANNEL_ADD_PLAYER, CHANNEL_REMOVE_PLAYER
 
 CONNS = {}
@@ -61,16 +63,39 @@ class ChannelConnection(asyncio.Protocol):
             self.timeout_sec, self.connection_timed_out)
 
         self.msg_buffer += data
-        print('incoming_put_2')
-        INCOMING.put([self.conn_id, 1, self.msg_buffer])
-        self.msg_buffer = b''
+
+        if True:
+            print('incoming_put_2')
+            INCOMING.put([self.conn_id, 1, self.msg_buffer])
+            self.msg_buffer = b''
+
+        else:
+            msg_header_offset = 0
+
+            while len(self.msg_buffer) >= (msg_header_offset + msg_header.size):
+                msg_body_offset = msg_header_offset + msg_header.size
+                (msg_type, msg_size) = struct.unpack(
+                    'ii', self.msg_buffer[msg_header_offset:msg_body_offset])
+
+                msg_end_offset = msg_header_offset + msg_size
+                if len(self.msg_buffer) < msg_end_offset:
+                    break
+
+                msg_body = self.msg_buffer[msg_body_offset:msg_end_offset]
+                msg_header_offset = msg_end_offset
+
+                INCOMING.put([self.conn_id, msg_type, msg_body])
+
+            self.msg_buffer = self.msg_buffer[msg_header_offset:]
 
     def eof_received(self):
         pass
 
     def connection_lost(self, ex):
         self.h_timeout.cancel()
+        conn_id = self.conn_id
         INCOMING.put([self.conn_id, CHANNEL_REMOVE_PLAYER, None])
+        del CONNS[conn_id]
 
     def connection_timed_out(self):
         self.transport.close()

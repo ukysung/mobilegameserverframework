@@ -1,7 +1,9 @@
 
 import asyncio
+import struct
 
 import g
+import msg_header
 
 from data_handle_message_no_1 import handle_message_no_1
 
@@ -36,8 +38,29 @@ class DataConnection(asyncio.Protocol):
             self.timeout_sec, self.connection_timed_out)
 
         self.msg_buffer += data
-        asyncio.Task(self.handle_received(1, self.msg_buffer))
-        self.msg_buffer = b''
+
+        if True:
+            asyncio.Task(self.handle_received(1, self.msg_buffer))
+            self.msg_buffer = b''
+
+        else:
+            msg_header_offset = 0
+
+            while len(self.msg_buffer) >= (msg_header_offset + msg_header.size):
+                msg_body_offset = msg_header_offset + msg_header.size
+                (msg_type, msg_size) = struct.unpack(
+                    'ii', self.msg_buffer[msg_header_offset:msg_body_offset])
+
+                msg_end_offset = msg_header_offset + msg_size
+                if len(self.msg_buffer) < msg_end_offset:
+                    break
+
+                msg_body = self.msg_buffer[msg_body_offset:msg_end_offset]
+                msg_header_offset = msg_end_offset
+
+                asyncio.Task(self.handle_received(msg_type, msg_body))
+
+            self.msg_buffer = self.msg_buffer[msg_header_offset:]
 
     def eof_received(self):
         pass
