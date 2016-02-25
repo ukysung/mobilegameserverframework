@@ -6,14 +6,14 @@ import g
 from Area import AREA_LOBBY, AREA_TOWN, AREA_DUNGEON, AREA_ARENA, Area
 from Player import Player
 
+from Channel_handle_message_no_1 import handle_message_no_1
+
 CHANNEL_ADD_PLAYER = -1
 CHANNEL_REMOVE_PLAYER = -2
 
-def handle_message_no_1(conn_id, req_msg_type, req_msg_body):
-    return (conn_id, 1, b'handle_message_no_1:' + req_msg_body, True)
-
-HANDLERS = {}
-HANDLERS[1] = handle_message_no_1
+HANDLERS = {
+    1:handle_message_no_1,
+}
 
 class Channel:
     def __init__(self):
