@@ -13,18 +13,21 @@ OUTGOING = multiprocessing.Queue()
 
 @asyncio.coroutine
 def outgoing_get(outgoing):
-    arr = []
-    while not outgoing.empty():
-        arr.append(outgoing.get())
+    msgs = []
 
-    return arr
+    i = 0
+    while i < 1000 and not outgoing.empty():
+        i += 1
+        msgs.append(outgoing.get())
+
+    return msgs
 
 @asyncio.coroutine
 def handle_outgoing(outgoing):
-    arr = yield from outgoing_get(outgoing)
-    for item in arr:
-        if CONNS[item[0]] is not None:
-            CONNS[item[0]].transport.write(b'steve:' + item[2])
+    msgs = yield from outgoing_get(outgoing)
+    for msg in msgs:
+        if CONNS[msg[0]] is not None:
+            CONNS[msg[0]].transport.write(b'steve:' + msg[2])
 
     time.sleep(3.0 / 1000.0)
     asyncio.Task(handle_outgoing(outgoing))

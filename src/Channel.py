@@ -21,7 +21,7 @@ class Channel:
         signal.signal(signal.SIGTERM, self.stop)
 
         self.is_running = True
-        self.get_max = 100
+        self.get_max = 1000
         self.players = {}
         self.area_id = 0
         self.areas = {}

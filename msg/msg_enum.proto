@@ -1,13 +1,6 @@
 
 package msg;
 
-enum area_type
-{
-	area_lobby = 1;
-	area_town = 2;
-	area_dungeon = 3;
-}
-
 enum actor_type
 {
 	act_player = 1;

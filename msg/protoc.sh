@@ -1,4 +1,4 @@
-#!/src/sh
+#!/bin/sh
 
 protoc --python_out=../src msg_type_data.proto
 protoc --python_out=../src msg_type_play.proto
