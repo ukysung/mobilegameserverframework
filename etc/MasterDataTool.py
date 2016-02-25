@@ -39,20 +39,23 @@ for f in FILES:
             if row_index == 0: # colum_name
                 for cell in row.findall(NS + 'Cell'):
                     data = cell.find(NS + 'Data')
-                    print('\t\t\t\t' + data.text)
-                    #print('\t\t\t\t' + cell.tag)
+                    if data is not None and data.text is not None:
+                        print('\t\t\t\t' + data.text)
+                        #print('\t\t\t\t' + cell.tag)
 
             elif row_index == 1: # colum_type
                 for cell in row.findall(NS + 'Cell'):
                     data = cell.find(NS + 'Data')
-                    print('\t\t\t\t' + data.text)
-                    #print('\t\t\t\t' + cell.tag)
+                    if data is not None and data.text is not None:
+                        print('\t\t\t\t' + data.text)
+                        #print('\t\t\t\t' + cell.tag)
 
             elif row_index == 2: # colum_visibility
                 for cell in row.findall(NS + 'Cell'):
                     data = cell.find(NS + 'Data')
-                    print('\t\t\t\t' + data.text)
-                    #print('\t\t\t\t' + cell.tag)
+                    if data is not None and data.text is not None:
+                        print('\t\t\t\t' + data.text)
+                        #print('\t\t\t\t' + cell.tag)
 
                 if data == 'none':
                     pass
@@ -60,8 +63,9 @@ for f in FILES:
             elif row_index == 3: # colum_description
                 for cell in row.findall(NS + 'Cell'):
                     data = cell.find(NS + 'Data')
-                    print('\t\t\t\t' + data.text)
-                    #print('\t\t\t\t' + cell.tag)
+                    if data is not None and data.text is not None:
+                        print('\t\t\t\t' + data.text)
+                        #print('\t\t\t\t' + cell.tag)
 
             #else: # data
 
