@@ -10,29 +10,22 @@ from Channel import CHANNEL_ADD_PLAYER, CHANNEL_REMOVE_PLAYER
 
 CONNS = {}
 
-MESSAGEQ = multiprocessing.Queue()
 INCOMING = multiprocessing.Queue()
 OUTGOING = multiprocessing.Queue()
 
 @asyncio.coroutine
-def messageq_get(messageq):
-    msgs = []
-
-    i = 0
-    while i < 1000 and not messageq.empty():
-        i += 1
-        msgs.append(messageq.get())
-
-    return msgs
+def messageq_get():
+    # redis pub/sub ..
+    return []
 
 @asyncio.coroutine
-def handle_messageq(messageq):
-    msgs = yield from messageq_get(messageq)
+def handle_messageq():
+    msgs = yield from messageq_get()
     for msg in msgs:
         INCOMING.put(msgs)
 
     time.sleep(3.0 / 1000.0)
-    asyncio.Task(handle_messageq(messageq))
+    asyncio.Task(handle_messageq())
 
 @asyncio.coroutine
 def outgoing_get(outgoing):
