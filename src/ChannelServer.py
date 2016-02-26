@@ -8,7 +8,7 @@ import sys
 import signal
 
 import g
-from ChannelConnection import INCOMING, OUTGOING, MESSAGEQ, handle_outgoing, ChannelConnection
+from ChannelConnection import MESSAGEQ, INCOMING, OUTGOING, handle_messageq, handle_outgoing, ChannelConnection
 from Channel import Channel
 
 def init_pool():
@@ -79,6 +79,7 @@ def main():
     try:
         g.LOG.info('channel_server_%s starting.. port %s',
                    server_seq, cfg[server_id]['channel_port'])
+        loop.create_task(handle_messageq(MESSAGEQ))
         loop.create_task(handle_outgoing(OUTGOING))
         loop.run_forever()
 
@@ -90,9 +91,9 @@ def main():
     loop.run_until_complete(channel_server.wait_closed())
     loop.close()
 
+    MESSAGEQ.close()
     INCOMING.close()
     OUTGOING.close()
-    MESSAGEQ.close()
 
     process.join()
 
