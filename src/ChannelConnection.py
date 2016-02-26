@@ -95,7 +95,7 @@ class ChannelConnection(asyncio.Protocol):
     def connection_lost(self, ex):
         self.h_timeout.cancel()
         conn_id = self.conn_id
-        INCOMING.put([self.conn_id, CHANNEL_REMOVE_PLAYER, None])
+        INCOMING.put([conn_id, CHANNEL_REMOVE_PLAYER, None])
         del CONNS[conn_id]
 
     def connection_timed_out(self):
