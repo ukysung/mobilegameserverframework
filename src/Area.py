@@ -1,4 +1,5 @@
 
+import g
 from GameMachine import GameMachine
 
 # area_types
@@ -9,6 +10,7 @@ AREA_ARENA = 4
 
 class Area:
     def __init__(self, area_type):
+        g.LOG.info('area__init__')
         self.area_type = area_type
         self.game_machine = GameMachine()
         self.player_conn_ids = []

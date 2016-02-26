@@ -5,7 +5,7 @@ import logging.handlers
 import json
 
 import g
-from bottle import route, response, run
+from bottle import route, request, response, run
 
 def get_log_level(cfg):
     if cfg['log']['level'] == 'debug':
@@ -54,14 +54,8 @@ server_id = 'server' + server_seq
 
 @route('/')
 def index():
-    res = {'test':1}
-
-    response.content_type = 'application/json'
-    return json.dumps(res)
-
-@route('/hello/<name>')
-def index(name):
-    res = {'name':name}
+    req = request.query.decode()
+    res = {'test':req['name']}
 
     response.content_type = 'application/json'
     return json.dumps(res)
@@ -71,3 +65,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
