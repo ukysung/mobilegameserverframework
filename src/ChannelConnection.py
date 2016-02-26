@@ -12,6 +12,7 @@ CONNS = {}
 
 INCOMING = multiprocessing.Queue()
 OUTGOING = multiprocessing.Queue()
+MESSAGEQ = multiprocessing.Queue()
 
 @asyncio.coroutine
 def outgoing_get(outgoing):

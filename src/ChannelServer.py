@@ -8,7 +8,7 @@ import sys
 import signal
 
 import g
-from ChannelConnection import INCOMING, OUTGOING, handle_outgoing, ChannelConnection
+from ChannelConnection import INCOMING, OUTGOING, MESSAGEQ, handle_outgoing, ChannelConnection
 from Channel import Channel
 
 def init_pool():
@@ -92,6 +92,7 @@ def main():
 
     INCOMING.close()
     OUTGOING.close()
+    MESSAGEQ.close()
 
     process.join()
 
