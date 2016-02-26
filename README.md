@@ -24,3 +24,10 @@ vim ~/.vimrc
 set expandtab
 set tabstop=4
 ```
+
+sudo yum install epel-release
+sudo yum install python34
+sudo wget https://bootstrap.pypa.io/get-pip.py
+sudo python3 ./get-pip.py 
+sudo pip3 install pip --upgrade
+
