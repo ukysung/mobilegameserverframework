@@ -6,42 +6,54 @@ package msg;
 
 // user
 
-	message sign_up_req
-	{
-		required string useremail = 1;
-		required string password = 2;
-		required string retypepassword = 3;
-	}
+    message sign_up_req
+    {
+        required string useremail = 1;
+        required string password = 2;
+    }
 
-	message sign_up_ack
-	{
-		required err_type err_code = 1;
-		required uint64 userid = 2;
-	}
+    message sign_up_ack
+    {
+        required err_type err_code = 1;
+        required string authtoken = 2;
+    }
 
-	message sign_in_req
-	{
-		required string useremail = 1;
-		required string password = 2;
-	}
+    message sign_in_req
+    {
+        required string useremail = 1;
+        required string password = 2;
+    }
 
-	message sign_in_ack
-	{
-		required err_type err_code = 1;
-		required uint64 userid = 2;
-	}
+    message sign_in_ack
+    {
+        required err_type err_code = 1;
+        required string authtoken = 2;
+    }
 
 // character
 
-	message get_char_list_req
-	{
-		required uint64 userid = 1;
-	}
+    message create_character_req
+    {
+        required string authtoken = 1;
+        required int32 char_mid = 2;
+        required string char_name = 3;
+    }
 
-	message get_char_list_ack
-	{
-		required err_type err_code = 1;
-		repeated char_info char_list = 2;
-	}
-	
+    message create_character_ack
+    {
+        required err_type err_code = 1;
+        repeated char_info char_list = 2;
+    }
+
+    message get_char_list_req
+    {
+        required string authtoken = 1;
+    }
+
+    message get_char_list_ack
+    {
+        required err_type err_code = 1;
+        repeated char_info char_list = 2;
+    }
+ 
 // end

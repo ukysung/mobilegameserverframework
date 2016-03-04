@@ -52,6 +52,8 @@ def main():
     g.LOG.setLevel(get_log_level(cfg))
     g.LOG.addHandler(log_handler)
 
+    # master_data
+
     # data_server
     server_id = 'server' + server_seq
 
