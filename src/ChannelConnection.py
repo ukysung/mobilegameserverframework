@@ -42,7 +42,7 @@ def outgoing_get(outgoing):
 def handle_outgoing(outgoing):
     msgs = yield from outgoing_get(outgoing)
     for msg in msgs:
-        if CONNS[msg[0]] is not None:
+        if msg[0] in CONNS:
             CONNS[msg[0]].transport.write(b'steve:' + msg[2])
 
     time.sleep(3.0 / 1000.0)

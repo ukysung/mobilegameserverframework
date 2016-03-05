@@ -34,9 +34,13 @@
   </Style>
  </Styles>
  <Worksheet ss:Name="skill">
-  <Table ss:ExpandedColumnCount="6" ss:ExpandedRowCount="6" x:FullColumns="1"
+  <Table ss:ExpandedColumnCount="6" ss:ExpandedRowCount="7" x:FullColumns="1"
    x:FullRows="1" ss:DefaultColumnWidth="54" ss:DefaultRowHeight="16.5">
-   <Column ss:Index="5" ss:AutoFitWidth="0" ss:Width="84.75"/>
+   <Column ss:Width="86.25"/>
+   <Column ss:Width="57.75"/>
+   <Column ss:Width="65.25"/>
+   <Column ss:Width="66"/>
+   <Column ss:Width="99"/>
    <Row ss:AutoFitHeight="0">
     <Cell><Data ss:Type="String">public</Data></Cell>
     <Cell><Data ss:Type="String">public</Data></Cell>
@@ -46,18 +50,25 @@
     <Cell><Data ss:Type="String">END_OF_COLUMNS</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0">
-    <Cell><Data ss:Type="String">skill_id</Data></Cell>
+    <Cell><Data ss:Type="String">skill_mid</Data></Cell>
     <Cell><Data ss:Type="String">skill_type</Data></Cell>
     <Cell><Data ss:Type="String">skill_status</Data></Cell>
     <Cell><Data ss:Type="String">skill_name</Data></Cell>
     <Cell><Data ss:Type="String">skill_action_list</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0">
-    <Cell><Data ss:Type="String">bigint(20)</Data></Cell>
+    <Cell><Data ss:Type="String">int(11)</Data></Cell>
     <Cell><Data ss:Type="String">int(11)</Data></Cell>
     <Cell><Data ss:Type="String">int(11)</Data></Cell>
     <Cell><Data ss:Type="String">varchar(50)</Data></Cell>
-    <Cell><Data ss:Type="String">list&lt;bigint(20)&gt;</Data></Cell>
+    <Cell><Data ss:Type="String">list&lt;int(11)&gt;</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">스킬 아이디</Data></Cell>
+    <Cell><Data ss:Type="String">스킬 종류</Data></Cell>
+    <Cell><Data ss:Type="String">스킬 상태</Data></Cell>
+    <Cell><Data ss:Type="String">스킬 이름</Data></Cell>
+    <Cell><Data ss:Type="String">스킬 액션 리스트</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0">
     <Cell><Data ss:Type="Number">201</Data></Cell>
@@ -82,30 +93,24 @@
     <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
    </PageSetup>
    <Unsynced/>
-   <Panes>
-    <Pane>
-     <Number>3</Number>
-     <ActiveCol>4</ActiveCol>
-    </Pane>
-   </Panes>
    <ProtectObjects>False</ProtectObjects>
    <ProtectScenarios>False</ProtectScenarios>
   </WorksheetOptions>
-  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
-   <Range>R3C1:R3C5</Range>
-   <Type>List</Type>
-   <CellRangeList/>
-   <Value>&quot;int(11),bigint(20),double,varchar(10),varchar(50),varchar(255),text,datetime,list&lt;int(11)&gt;,list&lt;bigint(20)&gt;&quot;</Value>
-  </DataValidation>
   <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
    <Range>R1C1:R1C5</Range>
    <Type>List</Type>
    <CellRangeList/>
    <Value>&quot;public,private,unlisted&quot;</Value>
   </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R3C1:R3C5</Range>
+   <Type>List</Type>
+   <CellRangeList/>
+   <Value>&quot;int(11),bigint(20),double,varchar(50),datetime,list&lt;int(11)&gt;,list&lt;bigint(20)&gt;,list&lt;varchar(50)&gt;&quot;</Value>
+  </DataValidation>
  </Worksheet>
  <Worksheet ss:Name="action">
-  <Table ss:ExpandedColumnCount="5" ss:ExpandedRowCount="6" x:FullColumns="1"
+  <Table ss:ExpandedColumnCount="5" ss:ExpandedRowCount="7" x:FullColumns="1"
    x:FullRows="1" ss:DefaultColumnWidth="54" ss:DefaultRowHeight="16.5">
    <Column ss:Width="86.25"/>
    <Column ss:Width="67.5"/>
@@ -119,26 +124,34 @@
     <Cell><Data ss:Type="String">END_OF_COLUMNS</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0">
-    <Cell><Data ss:Type="String">action_id</Data></Cell>
+    <Cell><Data ss:Type="String">action_mid</Data></Cell>
     <Cell><Data ss:Type="String">action_type</Data></Cell>
     <Cell><Data ss:Type="String">action_status</Data></Cell>
     <Cell><Data ss:Type="String">action_name</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0">
-    <Cell><Data ss:Type="String">bigint(20)</Data></Cell>
+    <Cell><Data ss:Type="String">int(11)</Data></Cell>
     <Cell><Data ss:Type="String">int(11)</Data></Cell>
     <Cell><Data ss:Type="String">int(11)</Data></Cell>
     <Cell><Data ss:Type="String">varchar(50)</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">액션 아이디</Data></Cell>
+    <Cell><Data ss:Type="String">액션 종류</Data></Cell>
+    <Cell><Data ss:Type="String">액션 상태</Data></Cell>
+    <Cell><Data ss:Type="String">액션 이름</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
     <Cell><Data ss:Type="Number">301</Data></Cell>
+    <Cell><Data ss:Type="Number">10</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
-    <Cell ss:Index="4"><Data ss:Type="String">액션1</Data></Cell>
+    <Cell><Data ss:Type="String">액션1</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0">
     <Cell><Data ss:Type="Number">302</Data></Cell>
-    <Cell><Data ss:Type="Number">2</Data></Cell>
-    <Cell ss:Index="4"><Data ss:Type="String">액션2</Data></Cell>
+    <Cell><Data ss:Type="Number">20</Data></Cell>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">액션2</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0">
     <Cell><Data ss:Type="String">END_OF_DATA</Data></Cell>
@@ -162,23 +175,23 @@
     <Pane>
      <Number>3</Number>
      <ActiveRow>3</ActiveRow>
-     <ActiveCol>5</ActiveCol>
+     <ActiveCol>1</ActiveCol>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>
    <ProtectScenarios>False</ProtectScenarios>
   </WorksheetOptions>
   <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
-   <Range>R3C1:R3C4</Range>
-   <Type>List</Type>
-   <CellRangeList/>
-   <Value>&quot;int(11),bigint(20),double,varchar(10),varchar(50),varchar(255),text,datetime,list&lt;int(11)&gt;,list&lt;bigint(20)&gt;&quot;</Value>
-  </DataValidation>
-  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
    <Range>R1C1:R1C4</Range>
    <Type>List</Type>
    <CellRangeList/>
    <Value>&quot;public,private,unlisted&quot;</Value>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R3C1:R3C4</Range>
+   <Type>List</Type>
+   <CellRangeList/>
+   <Value>&quot;int(11),bigint(20),double,varchar(50),datetime,list&lt;int(11)&gt;,list&lt;bigint(20)&gt;,list&lt;varchar(50)&gt;&quot;</Value>
   </DataValidation>
  </Worksheet>
 </Workbook>

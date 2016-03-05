@@ -27,7 +27,7 @@ class DataConnection(asyncio.Protocol):
 
     @asyncio.coroutine
     def handle_received(self, req_msg_type, req_msg_body):
-        if HANDLERS[req_msg_type] is None:
+        if req_msg_type not in HANDLERS:
             return
 
         ack = yield from HANDLERS[req_msg_type](req_msg_type, req_msg_body)

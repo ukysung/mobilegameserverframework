@@ -63,7 +63,7 @@ class Channel:
                 else:
                     print(req_msg_type)
                     print('else')
-                    if HANDLERS[req_msg_type] is not None:
+                    if req_msg_type in HANDLERS:
                         (conn_id, ack_msg_type, ack_msg_body, broadcast) = HANDLERS[req_msg_type](
                             conn_id, req_msg_type, req_msg_body)
 

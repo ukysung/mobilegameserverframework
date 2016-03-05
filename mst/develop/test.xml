@@ -34,16 +34,14 @@
   </Style>
  </Styles>
  <Worksheet ss:Name="test">
-  <Table ss:ExpandedColumnCount="15" ss:ExpandedRowCount="6" x:FullColumns="1"
+  <Table ss:ExpandedColumnCount="13" ss:ExpandedRowCount="7" x:FullColumns="1"
    x:FullRows="1" ss:DefaultColumnWidth="54" ss:DefaultRowHeight="16.5">
    <Column ss:Width="86.25"/>
    <Column ss:Width="57.75"/>
    <Column ss:Width="67.5"/>
-   <Column ss:Width="65.25"/>
-   <Column ss:Width="105" ss:Span="5"/>
-   <Column ss:Index="11" ss:Width="114.75"/>
+   <Column ss:Width="105" ss:Span="4"/>
+   <Column ss:Index="9" ss:Width="114.75"/>
    <Row ss:AutoFitHeight="0">
-    <Cell><Data ss:Type="String">public</Data></Cell>
     <Cell><Data ss:Type="String">public</Data></Cell>
     <Cell><Data ss:Type="String">public</Data></Cell>
     <Cell><Data ss:Type="String">public</Data></Cell>
@@ -52,24 +50,21 @@
     <Cell><Data ss:Type="String">public</Data></Cell>
     <Cell><Data ss:Type="String">public</Data></Cell>
     <Cell><Data ss:Type="String">public</Data></Cell>
-    <Cell><Data ss:Type="String">public</Data></Cell>
     <Cell><Data ss:Type="String">END_OF_COLUMNS</Data></Cell>
-    <Cell ss:Index="13"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:Index="11"><Data ss:Type="Number">1</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0">
-    <Cell><Data ss:Type="String">test_id</Data></Cell>
+    <Cell><Data ss:Type="String">test_mid</Data></Cell>
     <Cell><Data ss:Type="String">test_type</Data></Cell>
     <Cell><Data ss:Type="String">test_status</Data></Cell>
-    <Cell><Data ss:Type="String">test_name</Data></Cell>
     <Cell><Data ss:Type="String">test_varchar_50</Data></Cell>
-    <Cell><Data ss:Type="String">test_varchar_255</Data></Cell>
-    <Cell><Data ss:Type="String">test_text</Data></Cell>
     <Cell><Data ss:Type="String">end_date</Data></Cell>
     <Cell><Data ss:Type="String">int_list</Data></Cell>
     <Cell><Data ss:Type="String">bigint_list</Data></Cell>
-    <Cell ss:Index="13"><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">varchar50_list</Data></Cell>
+    <Cell ss:Index="11"><Data ss:Type="Number">1</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
    </Row>
@@ -77,42 +72,46 @@
     <Cell><Data ss:Type="String">int(11)</Data></Cell>
     <Cell><Data ss:Type="String">bigint(20)</Data></Cell>
     <Cell><Data ss:Type="String">double</Data></Cell>
-    <Cell><Data ss:Type="String">varchar(10)</Data></Cell>
     <Cell><Data ss:Type="String">varchar(50)</Data></Cell>
-    <Cell><Data ss:Type="String">varchar(255)</Data></Cell>
-    <Cell><Data ss:Type="String">text</Data></Cell>
     <Cell><Data ss:Type="String">datetime</Data></Cell>
     <Cell><Data ss:Type="String">list&lt;int(11)&gt;</Data></Cell>
     <Cell><Data ss:Type="String">list&lt;bigint(20)&gt;</Data></Cell>
-    <Cell ss:Index="13"><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">list&lt;varchar(50)&gt;</Data></Cell>
+    <Cell ss:Index="11"><Data ss:Type="Number">1</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">테스트 아이디</Data></Cell>
+    <Cell><Data ss:Type="String">테스트 종류</Data></Cell>
+    <Cell><Data ss:Type="String">테스트 상태</Data></Cell>
+    <Cell><Data ss:Type="String">문자열</Data></Cell>
+    <Cell><Data ss:Type="String">일자</Data></Cell>
+    <Cell><Data ss:Type="String">정수 리스트</Data></Cell>
+    <Cell><Data ss:Type="String">큰 정수 리스트</Data></Cell>
+    <Cell><Data ss:Type="String">문자열 리스트</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
     <Cell><Data ss:Type="Number">101</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
-    <Cell ss:Index="4"><Data ss:Type="String">테스트1</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="Number">1</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
-    <Cell><Data ss:Type="Number">1</Data></Cell>
-    <Cell><Data ss:Type="Number">1</Data></Cell>
-    <Cell ss:Index="12"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:Index="10"><Data ss:Type="Number">1</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0">
     <Cell><Data ss:Type="Number">102</Data></Cell>
     <Cell><Data ss:Type="Number">2</Data></Cell>
-    <Cell ss:Index="4"><Data ss:Type="String">테스트2</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="Number">1</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
     <Cell><Data ss:Type="Number">1</Data></Cell>
-    <Cell><Data ss:Type="Number">1</Data></Cell>
-    <Cell><Data ss:Type="Number">1</Data></Cell>
-    <Cell ss:Index="12"><Data ss:Type="Number">2</Data></Cell>
+    <Cell ss:Index="10"><Data ss:Type="Number">2</Data></Cell>
     <Cell><Data ss:Type="Number">2</Data></Cell>
     <Cell><Data ss:Type="Number">2</Data></Cell>
    </Row>
@@ -128,33 +127,33 @@
    </PageSetup>
    <Unsynced/>
    <Selected/>
-   <LeftColumnVisible>6</LeftColumnVisible>
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveCol>9</ActiveCol>
+     <ActiveRow>4</ActiveRow>
+     <ActiveCol>7</ActiveCol>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>
    <ProtectScenarios>False</ProtectScenarios>
   </WorksheetOptions>
   <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
-   <Range>R1C1:R1C6</Range>
+   <Range>R1C1:R1C4</Range>
    <Type>List</Type>
    <CellRangeList/>
    <Value>&quot;public,private&quot;</Value>
   </DataValidation>
   <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
-   <Range>R3C1:R3C10</Range>
-   <Type>List</Type>
-   <CellRangeList/>
-   <Value>&quot;int(11),bigint(20),double,varchar(10),varchar(50),varchar(255),text,datetime,list&lt;int(11)&gt;,list&lt;bigint(20)&gt;&quot;</Value>
-  </DataValidation>
-  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
-   <Range>R1C7:R1C10</Range>
+   <Range>R1C5:R1C8</Range>
    <Type>List</Type>
    <CellRangeList/>
    <Value>&quot;public,private,unlisted&quot;</Value>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R3C1:R3C8</Range>
+   <Type>List</Type>
+   <CellRangeList/>
+   <Value>&quot;int(11),bigint(20),double,varchar(50),datetime,list&lt;int(11)&gt;,list&lt;bigint(20)&gt;,list&lt;varchar(50)&gt;&quot;</Value>
   </DataValidation>
  </Worksheet>
 </Workbook>
