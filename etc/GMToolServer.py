@@ -257,14 +257,14 @@ def forum_post():
 
 @APP.route('/', methods=['POST'])
 def upload_file():
-    file = request.files['file']
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(APP.config['UPLOAD_FOLDER'], filename))
+    file_ = request.files['file']
+    if file_ and allowed_file(file_.filename):
+        filename = secure_filename(file_.filename)
+        file_.save(os.path.join(APP.config['UPLOAD_FOLDER'], filename))
 
     tmp = {}
     resp = make_response(json.dumps(tmp))
-    resp.headers['Content-Type'] = 'APPlication/json'
+    resp.headers['Content-Type'] = 'application/json'
 
     return resp
 
