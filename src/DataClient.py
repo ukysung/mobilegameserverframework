@@ -13,18 +13,23 @@ HANDLERS = []
 
 def handle_sign_up_req():
     req = msg_packet_data_pb2.sign_up_req()
-    req.useremail = 'email@server.com'
-    req.passwd = 'password'
+    req.email = 'email@server.com'
+    req.passwd = 'my_passwd'
 
     req_str = req.SerializeToString()
+    print(req_str)
     return struct.pack('ii', msg_type_data_pb2.t_sign_up_req, len(req_str)) + req_str
 HANDLERS.append(handle_sign_up_req)
 
 def handle_sign_up_ack(msg_body):
+    print(1)
     ack = msg_packet_data_pb2.sign_up_ack()
+    print(2)
     ack.ParseFromString(msg_body)
+    print(3)
 
-    print(ack.authtoken)
+    print('auth_token:' +ack.auth_token)
+HANDLERS.append(handle_sign_up_ack)
 
 @asyncio.coroutine
 def DataClient(host, port):
@@ -47,7 +52,7 @@ def DataClient(host, port):
         HANDLERS[i](msg_body)
 
         i += 1
-        if len(HANDLeRS) == i:
+        if len(HANDLERS) == i:
             break
         writer.write(HANDLERS[i]())
 
@@ -62,7 +67,14 @@ def main():
     port = sys.argv[2]
 
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(DataClient(host, port))
+
+    try:
+        loop.run_until_complete(DataClient(host, port))
+
+    except KeyboardInterrupt:
+        pass
+
+    loop.close()
 
 if __name__ == '__main__':
     main()

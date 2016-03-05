@@ -8,33 +8,33 @@ package msg;
 
     message sign_up_req
     {
-        required string useremail = 1;
-        required string password = 2;
+        required string email = 1;
+        required string passwd = 2;
     }
 
     message sign_up_ack
     {
         required err_type err_code = 1;
-        required string authtoken = 2;
+        required string auth_token = 2;
     }
 
     message sign_in_req
     {
-        required string useremail = 1;
-        required string password = 2;
+        required string email = 1;
+        required string passwd = 2;
     }
 
     message sign_in_ack
     {
         required err_type err_code = 1;
-        required string authtoken = 2;
+        required string auth_token = 2;
     }
 
 // character
 
     message create_character_req
     {
-        required string authtoken = 1;
+        required string auth_token = 1;
         required int32 char_mid = 2;
         required string char_name = 3;
     }
@@ -47,7 +47,7 @@ package msg;
 
     message get_char_list_req
     {
-        required string authtoken = 1;
+        required string auth_token = 1;
     }
 
     message get_char_list_ack

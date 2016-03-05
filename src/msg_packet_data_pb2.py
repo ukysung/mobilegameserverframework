@@ -20,7 +20,7 @@ import msg_struct_pb2
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='msg_packet_data.proto',
   package='msg',
-  serialized_pb=_b('\n\x15msg_packet_data.proto\x12\x03msg\x1a\x0fmsg_error.proto\x1a\x10msg_struct.proto\"2\n\x0bsign_up_req\x12\x11\n\tuseremail\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t\"A\n\x0bsign_up_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12\x11\n\tauthtoken\x18\x02 \x02(\t\"2\n\x0bsign_in_req\x12\x11\n\tuseremail\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t\"A\n\x0bsign_in_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12\x11\n\tauthtoken\x18\x02 \x02(\t\"N\n\x14\x63reate_character_req\x12\x11\n\tauthtoken\x18\x01 \x02(\t\x12\x10\n\x08\x63har_mid\x18\x02 \x02(\x05\x12\x11\n\tchar_name\x18\x03 \x02(\t\"Z\n\x14\x63reate_character_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12!\n\tchar_list\x18\x02 \x03(\x0b\x32\x0e.msg.char_info\"&\n\x11get_char_list_req\x12\x11\n\tauthtoken\x18\x01 \x02(\t\"W\n\x11get_char_list_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12!\n\tchar_list\x18\x02 \x03(\x0b\x32\x0e.msg.char_info')
+  serialized_pb=_b('\n\x15msg_packet_data.proto\x12\x03msg\x1a\x0fmsg_error.proto\x1a\x10msg_struct.proto\",\n\x0bsign_up_req\x12\r\n\x05\x65mail\x18\x01 \x02(\t\x12\x0e\n\x06passwd\x18\x02 \x02(\t\"B\n\x0bsign_up_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12\x12\n\nauth_token\x18\x02 \x02(\t\",\n\x0bsign_in_req\x12\r\n\x05\x65mail\x18\x01 \x02(\t\x12\x0e\n\x06passwd\x18\x02 \x02(\t\"B\n\x0bsign_in_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12\x12\n\nauth_token\x18\x02 \x02(\t\"O\n\x14\x63reate_character_req\x12\x12\n\nauth_token\x18\x01 \x02(\t\x12\x10\n\x08\x63har_mid\x18\x02 \x02(\x05\x12\x11\n\tchar_name\x18\x03 \x02(\t\"Z\n\x14\x63reate_character_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12!\n\tchar_list\x18\x02 \x03(\x0b\x32\x0e.msg.char_info\"\'\n\x11get_char_list_req\x12\x12\n\nauth_token\x18\x01 \x02(\t\"W\n\x11get_char_list_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12!\n\tchar_list\x18\x02 \x03(\x0b\x32\x0e.msg.char_info')
   ,
   dependencies=[msg_error_pb2.DESCRIPTOR,msg_struct_pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -36,14 +36,14 @@ _SIGN_UP_REQ = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='useremail', full_name='msg.sign_up_req.useremail', index=0,
+      name='email', full_name='msg.sign_up_req.email', index=0,
       number=1, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='password', full_name='msg.sign_up_req.password', index=1,
+      name='passwd', full_name='msg.sign_up_req.passwd', index=1,
       number=2, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -61,7 +61,7 @@ _SIGN_UP_REQ = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=65,
-  serialized_end=115,
+  serialized_end=109,
 )
 
 
@@ -80,7 +80,7 @@ _SIGN_UP_ACK = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='authtoken', full_name='msg.sign_up_ack.authtoken', index=1,
+      name='auth_token', full_name='msg.sign_up_ack.auth_token', index=1,
       number=2, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -97,8 +97,8 @@ _SIGN_UP_ACK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=117,
-  serialized_end=182,
+  serialized_start=111,
+  serialized_end=177,
 )
 
 
@@ -110,14 +110,14 @@ _SIGN_IN_REQ = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='useremail', full_name='msg.sign_in_req.useremail', index=0,
+      name='email', full_name='msg.sign_in_req.email', index=0,
       number=1, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='password', full_name='msg.sign_in_req.password', index=1,
+      name='passwd', full_name='msg.sign_in_req.passwd', index=1,
       number=2, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -134,8 +134,8 @@ _SIGN_IN_REQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=184,
-  serialized_end=234,
+  serialized_start=179,
+  serialized_end=223,
 )
 
 
@@ -154,7 +154,7 @@ _SIGN_IN_ACK = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='authtoken', full_name='msg.sign_in_ack.authtoken', index=1,
+      name='auth_token', full_name='msg.sign_in_ack.auth_token', index=1,
       number=2, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -171,8 +171,8 @@ _SIGN_IN_ACK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=236,
-  serialized_end=301,
+  serialized_start=225,
+  serialized_end=291,
 )
 
 
@@ -184,7 +184,7 @@ _CREATE_CHARACTER_REQ = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='authtoken', full_name='msg.create_character_req.authtoken', index=0,
+      name='auth_token', full_name='msg.create_character_req.auth_token', index=0,
       number=1, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -215,8 +215,8 @@ _CREATE_CHARACTER_REQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=303,
-  serialized_end=381,
+  serialized_start=293,
+  serialized_end=372,
 )
 
 
@@ -252,8 +252,8 @@ _CREATE_CHARACTER_ACK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=383,
-  serialized_end=473,
+  serialized_start=374,
+  serialized_end=464,
 )
 
 
@@ -265,7 +265,7 @@ _GET_CHAR_LIST_REQ = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='authtoken', full_name='msg.get_char_list_req.authtoken', index=0,
+      name='auth_token', full_name='msg.get_char_list_req.auth_token', index=0,
       number=1, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -282,8 +282,8 @@ _GET_CHAR_LIST_REQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=475,
-  serialized_end=513,
+  serialized_start=466,
+  serialized_end=505,
 )
 
 
@@ -319,8 +319,8 @@ _GET_CHAR_LIST_ACK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=515,
-  serialized_end=602,
+  serialized_start=507,
+  serialized_end=594,
 )
 
 _SIGN_UP_ACK.fields_by_name['err_code'].enum_type = msg_error_pb2._ERR_TYPE

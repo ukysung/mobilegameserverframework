@@ -19,7 +19,7 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='msg_type_data.proto',
   package='msg',
-  serialized_pb=_b('\n\x13msg_type_data.proto\x12\x03msg*\x8f\x01\n\ttype_data\x12\x12\n\rt_sign_up_req\x10\xf9U\x12\x12\n\rt_sign_up_ack\x10\xfaU\x12\x12\n\rt_sign_in_req\x10\xddV\x12\x12\n\rt_sign_in_ack\x10\xdeV\x12\x18\n\x13t_get_char_list_req\x10\xc1W\x12\x18\n\x13t_get_char_list_ack\x10\xc2W')
+  serialized_pb=_b('\n\x13msg_type_data.proto\x12\x03msg*\xc9\x01\n\ttype_data\x12\x12\n\rt_sign_up_req\x10\xf9U\x12\x12\n\rt_sign_up_ack\x10\xfaU\x12\x12\n\rt_sign_in_req\x10\xddV\x12\x12\n\rt_sign_in_ack\x10\xdeV\x12\x1b\n\x16t_create_character_req\x10\xc1W\x12\x1b\n\x16t_create_character_ack\x10\xc2W\x12\x18\n\x13t_get_char_list_req\x10\xa5X\x12\x18\n\x13t_get_char_list_ack\x10\xa6X')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -46,18 +46,26 @@ _TYPE_DATA = _descriptor.EnumDescriptor(
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='t_get_char_list_req', index=4, number=11201,
+      name='t_create_character_req', index=4, number=11201,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='t_get_char_list_ack', index=5, number=11202,
+      name='t_create_character_ack', index=5, number=11202,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='t_get_char_list_req', index=6, number=11301,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='t_get_char_list_ack', index=7, number=11302,
       options=None,
       type=None),
   ],
   containing_type=None,
   options=None,
   serialized_start=29,
-  serialized_end=172,
+  serialized_end=230,
 )
 _sym_db.RegisterEnumDescriptor(_TYPE_DATA)
 
@@ -66,8 +74,10 @@ t_sign_up_req = 11001
 t_sign_up_ack = 11002
 t_sign_in_req = 11101
 t_sign_in_ack = 11102
-t_get_char_list_req = 11201
-t_get_char_list_ack = 11202
+t_create_character_req = 11201
+t_create_character_ack = 11202
+t_get_char_list_req = 11301
+t_get_char_list_ack = 11302
 
 
 DESCRIPTOR.enum_types_by_name['type_data'] = _TYPE_DATA

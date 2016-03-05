@@ -7,7 +7,8 @@ from Crypto.Cipher import AES
 class AESCrypto:
     def __init__(self, key):
         self.block_size = 32
-        self.key = hashlib.sha256(key.encode()).digest()
+        #self.key = hashlib.sha256(key.encode()).digest()
+        self.key = key
 
     def pad(self, str_):
         padding = self.block_size - (len(str_) % self.block_size)

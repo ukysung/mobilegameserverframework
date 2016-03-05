@@ -1,14 +1,20 @@
 
-import asyncio
 import struct
+import asyncio
 
 import g
 import msg_header
+import msg_type_data_pb2
+import msg_struct_pb2
+import msg_error_pb2
+import msg_packet_data_pb2
 
-from data_handle_message_no_1 import handle_message_no_1
+from data_handle_sign_up import handle_sign_up
+#from data_handle_sign_in import handle_sign_in
 
 HANDLERS = {
-    1:handle_message_no_1,
+    msg_type_data_pb2.t_sign_up_req:handle_sign_up,
+    #msg_type_data_pb2.t_sign_in_req:handle_sign_in,
 }
 
 class DataConnection(asyncio.Protocol):
@@ -39,7 +45,7 @@ class DataConnection(asyncio.Protocol):
 
         self.msg_buffer += data
 
-        if True:
+        if False:
             asyncio.Task(self.handle_received(1, self.msg_buffer))
             self.msg_buffer = b''
 
@@ -51,7 +57,7 @@ class DataConnection(asyncio.Protocol):
                 (msg_type, msg_size) = struct.unpack(
                     'ii', self.msg_buffer[msg_header_offset:msg_body_offset])
 
-                msg_end_offset = msg_header_offset + msg_size
+                msg_end_offset = msg_body_offset + msg_size
                 if len(self.msg_buffer) < msg_end_offset:
                     break
 

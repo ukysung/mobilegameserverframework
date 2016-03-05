@@ -1,8 +1,8 @@
 
 import time
+import struct
 import multiprocessing
 import asyncio
-import struct
 
 import g
 import msg_header
@@ -78,7 +78,7 @@ class ChannelConnection(asyncio.Protocol):
 
         self.msg_buffer += data
 
-        if True:
+        if False:
             print('incoming_put_2')
             INCOMING.put([self.conn_id, 1, self.msg_buffer])
             self.msg_buffer = b''
@@ -91,7 +91,7 @@ class ChannelConnection(asyncio.Protocol):
                 (msg_type, msg_size) = struct.unpack(
                     'ii', self.msg_buffer[msg_header_offset:msg_body_offset])
 
-                msg_end_offset = msg_header_offset + msg_size
+                msg_end_offset = msg_body_offset + msg_size
                 if len(self.msg_buffer) < msg_end_offset:
                     break
 

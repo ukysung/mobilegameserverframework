@@ -9,24 +9,24 @@ import signal
 import g
 from DataConnection import DataConnection
 
-def get_log_level(cfg):
-    if cfg['log']['level'] == 'debug':
+def get_log_level():
+    if g.CFG['log']['level'] == 'debug':
         return logging.DEBUG
-    elif cfg['log']['level'] == 'info':
+    elif g.CFG['log']['level'] == 'info':
         return logging.INFO
-    elif cfg['log']['level'] == 'warn':
+    elif g.CFG['log']['level'] == 'warn':
         return logging.WARNING
-    elif cfg['log']['level'] == 'error':
+    elif g.CFG['log']['level'] == 'error':
         return logging.ERROR
     else:
         return logging.DEBUG
 
-def get_log_rotation(cfg):
-    if cfg['log']['rotation'] == 'every_minute':
+def get_log_rotation():
+    if g.CFG['log']['rotation'] == 'every_minute':
         return 'M'
-    elif cfg['log']['rotation'] == 'hourly':
+    elif g.CFG['log']['rotation'] == 'hourly':
         return 'H'
-    elif cfg['log']['rotation'] == 'daily':
+    elif g.CFG['log']['rotation'] == 'daily':
         return 'D'
     else:
         return 'M'
@@ -41,18 +41,19 @@ def main():
 
     # cfg
     with open('../cfg/' + phase + '.json', encoding='utf-8') as cfg_file:
-        cfg = json.loads(cfg_file.read())
+        g.CFG = json.loads(cfg_file.read())
 
+    # log
     log_formatter = logging.Formatter('%(asctime)s,%(levelname)s,%(message)s')
     log_handler = logging.handlers.TimedRotatingFileHandler(
-        '../log/data_server_' + server_seq + '.csv', when=get_log_rotation(cfg), interval=1)
+        '../log/data_server_' + server_seq + '.csv', when=get_log_rotation(), interval=1)
     log_handler.setFormatter(log_formatter)
 
     g.LOG = logging.getLogger()
-    g.LOG.setLevel(get_log_level(cfg))
+    g.LOG.setLevel(get_log_level())
     g.LOG.addHandler(log_handler)
 
-    # master_data
+    # mst
 
     # data_server
     server_id = 'server' + server_seq
@@ -61,14 +62,14 @@ def main():
     loop.add_signal_handler(signal.SIGINT, loop.stop)
     loop.add_signal_handler(signal.SIGTERM, loop.stop)
 
-    coro = loop.create_server(DataConnection, port=cfg[server_id]['data_port'])
+    coro = loop.create_server(DataConnection, port=g.CFG[server_id]['data_port'])
     data_server = loop.run_until_complete(coro)
 
     for sock in data_server.sockets:
         print('data_server_{} starting.. {}'.format(server_seq, sock.getsockname()))
 
     try:
-        g.LOG.info('data_server_%s starting.. port %s', server_seq, cfg[server_id]['data_port'])
+        g.LOG.info('data_server_%s starting.. port %s', server_seq, g.CFG[server_id]['data_port'])
         loop.run_forever()
 
     except KeyboardInterrupt:
