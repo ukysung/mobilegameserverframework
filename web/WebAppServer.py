@@ -68,7 +68,8 @@ def main():
         print('web_app_server_{} starting.. {}'.format(server_seq, sock.getsockname()))
 
     try:
-        g.LOG.info('web_app_server_%s starting.. port %s', server_seq, g.CFG[server_id]['web_app_port'])
+        g.LOG.info('web_app_server_%s starting.. port %s', server_seq,
+                   g.CFG[server_id]['web_app_port'])
         loop.run_forever()
 
     except KeyboardInterrupt:

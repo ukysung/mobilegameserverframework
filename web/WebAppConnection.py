@@ -1,7 +1,6 @@
 
 import json
 import time
-import struct
 import asyncio
 
 import g
@@ -24,7 +23,10 @@ class WebAppConnection(asyncio.Protocol):
         date = time.strftime('%a, %d %b %Y %H:%M:%S GMT', time.gmtime())
         last_modified = time.strftime('%a, %d %b %Y %H:%M:%S GMT', time.gmtime())
 
-        http_res = ('HTTP/1.1 200 OK\r\nServer: WebAppServer\r\nDate: ' + date + '\r\nContent-Type: application/json\r\nContent-Length: ' + str(len(json_str)) + 'Last-Modified: ' + last_modified + 'Connection: close\r\n\r\n' + json_str).encode()
+        http_res = ('HTTP/1.1 200 OK\r\nServer: WebAppServer\r\nDate: ' + date +
+                    '\r\nContent-Type: application/json\r\nContent-Length: ' + str(len(json_str)) +
+                    '\r\nLast-Modified: ' + last_modified +
+                    '\r\nConnection: close\r\n\r\n' + json_str).encode()
 
         self.transport.write(http_res)
         self.transport.close()
