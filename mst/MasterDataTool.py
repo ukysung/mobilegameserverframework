@@ -4,8 +4,11 @@ from os import listdir
 from os.path import isfile, join
 import xml.etree.cElementTree as cET
 
+def is_number(type_):
+    return type_ in ['int(11)', 'bigint(20)', 'double']
+
 def default_value(type_):
-    if type_ in ['int(11)', 'bigint(20)', 'double']:
+    if is_number(type_):
         return 0
     elif type_ == 'datetime':
         return '1970-01-01 00:00:00'
@@ -16,6 +19,7 @@ if len(sys.argv) < 2:
     print('Usage: python3 ./MasterDataTool.py develop')
     sys.exit()
 
+T = '    '
 PHASE = sys.argv[1]
 
 PATH = './' + PHASE
@@ -30,8 +34,9 @@ NS_CELL = NS + 'Cell'
 NS_INDEX = NS + 'Index'
 NS_DATA = NS + 'Data'
 
+print()
 for f in FILES:
-    print(f)
+    print('# ' + f)
     print()
 
     column_visibilities = []
@@ -43,29 +48,33 @@ for f in FILES:
 
     for worksheet in root.iter(tag=NS_WORKSHEET):
         name = worksheet.attrib[NS_NAME]
-        print('\t' + name)
+        print('MST_' + name.upper() + ' = {')
 
-        table = worksheet.find(NS_TABLE)
+        column_visibilities.clear()
+        column_names.clear()
+        column_types.clear()
 
         row_index = 0
         column_idx = 0
         column_len = 0
+
+        table = worksheet.find(NS_TABLE)
         for row in table.iter(tag=NS_ROW):
 
             if row_index == 0: # colum_visibility
-                print('\t\tcolumn_visibility')
+                print(T + '# column_visibility')
                 for cell in row.iter(tag=NS_CELL):
                     data = cell.find(NS_DATA)
                     if data is not None and data.text is not None:
                         if data.text == 'END_OF_COLUMNS':
                             break
                         column_visibilities.append(data.text)
-                        print('\t\t\t' + data.text)
+                        print(T + '# ' + T + data.text)
 
                 column_len = len(column_visibilities)
 
             elif row_index == 1: # colum_name
-                print('\t\tcolumn_name')
+                print(T + '# column_name')
                 column_idx = 0
                 for cell in row.iter(tag=NS_CELL):
                     if column_idx == column_len:
@@ -74,7 +83,7 @@ for f in FILES:
                     data = cell.find(NS_DATA)
                     if data is not None and data.text is not None:
                         column_names.append(data.text)
-                        print('\t\t\t' + data.text)
+                        print(T + '# ' + T + data.text)
 
                     column_idx += 1
 
@@ -83,7 +92,7 @@ for f in FILES:
                     sys.exit()
 
             elif row_index == 2: # colum_type
-                print('\t\tcolumn_type')
+                print(T + '# column_type')
                 column_idx = 0
                 for cell in row.iter(tag=NS_CELL):
                     if column_idx == column_len:
@@ -92,8 +101,7 @@ for f in FILES:
                     data = cell.find(NS_DATA)
                     if data is not None and data.text is not None:
                         column_types.append(data.text)
-                        print('\t\t\t' + data.text)
-                        #print('\t\t\t' + cell.tag)
+                        print(T + '# ' + T + data.text)
 
                     column_idx += 1
 
@@ -106,14 +114,15 @@ for f in FILES:
                 continue
 
             else: # data
-                print('\t\tdata')
+                #print(T + '# data')
                 column_idx = 0
+                data_mid = None
                 for cell in row.iter(tag=NS_CELL):
                     if NS_INDEX in cell.attrib:
                         #print(cell.attrib[NS_INDEX])
                         cell_attrib_index = int(cell.attrib[NS_INDEX]) - 1
                         while column_idx < cell_attrib_index and column_idx < column_len:
-                            print('\t\t\t' + str(default_value(column_types[column_idx])))
+                            print(T + T + "'" + column_names[column_idx] + "':" + str(default_value(column_types[column_idx])) + ',')
                             column_idx += 1
 
                     if column_idx == column_len:
@@ -123,13 +132,31 @@ for f in FILES:
                     if data is not None and data.text is not None:
                         if data.text == 'END_OF_DATA':
                             break
-                        print('\t\t\t' + data.text)
-                        #print('\t\t\t' + cell.tag)
+
+                        if column_idx == 0:
+                            data_mid = data.text
+                            print(T + data.text + ':{')
+
+                        elif column_types[column_idx] == 'list<varchar(50)>':
+                            print(T + T + "'" + column_names[column_idx] + "':['" + data.text.replace(';', "', '") + "'],")
+
+                        elif 'list' in column_types[column_idx]:
+                            print(T + T + "'" + column_names[column_idx] + "':[" + data.text.replace(';', ', ') + '],')
+
+                        else:
+                            if is_number(column_types[column_idx]):
+                                print(T + T + "'" + column_names[column_idx] + "':" + data.text + ',')
+
+                            else:
+                                print(T + T + "'" + column_names[column_idx] + "':'" + data.text + "',")
 
                     column_idx += 1
 
+                if column_idx == column_len:
+                    print(T + '},')
+
             row_index += 1
 
-        break
-    print()
+        print('}')
+        print()
 
