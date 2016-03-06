@@ -21,4 +21,5 @@ def handle_sign_up(req_msg_type, req_msg_body):
 
     ack_str = ack.SerializeToString()
     return struct.pack('ii', msg_type_data_pb2.t_sign_up_ack, len(ack_str)) + ack_str
+g.HANDLERS[msg_type_data_pb2.t_sign_up_req] = handle_sign_up
 

@@ -5,4 +5,5 @@ LOG = None
 CFG = {}
 MST = {}
 CONN_ID = 0
+HANDLERS = {}
 

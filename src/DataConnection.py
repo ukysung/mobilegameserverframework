@@ -12,11 +12,6 @@ import msg_packet_data_pb2
 from data_handle_sign_up import handle_sign_up
 #from data_handle_sign_in import handle_sign_in
 
-HANDLERS = {
-    msg_type_data_pb2.t_sign_up_req:handle_sign_up,
-    #msg_type_data_pb2.t_sign_in_req:handle_sign_in,
-}
-
 class DataConnection(asyncio.Protocol):
     def __init__(self):
         g.LOG.info('__init__')
@@ -27,10 +22,11 @@ class DataConnection(asyncio.Protocol):
 
     @asyncio.coroutine
     def handle_received(self, req_msg_type, req_msg_body):
-        if req_msg_type not in HANDLERS:
+        if req_msg_type not in g.HANDLERS:
+            g.LOG.error('handler for %s is not imported to DataConnection', req_msg_type)
             return
 
-        ack = yield from HANDLERS[req_msg_type](req_msg_type, req_msg_body)
+        ack = yield from g.HANDLERS[req_msg_type](req_msg_type, req_msg_body)
         self.transport.write(ack)
 
     def connection_made(self, transport):
