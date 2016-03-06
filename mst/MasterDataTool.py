@@ -122,7 +122,8 @@ for f in FILES:
                         #print(cell.attrib[NS_INDEX])
                         cell_attrib_index = int(cell.attrib[NS_INDEX]) - 1
                         while column_idx < cell_attrib_index and column_idx < column_len:
-                            print(T + T + "'" + column_names[column_idx] + "':" + str(default_value(column_types[column_idx])) + ',')
+                            print(T + T + "'" + column_names[column_idx] + "':" +
+                                  str(default_value(column_types[column_idx])) + ',')
                             column_idx += 1
 
                     if column_idx == column_len:
@@ -138,17 +139,21 @@ for f in FILES:
                             print(T + data.text + ':{')
 
                         elif column_types[column_idx] == 'list<varchar(50)>':
-                            print(T + T + "'" + column_names[column_idx] + "':['" + data.text.replace(';', "', '") + "'],")
+                            print(T + T + "'" + column_names[column_idx] + "':['" +
+                                  data.text.replace(';', "', '") + "'],")
 
                         elif 'list' in column_types[column_idx]:
-                            print(T + T + "'" + column_names[column_idx] + "':[" + data.text.replace(';', ', ') + '],')
+                            print(T + T + "'" + column_names[column_idx] + "':[" +
+                                  data.text.replace(';', ', ') + '],')
 
                         else:
                             if is_number(column_types[column_idx]):
-                                print(T + T + "'" + column_names[column_idx] + "':" + data.text + ',')
+                                print(T + T + "'" + column_names[column_idx] + "':" +
+                                      data.text + ',')
 
                             else:
-                                print(T + T + "'" + column_names[column_idx] + "':'" + data.text + "',")
+                                print(T + T + "'" + column_names[column_idx] + "':'" +
+                                      data.text + "',")
 
                     column_idx += 1
 
