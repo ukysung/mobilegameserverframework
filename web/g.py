@@ -1,0 +1,6 @@
+
+# global
+
+LOG = None
+CFG = {}
+
