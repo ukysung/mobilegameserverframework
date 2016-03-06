@@ -20,7 +20,7 @@ import msg_struct_pb2
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='msg_packet_data.proto',
   package='msg',
-  serialized_pb=_b('\n\x15msg_packet_data.proto\x12\x03msg\x1a\x0fmsg_error.proto\x1a\x10msg_struct.proto\",\n\x0bsign_up_req\x12\r\n\x05\x65mail\x18\x01 \x02(\t\x12\x0e\n\x06passwd\x18\x02 \x02(\t\"B\n\x0bsign_up_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12\x12\n\nauth_token\x18\x02 \x02(\t\",\n\x0bsign_in_req\x12\r\n\x05\x65mail\x18\x01 \x02(\t\x12\x0e\n\x06passwd\x18\x02 \x02(\t\"B\n\x0bsign_in_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12\x12\n\nauth_token\x18\x02 \x02(\t\"O\n\x14\x63reate_character_req\x12\x12\n\nauth_token\x18\x01 \x02(\t\x12\x10\n\x08\x63har_mid\x18\x02 \x02(\x05\x12\x11\n\tchar_name\x18\x03 \x02(\t\"Z\n\x14\x63reate_character_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12!\n\tchar_list\x18\x02 \x03(\x0b\x32\x0e.msg.char_info\"\'\n\x11get_char_list_req\x12\x12\n\nauth_token\x18\x01 \x02(\t\"W\n\x11get_char_list_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12!\n\tchar_list\x18\x02 \x03(\x0b\x32\x0e.msg.char_info')
+  serialized_pb=_b('\n\x15msg_packet_data.proto\x12\x03msg\x1a\x0fmsg_error.proto\x1a\x10msg_struct.proto\",\n\x0bsign_up_req\x12\r\n\x05\x65mail\x18\x01 \x02(\t\x12\x0e\n\x06passwd\x18\x02 \x02(\t\"B\n\x0bsign_up_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12\x12\n\nauth_token\x18\x02 \x02(\t\",\n\x0bsign_in_req\x12\r\n\x05\x65mail\x18\x01 \x02(\t\x12\x0e\n\x06passwd\x18\x02 \x02(\t\"B\n\x0bsign_in_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12\x12\n\nauth_token\x18\x02 \x02(\t\"O\n\x14\x63reate_character_req\x12\x12\n\nauth_token\x18\x01 \x02(\t\x12\x11\n\tchar_name\x18\x03 \x02(\t\x12\x10\n\x08\x63har_mid\x18\x02 \x02(\x05\"Z\n\x14\x63reate_character_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12!\n\tchar_list\x18\x02 \x03(\x0b\x32\x0e.msg.char_info\"\'\n\x11get_char_list_req\x12\x12\n\nauth_token\x18\x01 \x02(\t\"W\n\x11get_char_list_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12!\n\tchar_list\x18\x02 \x03(\x0b\x32\x0e.msg.char_info\"7\n\x11get_item_list_req\x12\x12\n\nauth_token\x18\x01 \x02(\t\x12\x0e\n\x06\x63harid\x18\x02 \x02(\t\"W\n\x11get_item_list_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12!\n\titem_list\x18\x02 \x03(\x0b\x32\x0e.msg.item_info\"8\n\x12get_skill_list_req\x12\x12\n\nauth_token\x18\x01 \x02(\t\x12\x0e\n\x06\x63harid\x18\x02 \x02(\t\"Z\n\x12get_skill_list_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12#\n\nskill_list\x18\x02 \x03(\x0b\x32\x0f.msg.skill_info')
   ,
   dependencies=[msg_error_pb2.DESCRIPTOR,msg_struct_pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -191,16 +191,16 @@ _CREATE_CHARACTER_REQ = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='char_mid', full_name='msg.create_character_req.char_mid', index=1,
-      number=2, type=5, cpp_type=1, label=2,
-      has_default_value=False, default_value=0,
+      name='char_name', full_name='msg.create_character_req.char_name', index=1,
+      number=3, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='char_name', full_name='msg.create_character_req.char_name', index=2,
-      number=3, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='char_mid', full_name='msg.create_character_req.char_mid', index=2,
+      number=2, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -323,12 +323,164 @@ _GET_CHAR_LIST_ACK = _descriptor.Descriptor(
   serialized_end=594,
 )
 
+
+_GET_ITEM_LIST_REQ = _descriptor.Descriptor(
+  name='get_item_list_req',
+  full_name='msg.get_item_list_req',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='auth_token', full_name='msg.get_item_list_req.auth_token', index=0,
+      number=1, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='charid', full_name='msg.get_item_list_req.charid', index=1,
+      number=2, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=596,
+  serialized_end=651,
+)
+
+
+_GET_ITEM_LIST_ACK = _descriptor.Descriptor(
+  name='get_item_list_ack',
+  full_name='msg.get_item_list_ack',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='err_code', full_name='msg.get_item_list_ack.err_code', index=0,
+      number=1, type=14, cpp_type=8, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='item_list', full_name='msg.get_item_list_ack.item_list', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=653,
+  serialized_end=740,
+)
+
+
+_GET_SKILL_LIST_REQ = _descriptor.Descriptor(
+  name='get_skill_list_req',
+  full_name='msg.get_skill_list_req',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='auth_token', full_name='msg.get_skill_list_req.auth_token', index=0,
+      number=1, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='charid', full_name='msg.get_skill_list_req.charid', index=1,
+      number=2, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=742,
+  serialized_end=798,
+)
+
+
+_GET_SKILL_LIST_ACK = _descriptor.Descriptor(
+  name='get_skill_list_ack',
+  full_name='msg.get_skill_list_ack',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='err_code', full_name='msg.get_skill_list_ack.err_code', index=0,
+      number=1, type=14, cpp_type=8, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='skill_list', full_name='msg.get_skill_list_ack.skill_list', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=800,
+  serialized_end=890,
+)
+
 _SIGN_UP_ACK.fields_by_name['err_code'].enum_type = msg_error_pb2._ERR_TYPE
 _SIGN_IN_ACK.fields_by_name['err_code'].enum_type = msg_error_pb2._ERR_TYPE
 _CREATE_CHARACTER_ACK.fields_by_name['err_code'].enum_type = msg_error_pb2._ERR_TYPE
 _CREATE_CHARACTER_ACK.fields_by_name['char_list'].message_type = msg_struct_pb2._CHAR_INFO
 _GET_CHAR_LIST_ACK.fields_by_name['err_code'].enum_type = msg_error_pb2._ERR_TYPE
 _GET_CHAR_LIST_ACK.fields_by_name['char_list'].message_type = msg_struct_pb2._CHAR_INFO
+_GET_ITEM_LIST_ACK.fields_by_name['err_code'].enum_type = msg_error_pb2._ERR_TYPE
+_GET_ITEM_LIST_ACK.fields_by_name['item_list'].message_type = msg_struct_pb2._ITEM_INFO
+_GET_SKILL_LIST_ACK.fields_by_name['err_code'].enum_type = msg_error_pb2._ERR_TYPE
+_GET_SKILL_LIST_ACK.fields_by_name['skill_list'].message_type = msg_struct_pb2._SKILL_INFO
 DESCRIPTOR.message_types_by_name['sign_up_req'] = _SIGN_UP_REQ
 DESCRIPTOR.message_types_by_name['sign_up_ack'] = _SIGN_UP_ACK
 DESCRIPTOR.message_types_by_name['sign_in_req'] = _SIGN_IN_REQ
@@ -337,6 +489,10 @@ DESCRIPTOR.message_types_by_name['create_character_req'] = _CREATE_CHARACTER_REQ
 DESCRIPTOR.message_types_by_name['create_character_ack'] = _CREATE_CHARACTER_ACK
 DESCRIPTOR.message_types_by_name['get_char_list_req'] = _GET_CHAR_LIST_REQ
 DESCRIPTOR.message_types_by_name['get_char_list_ack'] = _GET_CHAR_LIST_ACK
+DESCRIPTOR.message_types_by_name['get_item_list_req'] = _GET_ITEM_LIST_REQ
+DESCRIPTOR.message_types_by_name['get_item_list_ack'] = _GET_ITEM_LIST_ACK
+DESCRIPTOR.message_types_by_name['get_skill_list_req'] = _GET_SKILL_LIST_REQ
+DESCRIPTOR.message_types_by_name['get_skill_list_ack'] = _GET_SKILL_LIST_ACK
 
 sign_up_req = _reflection.GeneratedProtocolMessageType('sign_up_req', (_message.Message,), dict(
   DESCRIPTOR = _SIGN_UP_REQ,
@@ -393,6 +549,34 @@ get_char_list_ack = _reflection.GeneratedProtocolMessageType('get_char_list_ack'
   # @@protoc_insertion_point(class_scope:msg.get_char_list_ack)
   ))
 _sym_db.RegisterMessage(get_char_list_ack)
+
+get_item_list_req = _reflection.GeneratedProtocolMessageType('get_item_list_req', (_message.Message,), dict(
+  DESCRIPTOR = _GET_ITEM_LIST_REQ,
+  __module__ = 'msg_packet_data_pb2'
+  # @@protoc_insertion_point(class_scope:msg.get_item_list_req)
+  ))
+_sym_db.RegisterMessage(get_item_list_req)
+
+get_item_list_ack = _reflection.GeneratedProtocolMessageType('get_item_list_ack', (_message.Message,), dict(
+  DESCRIPTOR = _GET_ITEM_LIST_ACK,
+  __module__ = 'msg_packet_data_pb2'
+  # @@protoc_insertion_point(class_scope:msg.get_item_list_ack)
+  ))
+_sym_db.RegisterMessage(get_item_list_ack)
+
+get_skill_list_req = _reflection.GeneratedProtocolMessageType('get_skill_list_req', (_message.Message,), dict(
+  DESCRIPTOR = _GET_SKILL_LIST_REQ,
+  __module__ = 'msg_packet_data_pb2'
+  # @@protoc_insertion_point(class_scope:msg.get_skill_list_req)
+  ))
+_sym_db.RegisterMessage(get_skill_list_req)
+
+get_skill_list_ack = _reflection.GeneratedProtocolMessageType('get_skill_list_ack', (_message.Message,), dict(
+  DESCRIPTOR = _GET_SKILL_LIST_ACK,
+  __module__ = 'msg_packet_data_pb2'
+  # @@protoc_insertion_point(class_scope:msg.get_skill_list_ack)
+  ))
+_sym_db.RegisterMessage(get_skill_list_ack)
 
 
 # @@protoc_insertion_point(module_scope)

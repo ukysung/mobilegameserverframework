@@ -35,8 +35,8 @@ package msg;
     message create_character_req
     {
         required string auth_token = 1;
-        required int32 char_mid = 2;
         required string char_name = 3;
+        required int32 char_mid = 2;
     }
 
     message create_character_ack
@@ -55,5 +55,34 @@ package msg;
         required err_type err_code = 1;
         repeated char_info char_list = 2;
     }
+
+// item
+
+    message get_item_list_req
+    {
+        required string auth_token = 1;
+        required string charid = 2;
+    }
+
+    message get_item_list_ack
+    {
+        required err_type err_code = 1;
+        repeated item_info item_list = 2;
+    }
+
+// skill
  
+    message get_skill_list_req
+    {
+        required string auth_token = 1;
+        required string charid = 2;
+    }
+
+    message get_skill_list_ack
+    {
+        required err_type err_code = 1;
+        repeated skill_info skill_list = 2;
+    }
+
 // end
+

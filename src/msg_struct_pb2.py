@@ -19,7 +19,7 @@ import msg_enum_pb2
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='msg_struct.proto',
   package='msg',
-  serialized_pb=_b('\n\x10msg_struct.proto\x12\x03msg\x1a\x0emsg_enum.proto\"*\n\x07vector3\x12\t\n\x01x\x18\x01 \x02(\x02\x12\t\n\x01y\x18\x02 \x02(\x02\x12\t\n\x01z\x18\x03 \x02(\x02\"\x1b\n\tchar_info\x12\x0e\n\x06\x63harid\x18\x01 \x02(\x04\"<\n\nequip_item\x12\x0e\n\x06itemid\x18\x01 \x02(\x04\x12\x1e\n\x06p_type\x18\x02 \x02(\x0e\x32\x0e.msg.part_type')
+  serialized_pb=_b('\n\x10msg_struct.proto\x12\x03msg\x1a\x0emsg_enum.proto\"*\n\x07vector3\x12\t\n\x01x\x18\x01 \x02(\x02\x12\t\n\x01y\x18\x02 \x02(\x02\x12\t\n\x01z\x18\x03 \x02(\x02\"\x1e\n\tchar_info\x12\x11\n\tchar_name\x18\x01 \x02(\t\"n\n\titem_info\x12\x16\n\x0eitem_inven_seq\x18\x01 \x02(\x04\x12\x17\n\x0fitem_equip_part\x18\x02 \x02(\x05\x12\x10\n\x08item_mid\x18\x03 \x02(\x05\x12\x1e\n\x06p_type\x18\x04 \x02(\x0e\x32\x0e.msg.part_type\"\x1f\n\nskill_info\x12\x11\n\tskill_mid\x18\x01 \x02(\x05')
   ,
   dependencies=[msg_enum_pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -79,9 +79,9 @@ _CHAR_INFO = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='charid', full_name='msg.char_info.charid', index=0,
-      number=1, type=4, cpp_type=4, label=2,
-      has_default_value=False, default_value=0,
+      name='char_name', full_name='msg.char_info.char_name', index=0,
+      number=1, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -97,27 +97,41 @@ _CHAR_INFO = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=85,
-  serialized_end=112,
+  serialized_end=115,
 )
 
 
-_EQUIP_ITEM = _descriptor.Descriptor(
-  name='equip_item',
-  full_name='msg.equip_item',
+_ITEM_INFO = _descriptor.Descriptor(
+  name='item_info',
+  full_name='msg.item_info',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='itemid', full_name='msg.equip_item.itemid', index=0,
+      name='item_inven_seq', full_name='msg.item_info.item_inven_seq', index=0,
       number=1, type=4, cpp_type=4, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='p_type', full_name='msg.equip_item.p_type', index=1,
-      number=2, type=14, cpp_type=8, label=2,
+      name='item_equip_part', full_name='msg.item_info.item_equip_part', index=1,
+      number=2, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='item_mid', full_name='msg.item_info.item_mid', index=2,
+      number=3, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='p_type', full_name='msg.item_info.p_type', index=3,
+      number=4, type=14, cpp_type=8, label=2,
       has_default_value=False, default_value=1,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -133,14 +147,45 @@ _EQUIP_ITEM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=114,
-  serialized_end=174,
+  serialized_start=117,
+  serialized_end=227,
 )
 
-_EQUIP_ITEM.fields_by_name['p_type'].enum_type = msg_enum_pb2._PART_TYPE
+
+_SKILL_INFO = _descriptor.Descriptor(
+  name='skill_info',
+  full_name='msg.skill_info',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='skill_mid', full_name='msg.skill_info.skill_mid', index=0,
+      number=1, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=229,
+  serialized_end=260,
+)
+
+_ITEM_INFO.fields_by_name['p_type'].enum_type = msg_enum_pb2._PART_TYPE
 DESCRIPTOR.message_types_by_name['vector3'] = _VECTOR3
 DESCRIPTOR.message_types_by_name['char_info'] = _CHAR_INFO
-DESCRIPTOR.message_types_by_name['equip_item'] = _EQUIP_ITEM
+DESCRIPTOR.message_types_by_name['item_info'] = _ITEM_INFO
+DESCRIPTOR.message_types_by_name['skill_info'] = _SKILL_INFO
 
 vector3 = _reflection.GeneratedProtocolMessageType('vector3', (_message.Message,), dict(
   DESCRIPTOR = _VECTOR3,
@@ -156,12 +201,19 @@ char_info = _reflection.GeneratedProtocolMessageType('char_info', (_message.Mess
   ))
 _sym_db.RegisterMessage(char_info)
 
-equip_item = _reflection.GeneratedProtocolMessageType('equip_item', (_message.Message,), dict(
-  DESCRIPTOR = _EQUIP_ITEM,
+item_info = _reflection.GeneratedProtocolMessageType('item_info', (_message.Message,), dict(
+  DESCRIPTOR = _ITEM_INFO,
   __module__ = 'msg_struct_pb2'
-  # @@protoc_insertion_point(class_scope:msg.equip_item)
+  # @@protoc_insertion_point(class_scope:msg.item_info)
   ))
-_sym_db.RegisterMessage(equip_item)
+_sym_db.RegisterMessage(item_info)
+
+skill_info = _reflection.GeneratedProtocolMessageType('skill_info', (_message.Message,), dict(
+  DESCRIPTOR = _SKILL_INFO,
+  __module__ = 'msg_struct_pb2'
+  # @@protoc_insertion_point(class_scope:msg.skill_info)
+  ))
+_sym_db.RegisterMessage(skill_info)
 
 
 # @@protoc_insertion_point(module_scope)
