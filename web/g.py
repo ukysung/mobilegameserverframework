@@ -1,6 +1,0 @@
-
-# global
-
-LOG = None
-CFG = {}
-
