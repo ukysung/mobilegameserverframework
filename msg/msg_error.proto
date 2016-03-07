@@ -10,7 +10,9 @@ enum err_type
     err_server_unknown = 10000;
     err_server_unathorized = 10001;
 
-    err_server_user_username_required = 11101;
+// server/user
+
+    err_server_user_userid_required = 11101;
     err_server_user_passwd_required = 11102;
 
 // client
@@ -18,7 +20,9 @@ enum err_type
     err_client_unknown = 20000;
     err_client_unauthorized = 20001;
 
-    err_client_user_username_required = 21101;
+// client/user
+
+    err_client_user_userid_required = 21101;
     err_client_user_passwd_required = 21102;
 
 }
