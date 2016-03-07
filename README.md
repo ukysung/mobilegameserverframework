@@ -8,12 +8,11 @@ mobilegameserver
 * sudo apt-get install sqlite3
 
 * sudo apt-get install python3-pip
-* sudo pip3 install flask
-* sudo pip3 install boto3
 * sudo pip3 install pymysql
 * sudo pip3 install redis
 * sudo pip3 install protobuf==3.0.0-beta-2
 * sudo pip3 install pycrypto
+* sudo pip3 install aiohttp
 
 * sudo apt-get remove pylint --purge
 * sudo apt-get autoremove
