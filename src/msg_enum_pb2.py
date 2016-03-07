@@ -19,10 +19,29 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='msg_enum.proto',
   package='msg',
-  serialized_pb=_b('\n\x0emsg_enum.proto\x12\x03msg*A\n\nactor_type\x12\x0e\n\nact_player\x10\x01\x12\x0f\n\x0b\x61\x63t_monster\x10\x02\x12\x12\n\x0e\x61\x63t_interactor\x10\x03*7\n\x0c\x61\x63tor_status\x12\x0c\n\x08is_alive\x10\x01\x12\x0c\n\x08is_dying\x10\x02\x12\x0b\n\x07is_dead\x10\x03*J\n\tpart_type\x12\x0f\n\x0bpart_weapon\x10\x01\x12\r\n\tpart_head\x10\x03\x12\r\n\tpart_body\x10\x02\x12\x0e\n\npart_wings\x10\x04')
+  serialized_pb=_b('\n\x0emsg_enum.proto\x12\x03msg*\x1e\n\rplatform_type\x12\r\n\tplat_none\x10\x00*A\n\nactor_type\x12\x0e\n\nact_player\x10\x01\x12\x0f\n\x0b\x61\x63t_monster\x10\x02\x12\x12\n\x0e\x61\x63t_interactor\x10\x03*7\n\x0c\x61\x63tor_status\x12\x0c\n\x08is_alive\x10\x01\x12\x0c\n\x08is_dying\x10\x02\x12\x0b\n\x07is_dead\x10\x03*J\n\tpart_type\x12\x0f\n\x0bpart_weapon\x10\x01\x12\r\n\tpart_head\x10\x03\x12\r\n\tpart_body\x10\x02\x12\x0e\n\npart_wings\x10\x04')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
+_PLATFORM_TYPE = _descriptor.EnumDescriptor(
+  name='platform_type',
+  full_name='msg.platform_type',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='plat_none', index=0, number=0,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=23,
+  serialized_end=53,
+)
+_sym_db.RegisterEnumDescriptor(_PLATFORM_TYPE)
+
+platform_type = enum_type_wrapper.EnumTypeWrapper(_PLATFORM_TYPE)
 _ACTOR_TYPE = _descriptor.EnumDescriptor(
   name='actor_type',
   full_name='msg.actor_type',
@@ -44,8 +63,8 @@ _ACTOR_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=23,
-  serialized_end=88,
+  serialized_start=55,
+  serialized_end=120,
 )
 _sym_db.RegisterEnumDescriptor(_ACTOR_TYPE)
 
@@ -71,8 +90,8 @@ _ACTOR_STATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=90,
-  serialized_end=145,
+  serialized_start=122,
+  serialized_end=177,
 )
 _sym_db.RegisterEnumDescriptor(_ACTOR_STATUS)
 
@@ -102,12 +121,13 @@ _PART_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=147,
-  serialized_end=221,
+  serialized_start=179,
+  serialized_end=253,
 )
 _sym_db.RegisterEnumDescriptor(_PART_TYPE)
 
 part_type = enum_type_wrapper.EnumTypeWrapper(_PART_TYPE)
+plat_none = 0
 act_player = 1
 act_monster = 2
 act_interactor = 3
@@ -120,6 +140,7 @@ part_body = 2
 part_wings = 4
 
 
+DESCRIPTOR.enum_types_by_name['platform_type'] = _PLATFORM_TYPE
 DESCRIPTOR.enum_types_by_name['actor_type'] = _ACTOR_TYPE
 DESCRIPTOR.enum_types_by_name['actor_status'] = _ACTOR_STATUS
 DESCRIPTOR.enum_types_by_name['part_type'] = _PART_TYPE

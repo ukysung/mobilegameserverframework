@@ -1,5 +1,6 @@
 
 import "msg_error.proto";
+import "msg_enum.proto";
 import "msg_struct.proto";
 
 package msg;
@@ -8,8 +9,9 @@ package msg;
 
     message sign_up_req
     {
-        required string userid = 1;
-        required string passwd = 2;
+        required platform_type plat_type = 1;
+        required string userid = 2;
+        required string passwd = 3;
     }
 
     message sign_up_ack
@@ -20,8 +22,9 @@ package msg;
 
     message sign_in_req
     {
-        required string userid = 1;
-        required string passwd = 2;
+        required platform_type plat_type = 1;
+        required string userid = 2;
+        required string passwd = 3;
     }
 
     message sign_in_ack

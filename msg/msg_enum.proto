@@ -1,6 +1,11 @@
 
 package msg;
 
+enum platform_type
+{
+    plat_none = 0;
+}
+
 enum actor_type
 {
 	act_player = 1;
