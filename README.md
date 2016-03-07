@@ -1,6 +1,8 @@
 # mobilegameserver
 mobilegameserver
 
+* sudo apt-get install openjdk-7-jre-headless
+
 * sudo apt-get install libprotobuf-dev
 * sudo apt-get install protobuf-compiler
 
