@@ -19,7 +19,7 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='msg_enum.proto',
   package='msg',
-  serialized_pb=_b('\n\x0emsg_enum.proto\x12\x03msg*\x1e\n\rplatform_type\x12\r\n\tplat_none\x10\x00*A\n\nactor_type\x12\x0e\n\nact_player\x10\x01\x12\x0f\n\x0b\x61\x63t_monster\x10\x02\x12\x12\n\x0e\x61\x63t_interactor\x10\x03*7\n\x0c\x61\x63tor_status\x12\x0c\n\x08is_alive\x10\x01\x12\x0c\n\x08is_dying\x10\x02\x12\x0b\n\x07is_dead\x10\x03*J\n\tpart_type\x12\x0f\n\x0bpart_weapon\x10\x01\x12\r\n\tpart_head\x10\x03\x12\r\n\tpart_body\x10\x02\x12\x0e\n\npart_wings\x10\x04')
+  serialized_pb=_b('\n\x0emsg_enum.proto\x12\x03msg*\x1e\n\rplatform_type\x12\r\n\tplat_none\x10\x00*A\n\nactor_type\x12\x0e\n\nact_player\x10\x01\x12\x0f\n\x0b\x61\x63t_monster\x10\x02\x12\x12\n\x0e\x61\x63t_interactor\x10\x03*7\n\x0c\x61\x63tor_status\x12\x0c\n\x08is_alive\x10\x01\x12\x0c\n\x08is_dying\x10\x02\x12\x0b\n\x07is_dead\x10\x03*Y\n\tpart_type\x12\r\n\tpart_none\x10\x00\x12\x0f\n\x0bpart_weapon\x10\x01\x12\r\n\tpart_head\x10\x03\x12\r\n\tpart_body\x10\x02\x12\x0e\n\npart_wings\x10\x04')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -103,26 +103,30 @@ _PART_TYPE = _descriptor.EnumDescriptor(
   file=DESCRIPTOR,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='part_weapon', index=0, number=1,
+      name='part_none', index=0, number=0,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='part_head', index=1, number=3,
+      name='part_weapon', index=1, number=1,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='part_body', index=2, number=2,
+      name='part_head', index=2, number=3,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='part_wings', index=3, number=4,
+      name='part_body', index=3, number=2,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='part_wings', index=4, number=4,
       options=None,
       type=None),
   ],
   containing_type=None,
   options=None,
   serialized_start=179,
-  serialized_end=253,
+  serialized_end=268,
 )
 _sym_db.RegisterEnumDescriptor(_PART_TYPE)
 
@@ -134,6 +138,7 @@ act_interactor = 3
 is_alive = 1
 is_dying = 2
 is_dead = 3
+part_none = 0
 part_weapon = 1
 part_head = 3
 part_body = 2

@@ -6,16 +6,16 @@ package msg;
 
 // character
 
-	message enter_town_req
-	{
-		required int32 town_id = 1;
-	}
+    message enter_town_req
+    {
+        required int32 town_id = 1;
+    }
 
-	message enter_town_ack
-	{
-		required err_type err_code = 1;
-		required vector3 init_pos = 2;
-	}
+    message enter_town_ack
+    {
+        required err_type err_code = 1;
+        required vector3 init_pos = 2;
+    }
 
 // end
 

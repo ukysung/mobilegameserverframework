@@ -8,22 +8,23 @@ enum platform_type
 
 enum actor_type
 {
-	act_player = 1;
-	act_monster = 2;
-	act_interactor = 3;
+    act_player = 1;
+    act_monster = 2;
+    act_interactor = 3;
 }
 
 enum actor_status
 {
-	is_alive = 1;
-	is_dying = 2;
-	is_dead = 3;
+    is_alive = 1;
+    is_dying = 2;
+    is_dead = 3;
 }
 
 enum part_type
 {
-	part_weapon = 1;
-	part_head = 3;
-	part_body = 2;
-	part_wings = 4;
+    part_none = 0;
+    part_weapon = 1;
+    part_head = 3;
+    part_body = 2;
+    part_wings = 4;
 }

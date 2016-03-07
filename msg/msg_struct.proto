@@ -17,14 +17,28 @@ package msg;
     message char_info
     {
         required string char_name = 1;
+        required int32 char_mid = 2;
+        required int32 char_level = 3;
+        required int64 char_exp = 4;
+        required int32 curr_gold = 5;
+        required int32 curr_sera = 6;
+        required int32 equip_weapon = 7;
+        required int32 equip_head = 8;
+        required int32 equip_body = 9;
+        required int32 equip_wings = 10;
+        required int32 skill_slot1 = 11;
+        required int32 skill_slot2 = 12;
+        required int32 skill_slot3 = 13;
+        required int32 skill_slot4 = 14;
+        required int64 last_playtime = 15;
     }
 
 // item
 
     message item_info
     {
-        required uint64 item_inven_seq = 1;
-        required part_type item_equip_part = 2;
+        required uint64 inven_seq = 1;
+        required part_type equip_part = 2;
         required int32 item_mid = 3;
     }
 
