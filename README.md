@@ -15,6 +15,8 @@ mobilegameserver
 * sudo pip3 install protobuf==3.0.0-beta-2
 * sudo pip3 install pycrypto
 * sudo pip3 install aiohttp
+* sudo pip3 install awscli
+* aws configure
 
 * sudo apt-get remove pylint --purge
 * sudo apt-get autoremove

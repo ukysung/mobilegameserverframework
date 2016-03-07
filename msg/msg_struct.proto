@@ -22,15 +22,16 @@ package msg;
         required int64 char_exp = 4;
         required int32 remained_gold = 5;
         required int32 remained_sera = 6;
-        required int32 equip_weapon = 7;
-        required int32 equip_head = 8;
-        required int32 equip_body = 9;
-        required int32 equip_wings = 10;
-        required int32 skill_slot1 = 11;
-        required int32 skill_slot2 = 12;
-        required int32 skill_slot3 = 13;
-        required int32 skill_slot4 = 14;
-        required int64 last_playtime = 15;
+        required int32 remained_skill_point = 7;
+        required int32 equip_weapon = 8;
+        required int32 equip_head = 9;
+        required int32 equip_body = 10;
+        required int32 equip_wings = 11;
+        required int32 skill_slot1 = 12;
+        required int32 skill_slot2 = 13;
+        required int32 skill_slot3 = 14;
+        required int32 skill_slot4 = 15;
+        required int64 last_logintime = 16;
     }
 
 // item
