@@ -8,7 +8,7 @@ package msg;
 
     message sign_up_req
     {
-        required string email = 1;
+        required string userid = 1;
         required string passwd = 2;
     }
 
@@ -20,7 +20,7 @@ package msg;
 
     message sign_in_req
     {
-        required string email = 1;
+        required string userid = 1;
         required string passwd = 2;
     }
 

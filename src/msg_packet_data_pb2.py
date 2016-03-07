@@ -20,7 +20,7 @@ import msg_struct_pb2
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='msg_packet_data.proto',
   package='msg',
-  serialized_pb=_b('\n\x15msg_packet_data.proto\x12\x03msg\x1a\x0fmsg_error.proto\x1a\x10msg_struct.proto\",\n\x0bsign_up_req\x12\r\n\x05\x65mail\x18\x01 \x02(\t\x12\x0e\n\x06passwd\x18\x02 \x02(\t\"B\n\x0bsign_up_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12\x12\n\nauth_token\x18\x02 \x02(\t\",\n\x0bsign_in_req\x12\r\n\x05\x65mail\x18\x01 \x02(\t\x12\x0e\n\x06passwd\x18\x02 \x02(\t\"B\n\x0bsign_in_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12\x12\n\nauth_token\x18\x02 \x02(\t\"O\n\x14\x63reate_character_req\x12\x12\n\nauth_token\x18\x01 \x02(\t\x12\x11\n\tchar_name\x18\x03 \x02(\t\x12\x10\n\x08\x63har_mid\x18\x02 \x02(\x05\"Z\n\x14\x63reate_character_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12!\n\tchar_list\x18\x02 \x03(\x0b\x32\x0e.msg.char_info\"\'\n\x11get_char_list_req\x12\x12\n\nauth_token\x18\x01 \x02(\t\"W\n\x11get_char_list_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12!\n\tchar_list\x18\x02 \x03(\x0b\x32\x0e.msg.char_info\"7\n\x11get_item_list_req\x12\x12\n\nauth_token\x18\x01 \x02(\t\x12\x0e\n\x06\x63harid\x18\x02 \x02(\t\"W\n\x11get_item_list_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12!\n\titem_list\x18\x02 \x03(\x0b\x32\x0e.msg.item_info\"8\n\x12get_skill_list_req\x12\x12\n\nauth_token\x18\x01 \x02(\t\x12\x0e\n\x06\x63harid\x18\x02 \x02(\t\"Z\n\x12get_skill_list_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12#\n\nskill_list\x18\x02 \x03(\x0b\x32\x0f.msg.skill_info')
+  serialized_pb=_b('\n\x15msg_packet_data.proto\x12\x03msg\x1a\x0fmsg_error.proto\x1a\x10msg_struct.proto\"-\n\x0bsign_up_req\x12\x0e\n\x06userid\x18\x01 \x02(\t\x12\x0e\n\x06passwd\x18\x02 \x02(\t\"B\n\x0bsign_up_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12\x12\n\nauth_token\x18\x02 \x02(\t\"-\n\x0bsign_in_req\x12\x0e\n\x06userid\x18\x01 \x02(\t\x12\x0e\n\x06passwd\x18\x02 \x02(\t\"B\n\x0bsign_in_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12\x12\n\nauth_token\x18\x02 \x02(\t\"O\n\x14\x63reate_character_req\x12\x12\n\nauth_token\x18\x01 \x02(\t\x12\x11\n\tchar_name\x18\x03 \x02(\t\x12\x10\n\x08\x63har_mid\x18\x02 \x02(\x05\"Z\n\x14\x63reate_character_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12!\n\tchar_list\x18\x02 \x03(\x0b\x32\x0e.msg.char_info\"\'\n\x11get_char_list_req\x12\x12\n\nauth_token\x18\x01 \x02(\t\"W\n\x11get_char_list_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12!\n\tchar_list\x18\x02 \x03(\x0b\x32\x0e.msg.char_info\"7\n\x11get_item_list_req\x12\x12\n\nauth_token\x18\x01 \x02(\t\x12\x0e\n\x06\x63harid\x18\x02 \x02(\t\"W\n\x11get_item_list_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12!\n\titem_list\x18\x02 \x03(\x0b\x32\x0e.msg.item_info\"8\n\x12get_skill_list_req\x12\x12\n\nauth_token\x18\x01 \x02(\t\x12\x0e\n\x06\x63harid\x18\x02 \x02(\t\"Z\n\x12get_skill_list_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12#\n\nskill_list\x18\x02 \x03(\x0b\x32\x0f.msg.skill_info')
   ,
   dependencies=[msg_error_pb2.DESCRIPTOR,msg_struct_pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -36,7 +36,7 @@ _SIGN_UP_REQ = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='email', full_name='msg.sign_up_req.email', index=0,
+      name='userid', full_name='msg.sign_up_req.userid', index=0,
       number=1, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -61,7 +61,7 @@ _SIGN_UP_REQ = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=65,
-  serialized_end=109,
+  serialized_end=110,
 )
 
 
@@ -97,8 +97,8 @@ _SIGN_UP_ACK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=111,
-  serialized_end=177,
+  serialized_start=112,
+  serialized_end=178,
 )
 
 
@@ -110,7 +110,7 @@ _SIGN_IN_REQ = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='email', full_name='msg.sign_in_req.email', index=0,
+      name='userid', full_name='msg.sign_in_req.userid', index=0,
       number=1, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -134,8 +134,8 @@ _SIGN_IN_REQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=179,
-  serialized_end=223,
+  serialized_start=180,
+  serialized_end=225,
 )
 
 
@@ -171,8 +171,8 @@ _SIGN_IN_ACK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=225,
-  serialized_end=291,
+  serialized_start=227,
+  serialized_end=293,
 )
 
 
@@ -215,8 +215,8 @@ _CREATE_CHARACTER_REQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=293,
-  serialized_end=372,
+  serialized_start=295,
+  serialized_end=374,
 )
 
 
@@ -252,8 +252,8 @@ _CREATE_CHARACTER_ACK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=374,
-  serialized_end=464,
+  serialized_start=376,
+  serialized_end=466,
 )
 
 
@@ -282,8 +282,8 @@ _GET_CHAR_LIST_REQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=466,
-  serialized_end=505,
+  serialized_start=468,
+  serialized_end=507,
 )
 
 
@@ -319,8 +319,8 @@ _GET_CHAR_LIST_ACK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=507,
-  serialized_end=594,
+  serialized_start=509,
+  serialized_end=596,
 )
 
 
@@ -356,8 +356,8 @@ _GET_ITEM_LIST_REQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=596,
-  serialized_end=651,
+  serialized_start=598,
+  serialized_end=653,
 )
 
 
@@ -393,8 +393,8 @@ _GET_ITEM_LIST_ACK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=653,
-  serialized_end=740,
+  serialized_start=655,
+  serialized_end=742,
 )
 
 
@@ -430,8 +430,8 @@ _GET_SKILL_LIST_REQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=742,
-  serialized_end=798,
+  serialized_start=744,
+  serialized_end=800,
 )
 
 
@@ -467,8 +467,8 @@ _GET_SKILL_LIST_ACK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=800,
-  serialized_end=890,
+  serialized_start=802,
+  serialized_end=892,
 )
 
 _SIGN_UP_ACK.fields_by_name['err_code'].enum_type = msg_error_pb2._ERR_TYPE
