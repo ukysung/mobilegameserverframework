@@ -18,11 +18,11 @@ package msg;
     {
         required string char_name = 1;
         required int32 char_mid = 2;
-        required int32 char_level = 3;
-        required int64 char_exp = 4;
-        required int32 remained_gold = 5;
-        required int32 remained_sera = 6;
-        required int32 remained_skill_point = 7;
+        required int32 level = 3;
+        required int64 exp = 4;
+        required int32 gold = 5;
+        required int32 sera = 6;
+        required int32 skill_point = 7;
         required int32 equip_weapon = 8;
         required int32 equip_head = 9;
         required int32 equip_body = 10;

@@ -19,7 +19,7 @@ import msg_enum_pb2
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='msg_struct.proto',
   package='msg',
-  serialized_pb=_b('\n\x10msg_struct.proto\x12\x03msg\x1a\x0emsg_enum.proto\"*\n\x07vector3\x12\t\n\x01x\x18\x01 \x02(\x02\x12\t\n\x01y\x18\x02 \x02(\x02\x12\t\n\x01z\x18\x03 \x02(\x02\"\xe1\x02\n\tchar_info\x12\x11\n\tchar_name\x18\x01 \x02(\t\x12\x10\n\x08\x63har_mid\x18\x02 \x02(\x05\x12\x12\n\nchar_level\x18\x03 \x02(\x05\x12\x10\n\x08\x63har_exp\x18\x04 \x02(\x03\x12\x15\n\rremained_gold\x18\x05 \x02(\x05\x12\x15\n\rremained_sera\x18\x06 \x02(\x05\x12\x1c\n\x14remained_skill_point\x18\x07 \x02(\x05\x12\x14\n\x0c\x65quip_weapon\x18\x08 \x02(\x05\x12\x12\n\nequip_head\x18\t \x02(\x05\x12\x12\n\nequip_body\x18\n \x02(\x05\x12\x13\n\x0b\x65quip_wings\x18\x0b \x02(\x05\x12\x13\n\x0bskill_slot1\x18\x0c \x02(\x05\x12\x13\n\x0bskill_slot2\x18\r \x02(\x05\x12\x13\n\x0bskill_slot3\x18\x0e \x02(\x05\x12\x13\n\x0bskill_slot4\x18\x0f \x02(\x05\x12\x16\n\x0elast_logintime\x18\x10 \x02(\x03\"T\n\titem_info\x12\x11\n\tinven_seq\x18\x01 \x02(\x04\x12\"\n\nequip_part\x18\x02 \x02(\x0e\x32\x0e.msg.part_type\x12\x10\n\x08item_mid\x18\x03 \x02(\x05\"\x1f\n\nskill_info\x12\x11\n\tskill_mid\x18\x01 \x02(\x05')
+  serialized_pb=_b('\n\x10msg_struct.proto\x12\x03msg\x1a\x0emsg_enum.proto\"*\n\x07vector3\x12\t\n\x01x\x18\x01 \x02(\x02\x12\t\n\x01y\x18\x02 \x02(\x02\x12\t\n\x01z\x18\x03 \x02(\x02\"\xbc\x02\n\tchar_info\x12\x11\n\tchar_name\x18\x01 \x02(\t\x12\x10\n\x08\x63har_mid\x18\x02 \x02(\x05\x12\r\n\x05level\x18\x03 \x02(\x05\x12\x0b\n\x03\x65xp\x18\x04 \x02(\x03\x12\x0c\n\x04gold\x18\x05 \x02(\x05\x12\x0c\n\x04sera\x18\x06 \x02(\x05\x12\x13\n\x0bskill_point\x18\x07 \x02(\x05\x12\x14\n\x0c\x65quip_weapon\x18\x08 \x02(\x05\x12\x12\n\nequip_head\x18\t \x02(\x05\x12\x12\n\nequip_body\x18\n \x02(\x05\x12\x13\n\x0b\x65quip_wings\x18\x0b \x02(\x05\x12\x13\n\x0bskill_slot1\x18\x0c \x02(\x05\x12\x13\n\x0bskill_slot2\x18\r \x02(\x05\x12\x13\n\x0bskill_slot3\x18\x0e \x02(\x05\x12\x13\n\x0bskill_slot4\x18\x0f \x02(\x05\x12\x16\n\x0elast_logintime\x18\x10 \x02(\x03\"T\n\titem_info\x12\x11\n\tinven_seq\x18\x01 \x02(\x04\x12\"\n\nequip_part\x18\x02 \x02(\x0e\x32\x0e.msg.part_type\x12\x10\n\x08item_mid\x18\x03 \x02(\x05\"\x1f\n\nskill_info\x12\x11\n\tskill_mid\x18\x01 \x02(\x05')
   ,
   dependencies=[msg_enum_pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -93,35 +93,35 @@ _CHAR_INFO = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='char_level', full_name='msg.char_info.char_level', index=2,
+      name='level', full_name='msg.char_info.level', index=2,
       number=3, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='char_exp', full_name='msg.char_info.char_exp', index=3,
+      name='exp', full_name='msg.char_info.exp', index=3,
       number=4, type=3, cpp_type=2, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='remained_gold', full_name='msg.char_info.remained_gold', index=4,
+      name='gold', full_name='msg.char_info.gold', index=4,
       number=5, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='remained_sera', full_name='msg.char_info.remained_sera', index=5,
+      name='sera', full_name='msg.char_info.sera', index=5,
       number=6, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='remained_skill_point', full_name='msg.char_info.remained_skill_point', index=6,
+      name='skill_point', full_name='msg.char_info.skill_point', index=6,
       number=7, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -202,7 +202,7 @@ _CHAR_INFO = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=86,
-  serialized_end=439,
+  serialized_end=402,
 )
 
 
@@ -245,8 +245,8 @@ _ITEM_INFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=441,
-  serialized_end=525,
+  serialized_start=404,
+  serialized_end=488,
 )
 
 
@@ -275,8 +275,8 @@ _SKILL_INFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=527,
-  serialized_end=558,
+  serialized_start=490,
+  serialized_end=521,
 )
 
 _ITEM_INFO.fields_by_name['equip_part'].enum_type = msg_enum_pb2._PART_TYPE
