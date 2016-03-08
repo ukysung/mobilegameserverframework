@@ -3,7 +3,7 @@ import struct
 import asyncio
 
 import g
-import msg_header
+import msg
 import msg_type_data_pb2
 import msg_struct_pb2
 import msg_error_pb2
@@ -48,10 +48,10 @@ class DataConnection(asyncio.Protocol):
         else:
             msg_header_offset = 0
 
-            while len(self.msg_buffer) >= (msg_header_offset + msg_header.size):
-                msg_body_offset = msg_header_offset + msg_header.size
-                (msg_type, msg_size) = struct.unpack(
-                    'ii', self.msg_buffer[msg_header_offset:msg_body_offset])
+            while len(self.msg_buffer) >= (msg_header_offset + msg.header_size):
+                msg_body_offset = msg_header_offset + msg.header_size
+                (msg_type, msg_size) = msg.unpack_head(
+                    self.msg_buffer[msg_header_offset:msg_body_offset])
 
                 msg_end_offset = msg_body_offset + msg_size
                 if len(self.msg_buffer) < msg_end_offset:

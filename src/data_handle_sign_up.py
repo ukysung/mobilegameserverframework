@@ -3,6 +3,7 @@ import struct
 import asyncio
 
 import g
+import msg
 import msg_type_data_pb2
 import msg_struct_pb2
 import msg_error_pb2
@@ -19,7 +20,6 @@ def handle_sign_up(req_msg_type, req_msg_body):
 
     # do something with db here
 
-    ack_str = ack.SerializeToString()
-    return struct.pack('ii', msg_type_data_pb2.t_sign_up_ack, len(ack_str)) + ack_str
+    return msg.pack(msg_type_data_pb2.t_sign_up_ack, ack)
 g.HANDLERS[msg_type_data_pb2.t_sign_up_req] = handle_sign_up
 
