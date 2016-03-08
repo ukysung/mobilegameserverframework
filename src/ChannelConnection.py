@@ -28,25 +28,25 @@ def handle_messageq():
     asyncio.Task(handle_messageq())
 
 @asyncio.coroutine
-def outgoing_get(outgoing):
+def outgoing_get():
     msgs = []
 
     i = 0
-    while i < 1000 and not outgoing.empty():
+    while i < 1000 and not OUTGOING.empty():
         i += 1
-        msgs.append(outgoing.get())
+        msgs.append(OUTGOING.get())
 
     return msgs
 
 @asyncio.coroutine
-def handle_outgoing(outgoing):
-    msgs = yield from outgoing_get(outgoing)
+def handle_outgoing():
+    msgs = yield from outgoing_get()
     for msg in msgs:
         if msg[0] in CONNS:
             CONNS[msg[0]].transport.write(b'steve:' + msg[2])
 
     time.sleep(3.0 / 1000.0)
-    asyncio.Task(handle_outgoing(outgoing))
+    asyncio.Task(handle_outgoing())
 
 class ChannelConnection(asyncio.Protocol):
     def __init__(self):
@@ -78,7 +78,7 @@ class ChannelConnection(asyncio.Protocol):
 
         self.msg_buffer += data
 
-        if False:
+        if True:
             print('incoming_put_2')
             INCOMING.put([self.conn_id, 1, self.msg_buffer])
             self.msg_buffer = b''

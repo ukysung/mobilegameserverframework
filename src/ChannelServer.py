@@ -84,7 +84,7 @@ def main():
         g.LOG.info('channel_server_%s starting.. port %s',
                    server_seq, g.CFG[server_id]['channel_port'])
         loop.create_task(handle_messageq())
-        loop.create_task(handle_outgoing(OUTGOING))
+        loop.create_task(handle_outgoing())
         loop.run_forever()
 
     except KeyboardInterrupt:
