@@ -11,31 +11,12 @@ import g
 from ChannelConnection import INCOMING, OUTGOING, handle_messageq, handle_outgoing, ChannelConnection
 from Channel import Channel
 
+import config
+import logger
+
 def init_pool():
     signal.signal(signal.SIGINT, signal.SIG_IGN)
     signal.signal(signal.SIGTERM, signal.SIG_IGN)
-
-def get_log_level():
-    if g.CFG['log']['level'] == 'debug':
-        return logging.DEBUG
-    elif g.CFG['log']['level'] == 'info':
-        return logging.INFO
-    elif g.CFG['log']['level'] == 'warn':
-        return logging.WARNING
-    elif g.CFG['log']['level'] == 'error':
-        return logging.ERROR
-    else:
-        return logging.DEBUG
-
-def get_log_rotation():
-    if g.CFG['log']['rotation'] == 'every_minute':
-        return 'M'
-    elif g.CFG['log']['rotation'] == 'hourly':
-        return 'H'
-    elif g.CFG['log']['rotation'] == 'daily':
-        return 'D'
-    else:
-        return 'M'
 
 def main():
     if len(sys.argv) < 3:
@@ -45,22 +26,9 @@ def main():
     phase = sys.argv[1]
     server_seq = sys.argv[2]
 
-    # cfg
-    with open('../cfg/' + phase + '.json', encoding='utf-8') as cfg_file:
-        g.CFG = json.loads(cfg_file.read())
-
-    # log
-
-    log_formatter = logging.Formatter('%(asctime)s,%(levelname)s,%(message)s')
-    log_handler = logging.handlers.TimedRotatingFileHandler(
-        '../log/channel_server_' + server_seq + '.csv', when=get_log_rotation(), interval=1)
-    log_handler.setFormatter(log_formatter)
-
-    g.LOG = logging.getLogger()
-    g.LOG.setLevel(get_log_level())
-    g.LOG.addHandler(log_handler)
-
-    # mst
+    config.load(phase)
+    logger.init('channel', server_seq)
+    #master.load(phase)
 
     # channel
     channel = Channel()

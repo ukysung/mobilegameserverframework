@@ -134,19 +134,21 @@ for f in FILES:
                         if data.text == 'END_OF_DATA':
                             break
 
+                        visible = column_visibilities[column_idx] != 'unlisted'
+
                         if column_idx == 0:
                             data_mid = data.text
                             print(T + data.text + ':{')
 
-                        elif column_types[column_idx] == 'list<varchar(50)>':
+                        elif visible and column_types[column_idx] == 'list<varchar(50)>':
                             print(T + T + "'" + column_names[column_idx] + "':['" +
                                   data.text.replace(';', "', '") + "'],")
 
-                        elif 'list' in column_types[column_idx]:
+                        elif visible and 'list' in column_types[column_idx]:
                             print(T + T + "'" + column_names[column_idx] + "':[" +
                                   data.text.replace(';', ', ') + '],')
 
-                        else:
+                        elif visible:
                             if is_number(column_types[column_idx]):
                                 print(T + T + "'" + column_names[column_idx] + "':" +
                                       data.text + ',')

@@ -5,6 +5,8 @@ import json
 import g
 from ModelUsers import ModelUsers
 
+import config
+
 def main():
     if len(sys.argv) < 2:
         print('Usage: python3 ./create_dynamodb_tables.py develop')
@@ -12,9 +14,7 @@ def main():
 
     phase = sys.argv[1]
  
-    # cfg
-    with open('../cfg/' + phase + '.json', encoding='utf-8') as cfg_file:
-        g.CFG = json.loads(cfg_file.read())
+    config.load(phase)
 
     model_users = ModelUsers()
     #model_users.create()
