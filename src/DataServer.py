@@ -4,6 +4,8 @@ import logging
 import logging.handlers
 import json
 import asyncio
+import asyncio.futures
+import concurrent.futures
 import signal
 
 import g
@@ -23,6 +25,9 @@ def main():
     config.load(phase)
     logger.init('data', server_seq)
     #master.load(phase)
+
+    # process_pool_executor
+    g.P_POOL = concurrent.futures.ProcessPoolExecutor(4)
 
     # data_server
     server_id = 'server' + server_seq

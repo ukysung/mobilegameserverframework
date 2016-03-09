@@ -34,11 +34,7 @@ NS_CELL = NS + 'Cell'
 NS_INDEX = NS + 'Index'
 NS_DATA = NS + 'Data'
 
-print()
 for f in FILES:
-    print('# ' + f)
-    print()
-
     column_visibilities = []
     column_names = []
     column_types = []
@@ -48,7 +44,8 @@ for f in FILES:
 
     for worksheet in root.iter(tag=NS_WORKSHEET):
         name = worksheet.attrib[NS_NAME]
-        print('MST_' + name.upper() + ' = {')
+        fh = open('../src/mst_' + name + '.py', 'w')
+        fh.write('\n# ' + f + '\n\ndata = {\n')
 
         column_visibilities.clear()
         column_names.clear()
@@ -62,19 +59,19 @@ for f in FILES:
         for row in table.iter(tag=NS_ROW):
 
             if row_index == 0: # colum_visibility
-                print(T + '# column_visibility')
+                fh.write(T + '# column_visibility\n')
                 for cell in row.iter(tag=NS_CELL):
                     data = cell.find(NS_DATA)
                     if data is not None and data.text is not None:
                         if data.text == 'END_OF_COLUMNS':
                             break
                         column_visibilities.append(data.text)
-                        print(T + '# ' + T + data.text)
+                        fh.write(T + '# ' + T + data.text + '\n')
 
                 column_len = len(column_visibilities)
 
             elif row_index == 1: # colum_name
-                print(T + '# column_name')
+                fh.write(T + '# column_name\n')
                 column_idx = 0
                 for cell in row.iter(tag=NS_CELL):
                     if column_idx == column_len:
@@ -83,7 +80,7 @@ for f in FILES:
                     data = cell.find(NS_DATA)
                     if data is not None and data.text is not None:
                         column_names.append(data.text)
-                        print(T + '# ' + T + data.text)
+                        fh.write(T + '# ' + T + data.text + '\n')
 
                     column_idx += 1
 
@@ -92,7 +89,7 @@ for f in FILES:
                     sys.exit()
 
             elif row_index == 2: # colum_type
-                print(T + '# column_type')
+                fh.write(T + '# column_type\n')
                 column_idx = 0
                 for cell in row.iter(tag=NS_CELL):
                     if column_idx == column_len:
@@ -101,7 +98,7 @@ for f in FILES:
                     data = cell.find(NS_DATA)
                     if data is not None and data.text is not None:
                         column_types.append(data.text)
-                        print(T + '# ' + T + data.text)
+                        fh.write(T + '# ' + T + data.text + '\n')
 
                     column_idx += 1
 
@@ -114,16 +111,16 @@ for f in FILES:
                 continue
 
             else: # data
-                #print(T + '# data')
+                #fh.write(T + '# data')
                 column_idx = 0
                 data_mid = None
                 for cell in row.iter(tag=NS_CELL):
-                    if NS_INDEX in cell.attrib:
-                        #print(cell.attrib[NS_INDEX])
+                    if data_mid is not None and NS_INDEX in cell.attrib:
+                        #fh.write(cell.attrib[NS_INDEX])
                         cell_attrib_index = int(cell.attrib[NS_INDEX]) - 1
                         while column_idx < cell_attrib_index and column_idx < column_len:
-                            print(T + T + "'" + column_names[column_idx] + "':" +
-                                  str(default_value(column_types[column_idx])) + ',')
+                            fh.write(T + T + "'" + column_names[column_idx] + "':" +
+                                  str(default_value(column_types[column_idx])) + ',\n')
                             column_idx += 1
 
                     if column_idx == column_len:
@@ -138,32 +135,32 @@ for f in FILES:
 
                         if column_idx == 0:
                             data_mid = data.text
-                            print(T + data.text + ':{')
+                            fh.write(T + data.text + ':{\n')
 
                         elif visible and column_types[column_idx] == 'list<varchar(50)>':
-                            print(T + T + "'" + column_names[column_idx] + "':['" +
-                                  data.text.replace(';', "', '") + "'],")
+                            fh.write(T + T + "'" + column_names[column_idx] + "':['" +
+                                  data.text.replace(';', "', '") + "'],\n")
 
                         elif visible and 'list' in column_types[column_idx]:
-                            print(T + T + "'" + column_names[column_idx] + "':[" +
-                                  data.text.replace(';', ', ') + '],')
+                            fh.write(T + T + "'" + column_names[column_idx] + "':[" +
+                                  data.text.replace(';', ', ') + '],\n')
 
                         elif visible:
                             if is_number(column_types[column_idx]):
-                                print(T + T + "'" + column_names[column_idx] + "':" +
-                                      data.text + ',')
+                                fh.write(T + T + "'" + column_names[column_idx] + "':" +
+                                      data.text + ',\n')
 
                             else:
-                                print(T + T + "'" + column_names[column_idx] + "':'" +
-                                      data.text + "',")
+                                fh.write(T + T + "'" + column_names[column_idx] + "':'" +
+                                      data.text + "',\n")
 
                     column_idx += 1
 
                 if column_idx == column_len:
-                    print(T + '},')
+                    fh.write(T + '},\n')
 
             row_index += 1
 
-        print('}')
-        print()
+        fh.write('}\n')
+        fh.close()
 

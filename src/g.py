@@ -4,7 +4,7 @@
 LOG = None
 CFG = {}
 MST = {}
-POOL = None
+P_POOL = None
 CONN_ID = 0
 HANDLERS = {}
 

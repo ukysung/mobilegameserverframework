@@ -19,7 +19,7 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='msg_type_data.proto',
   package='msg',
-  serialized_pb=_b('\n\x13msg_type_data.proto\x12\x03msg*\xc9\x01\n\ttype_data\x12\x12\n\rt_sign_up_req\x10\xf9U\x12\x12\n\rt_sign_up_ack\x10\xfaU\x12\x12\n\rt_sign_in_req\x10\xddV\x12\x12\n\rt_sign_in_ack\x10\xdeV\x12\x1b\n\x16t_create_character_req\x10\xc1W\x12\x1b\n\x16t_create_character_ack\x10\xc2W\x12\x18\n\x13t_get_char_list_req\x10\xa5X\x12\x18\n\x13t_get_char_list_ack\x10\xa6X')
+  serialized_pb=_b('\n\x13msg_type_data.proto\x12\x03msg*\xc9\x01\n\ttype_data\x12\x12\n\rt_sign_up_req\x10\xddV\x12\x12\n\rt_sign_up_ack\x10\xdeV\x12\x12\n\rt_sign_in_req\x10\xdfV\x12\x12\n\rt_sign_in_ack\x10\xe0V\x12\x1b\n\x16t_create_character_req\x10\xc1W\x12\x1b\n\x16t_create_character_ack\x10\xc2W\x12\x18\n\x13t_get_char_list_req\x10\xc3W\x12\x18\n\x13t_get_char_list_ack\x10\xc4W')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -30,19 +30,19 @@ _TYPE_DATA = _descriptor.EnumDescriptor(
   file=DESCRIPTOR,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='t_sign_up_req', index=0, number=11001,
+      name='t_sign_up_req', index=0, number=11101,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='t_sign_up_ack', index=1, number=11002,
+      name='t_sign_up_ack', index=1, number=11102,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='t_sign_in_req', index=2, number=11101,
+      name='t_sign_in_req', index=2, number=11103,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='t_sign_in_ack', index=3, number=11102,
+      name='t_sign_in_ack', index=3, number=11104,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
@@ -54,11 +54,11 @@ _TYPE_DATA = _descriptor.EnumDescriptor(
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='t_get_char_list_req', index=6, number=11301,
+      name='t_get_char_list_req', index=6, number=11203,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='t_get_char_list_ack', index=7, number=11302,
+      name='t_get_char_list_ack', index=7, number=11204,
       options=None,
       type=None),
   ],
@@ -70,14 +70,14 @@ _TYPE_DATA = _descriptor.EnumDescriptor(
 _sym_db.RegisterEnumDescriptor(_TYPE_DATA)
 
 type_data = enum_type_wrapper.EnumTypeWrapper(_TYPE_DATA)
-t_sign_up_req = 11001
-t_sign_up_ack = 11002
-t_sign_in_req = 11101
-t_sign_in_ack = 11102
+t_sign_up_req = 11101
+t_sign_up_ack = 11102
+t_sign_in_req = 11103
+t_sign_in_ack = 11104
 t_create_character_req = 11201
 t_create_character_ack = 11202
-t_get_char_list_req = 11301
-t_get_char_list_ack = 11302
+t_get_char_list_req = 11203
+t_get_char_list_ack = 11204
 
 
 DESCRIPTOR.enum_types_by_name['type_data'] = _TYPE_DATA

@@ -3,15 +3,20 @@ package msg;
 
 enum type_data
 {
-    t_sign_up_req = 11001;
-    t_sign_up_ack = 11002;
 
-    t_sign_in_req = 11101;
-    t_sign_in_ack = 11102;
+// user (11)
+
+    t_sign_up_req = 11101;
+    t_sign_up_ack = 11102;
+
+    t_sign_in_req = 11103;
+    t_sign_in_ack = 11104;
+
+// character (12) 
 
     t_create_character_req = 11201;
     t_create_character_ack = 11202;
 
-    t_get_char_list_req = 11301;
-    t_get_char_list_ack = 11302;
+    t_get_char_list_req = 11203;
+    t_get_char_list_ack = 11204;
 }
