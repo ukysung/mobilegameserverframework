@@ -1,5 +1,4 @@
 
-import time
 import struct
 import multiprocessing
 import asyncio
@@ -24,7 +23,7 @@ def handle_messageq():
     for msg in msgs:
         INCOMING.put(msgs)
 
-    time.sleep(3.0 / 1000.0)
+    asyncio.sleep(3.0 / 1000.0)
     asyncio.Task(handle_messageq())
 
 @asyncio.coroutine
@@ -45,7 +44,7 @@ def handle_outgoing():
         if msg[0] in CONNS:
             CONNS[msg[0]].transport.write(b'steve:' + msg[2])
 
-    time.sleep(3.0 / 1000.0)
+    asyncio.sleep(3.0 / 1000.0)
     asyncio.Task(handle_outgoing())
 
 class ChannelConnection(asyncio.Protocol):
