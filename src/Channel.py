@@ -11,10 +11,6 @@ from channel_handle_message_no_1 import handle_message_no_1
 CHANNEL_ADD_PLAYER = -1
 CHANNEL_REMOVE_PLAYER = -2
 
-HANDLERS = {
-    1:handle_message_no_1,
-}
-
 class Channel:
     def __init__(self):
         signal.signal(signal.SIGINT, self.stop)
@@ -63,8 +59,8 @@ class Channel:
                 else:
                     print(req_msg_type)
                     print('else')
-                    if req_msg_type in HANDLERS:
-                        (conn_id, ack_msg_type, ack_msg_body, broadcast) = HANDLERS[req_msg_type](
+                    if req_msg_type in g.HANDLERS:
+                        (conn_id, ack_msg_type, ack_msg_body, broadcast) = g.HANDLERS[req_msg_type](
                             conn_id, req_msg_type, req_msg_body)
 
                     if broadcast:
