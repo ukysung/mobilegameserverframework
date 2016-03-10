@@ -104,22 +104,26 @@
 
             "data_port" : 51000,
             "data_timeout_sec" : 1800,
+            "data_process_pool_size" : 4,
 
             "channel_port" : 52000,
-            "channel_timeout_sec" : 600
+            "channel_timeout_sec" : 600,
+            "channel_process_pool_size" : 3
         },
 
         "server01":
         {
             "address" : "127.0.0.1",
 
-            "http_port" : 51001,
+            "http_port" : 50001,
 
             "data_port" : 51001,
             "data_timeout_sec" : 1800,
+            "data_process_pool_size" : 4,
 
             "channel_port" : 52001,
-            "channel_timeout_sec" : 600
+            "channel_timeout_sec" : 600,
+            "channel_process_pool_size" : 3
         },
 
     "//end" : 0

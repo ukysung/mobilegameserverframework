@@ -26,11 +26,10 @@ def main():
     logger.init('data', server_seq)
     #master.load(phase)
 
-    # process_pool_executor
-    g.P_POOL = concurrent.futures.ProcessPoolExecutor(4)
-
     # data_server
     server_id = 'server' + server_seq
+
+    g.P_POOL = concurrent.futures.ProcessPoolExecutor(g.CFG[server_id]['data_process_pool_size'])
 
     loop = asyncio.get_event_loop()
     loop.add_signal_handler(signal.SIGINT, loop.stop)

@@ -4,11 +4,14 @@ import logging.handlers
 import json
 import multiprocessing
 import asyncio
+import asyncio.futures
+import concurrent.futures
 import sys
 import signal
 
 import g
-from ChannelConnection import INCOMING, OUTGOING, handle_messageq, handle_outgoing, ChannelConnection
+from ChannelConnection import INCOMING, OUTGOING, handle_messageq, handle_outgoing
+from ChannelConnection import ChannelConnection
 from Channel import Channel
 
 import config
@@ -37,6 +40,8 @@ def main():
 
     # channel_server
     server_id = 'server' + server_seq
+
+    g.P_POOL = concurrent.futures.ProcessPoolExecutor(g.CFG[server_id]['channel_process_pool_size'])
 
     loop = asyncio.get_event_loop()
     loop.add_signal_handler(signal.SIGINT, loop.stop)

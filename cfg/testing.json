@@ -104,9 +104,11 @@
 
             "data_port" : 31000,
             "data_timeout_sec" : 1800,
+            "data_process_pool_size" : 4,
 
             "channel_port" : 32000,
-            "channel_timeout_sec" : 600
+            "channel_timeout_sec" : 600,
+            "channel_process_pool_size" : 3
         },
 
         "server01":
@@ -117,9 +119,11 @@
 
             "data_port" : 31001,
             "data_timeout_sec" : 1800,
+            "data_process_pool_size" : 4,
 
             "channel_port" : 32001,
-            "channel_timeout_sec" : 600
+            "channel_timeout_sec" : 600,
+            "channel_process_pool_size" : 3
         },
 
     "//end" : 0
