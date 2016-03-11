@@ -30,7 +30,7 @@ class Channel:
 
     def run(self, incoming, outgoing):
         while self.is_running:
-            time.sleep(3.0 / 1000.0)
+            time.sleep(0.001)
 
             self.curr_time = time.time()
             self.delta_time = (self.curr_time - self.last_time) * 1000
