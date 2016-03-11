@@ -16,37 +16,28 @@ OUTGOING = multiprocessing.Queue()
 @asyncio.coroutine
 def messageq_get():
     # redis pub/sub ..
-    return []
+    return None
 
 @asyncio.coroutine
 def handle_messageq():
-    msgs = yield from messageq_get()
-    for msg in msgs:
-        INCOMING.put(msgs)
-
-    yield from asyncio.sleep(0.001)
-    asyncio.Task(handle_messageq())
+    while True:
+        msg = yield from messageq_get()
+        INCOMING.put(msg)
 
 @asyncio.coroutine
 def outgoing_get():
-    msgs = []
-
-    i = 0
-    while i < 1000 and not OUTGOING.empty():
-        i += 1
-        msgs.append(OUTGOING.get())
-
-    return msgs
+    return OUTGOING.get()
 
 @asyncio.coroutine
 def handle_outgoing():
-    msgs = yield from outgoing_get()
-    for msg in msgs:
+    while True:
+        if OUTGOING.empty():
+            yield from asyncio.sleep(0.001)
+            continue
+
+        msg = yield from outgoing_get()
         if msg[0] in CONNS:
             CONNS[msg[0]].transport.write(b'steve:' + msg[2])
-
-    yield from asyncio.sleep(0.001)
-    asyncio.Task(handle_outgoing())
 
 class ChannelConnection(asyncio.Protocol):
     def __init__(self):
