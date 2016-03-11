@@ -22,11 +22,11 @@ class DataConnection(asyncio.Protocol):
 
     @asyncio.coroutine
     def handle_received(self, req_msg_type, req_msg_body):
-        if req_msg_type not in g.HANDLERS:
+        if req_msg_type not in g.DATA_HANDLERS:
             g.LOG.error('handler for %s is not imported to DataConnection', req_msg_type)
             return
 
-        ack = yield from g.HANDLERS[req_msg_type](req_msg_type, req_msg_body)
+        ack = yield from g.DATA_HANDLERS[req_msg_type](req_msg_type, req_msg_body)
         self.transport.write(ack)
 
     def connection_made(self, transport):

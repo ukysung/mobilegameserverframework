@@ -1,8 +1,8 @@
 
 import sys
+import json
 import logging
 import logging.handlers
-import json
 import asyncio
 import asyncio.futures
 import concurrent.futures
@@ -28,7 +28,6 @@ def main():
 
     # data_server
     server_id = 'server' + server_seq
-
     g.P_POOL = concurrent.futures.ProcessPoolExecutor(g.CFG[server_id]['data_process_pool_size'])
 
     loop = asyncio.get_event_loop()
@@ -51,6 +50,8 @@ def main():
     data_server.close()
     loop.run_until_complete(data_server.wait_closed())
     loop.close()
+
+    g.P_POOL.shutdown()
 
 if __name__ == '__main__':
     main()

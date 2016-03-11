@@ -10,6 +10,7 @@ from Channel import CHANNEL_ADD_PLAYER, CHANNEL_REMOVE_PLAYER
 CONNS = {}
 
 INCOMING = multiprocessing.Queue()
+INTERNAL = multiprocessing.Queue()
 OUTGOING = multiprocessing.Queue()
 
 @asyncio.coroutine
@@ -23,7 +24,7 @@ def handle_messageq():
     for msg in msgs:
         INCOMING.put(msgs)
 
-    asyncio.sleep(3.0 / 1000.0)
+    yield from asyncio.sleep(0.001)
     asyncio.Task(handle_messageq())
 
 @asyncio.coroutine
@@ -44,7 +45,7 @@ def handle_outgoing():
         if msg[0] in CONNS:
             CONNS[msg[0]].transport.write(b'steve:' + msg[2])
 
-    asyncio.sleep(3.0 / 1000.0)
+    yield from asyncio.sleep(0.001)
     asyncio.Task(handle_outgoing())
 
 class ChannelConnection(asyncio.Protocol):

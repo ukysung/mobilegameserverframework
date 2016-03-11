@@ -21,5 +21,5 @@ def handle_sign_up(req_msg_type, req_msg_body):
     # do something with db here
 
     return msg.pack(msg_type_data_pb2.t_sign_up_ack, ack)
-g.HANDLERS[msg_type_data_pb2.t_sign_up_req] = handle_sign_up
+g.DATA_HANDLERS[msg_type_data_pb2.t_sign_up_req] = handle_sign_up
 

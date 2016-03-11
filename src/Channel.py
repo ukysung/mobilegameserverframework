@@ -28,7 +28,7 @@ class Channel:
         self.delta_time = 0
         self.last_time = 0
 
-    def run(self, incoming, outgoing):
+    def run(self, incoming, internal, outgoing):
         while self.is_running:
             time.sleep(0.001)
 
@@ -59,9 +59,9 @@ class Channel:
                 else:
                     print(req_msg_type)
                     print('else')
-                    if req_msg_type in g.HANDLERS:
-                        (conn_id, ack_msg_type, ack_msg_body, broadcast) = g.HANDLERS[req_msg_type](
-                            conn_id, req_msg_type, req_msg_body)
+                    if req_msg_type in g.CHANNEL_HANDLERS:
+                        (conn_id, ack_msg_type, ack_msg_body, broadcast) = \
+                            g.CHANNEL_HANDLERS[req_msg_type](conn_id, req_msg_type, req_msg_body)
 
                     if broadcast:
                         area_id = self.players[conn_id].area_id

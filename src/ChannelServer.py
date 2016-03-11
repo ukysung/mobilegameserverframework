@@ -10,7 +10,8 @@ import sys
 import signal
 
 import g
-from ChannelConnection import INCOMING, OUTGOING, handle_messageq, handle_outgoing
+from ChannelConnection import INCOMING, INTERNAL, OUTGOING
+from ChannelConnection import handle_messageq, handle_outgoing
 from ChannelConnection import ChannelConnection
 from Channel import Channel
 
@@ -35,12 +36,11 @@ def main():
 
     # channel
     channel = Channel()
-    process = multiprocessing.Process(target=channel.run, args=(INCOMING, OUTGOING))
+    process = multiprocessing.Process(target=channel.run, args=(INCOMING, INTERNAL, OUTGOING))
     process.start()
 
     # channel_server
     server_id = 'server' + server_seq
-
     g.P_POOL = concurrent.futures.ProcessPoolExecutor(g.CFG[server_id]['channel_process_pool_size'])
 
     loop = asyncio.get_event_loop()
@@ -56,7 +56,8 @@ def main():
     try:
         g.LOG.info('channel_server_%s starting.. port %s',
                    server_seq, g.CFG[server_id]['channel_port'])
-        loop.create_task(handle_messageq())
+        #loop.create_task(handle_messageq())
+        #loop.create_task(handle_internal())
         loop.create_task(handle_outgoing())
         loop.run_forever()
 
@@ -69,7 +70,9 @@ def main():
     loop.close()
 
     INCOMING.close()
+    INTERNAL.close()
     OUTGOING.close()
+    g.P_POOL.shutdown()
 
     process.join()
 
