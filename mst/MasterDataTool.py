@@ -47,8 +47,8 @@ for f in FILES:
     tree = cET.parse(join(PATH, f))
     root = tree.getroot()
 
-    mst_dict = {}
     for worksheet in root.iter(tag=NS_WORKSHEET):
+        mst_dict = {}
         name = worksheet.attrib[NS_NAME]
 
         column_visibilities.clear()
