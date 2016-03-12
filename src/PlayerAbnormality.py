@@ -4,5 +4,5 @@ class PlayerAbnormality:
         self.player = player
 
     @classmethod
-    def run(self, delta_time):
+    def run(cls, delta_time):
         pass

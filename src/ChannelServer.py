@@ -1,26 +1,18 @@
 
-import logging
-import logging.handlers
-import json
+import sys
 import multiprocessing
 import asyncio
-import asyncio.futures
 import concurrent.futures
-import sys
 import signal
 
 import g
 from ChannelConnection import INCOMING, INTERNAL, OUTGOING
-from ChannelConnection import handle_messageq, handle_outgoing
+from ChannelConnection import handle_internal, handle_outgoing
 from ChannelConnection import ChannelConnection
 from Channel import Channel
 
 import config
 import logger
-
-def init_pool():
-    signal.signal(signal.SIGINT, signal.SIG_IGN)
-    signal.signal(signal.SIGTERM, signal.SIG_IGN)
 
 def main():
     if len(sys.argv) < 3:
@@ -56,8 +48,7 @@ def main():
     try:
         g.LOG.info('channel_server_%s starting.. port %s',
                    server_seq, g.CFG[server_id]['channel_port'])
-        #loop.create_task(handle_messageq())
-        #loop.create_task(handle_internal())
+        loop.create_task(handle_internal())
         loop.create_task(handle_outgoing())
         loop.run_forever()
 

@@ -48,8 +48,8 @@ class DataConnection(asyncio.Protocol):
         else:
             msg_header_offset = 0
 
-            while len(self.msg_buffer) >= (msg_header_offset + msg.header_size):
-                msg_body_offset = msg_header_offset + msg.header_size
+            while len(self.msg_buffer) >= (msg_header_offset + msg.HEADER_SIZE):
+                msg_body_offset = msg_header_offset + msg.HEADER_SIZE
                 (msg_type, msg_size) = msg.unpack_head(
                     self.msg_buffer[msg_header_offset:msg_body_offset])
 

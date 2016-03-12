@@ -2,7 +2,6 @@
 import sys
 import json
 
-import g
 from ModelUsers import ModelUsers
 
 import config
@@ -13,7 +12,7 @@ def main():
         sys.exit()
 
     phase = sys.argv[1]
- 
+
     config.load(phase)
 
     model_users = ModelUsers()

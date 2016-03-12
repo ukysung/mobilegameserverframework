@@ -10,7 +10,7 @@ class Monster:
     def __init__(self, area_id):
         self.area_id = area_id
         self.attr = MonsterAttribute(self)
-        self.ai = MonsterAttribute(self)
+        self.ai = MonsterAI(self)
         self.move = MonsterMovement(self)
         self.skill = MonsterSkill(self)
         self.action = MonsterAction(self)

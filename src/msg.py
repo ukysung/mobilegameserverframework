@@ -1,15 +1,13 @@
 
 import struct
 
-'''
-struct
-{
-	int32_t msg_type; // 4 bytes
-	int32_t msg_size; // 4 bytes
-}
-// totally 8 bytes
-'''
-header_size = 8
+#struct
+#{
+#	int32_t msg_type; // 4 bytes
+#	int32_t msg_size; // 4 bytes
+#}
+# totally 8 bytes
+HEADER_SIZE = 8
 
 def unpack_head(msg_head):
     return struct.unpack('ii', msg_head)

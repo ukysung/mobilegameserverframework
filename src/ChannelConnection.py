@@ -1,5 +1,4 @@
 
-import struct
 import multiprocessing
 import asyncio
 
@@ -14,15 +13,18 @@ INTERNAL = multiprocessing.Queue()
 OUTGOING = multiprocessing.Queue()
 
 @asyncio.coroutine
-def messageq_get():
-    # redis pub/sub ..
-    return None
+def internal_get():
+    return INTERNAL.get()
 
 @asyncio.coroutine
-def handle_messageq():
+def handle_internal():
     while True:
-        msg = yield from messageq_get()
-        INCOMING.put(msg)
+        if INTERNAL.empty():
+            yield from asyncio.sleep(0.001)
+            continue
+
+        msg_ = yield from internal_get()
+        OUTGOING.put(msg_)
 
 @asyncio.coroutine
 def outgoing_get():
@@ -35,9 +37,9 @@ def handle_outgoing():
             yield from asyncio.sleep(0.001)
             continue
 
-        msg = yield from outgoing_get()
-        if msg[0] in CONNS:
-            CONNS[msg[0]].transport.write(b'steve:' + msg[2])
+        msg_ = yield from outgoing_get()
+        if msg_[0] in CONNS:
+            CONNS[msg_[0]].transport.write(b'steve:' + msg_[2])
 
 class ChannelConnection(asyncio.Protocol):
     def __init__(self):
@@ -77,8 +79,8 @@ class ChannelConnection(asyncio.Protocol):
         else:
             msg_header_offset = 0
 
-            while len(self.msg_buffer) >= (msg_header_offset + msg.header_size):
-                msg_body_offset = msg_header_offset + msg.header_size
+            while len(self.msg_buffer) >= (msg_header_offset + msg.HEADER_SIZE):
+                msg_body_offset = msg_header_offset + msg.HEADER_SIZE
                 (msg_type, msg_size) = msg.unpack_head(
                     self.msg_buffer[msg_header_offset:msg_body_offset])
 

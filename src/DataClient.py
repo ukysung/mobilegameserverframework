@@ -1,6 +1,5 @@
 
 import sys
-import struct
 import asyncio
 
 import msg
@@ -28,11 +27,11 @@ def handle_sign_up_ack(msg_body):
     ack.ParseFromString(msg_body)
     print(3)
 
-    print('auth_token:' +ack.auth_token)
+    print('auth_token:' + ack.auth_token)
 HANDLERS.append(handle_sign_up_ack)
 
 @asyncio.coroutine
-def DataClient(host, port):
+def data_client(host, port):
     reader, writer = yield from asyncio.open_connection(host, port)
 
     i = 0
@@ -41,7 +40,7 @@ def DataClient(host, port):
     writer.write(HANDLERS[i]())
 
     while True:
-        msg_head = yield from reader.read(msg.header_size)
+        msg_head = yield from reader.read(msg.HEADER_SIZE)
         (msg_type, msg_size) = msg.unpack_head(msg_head)
 
         msg_body = yield from reader.read(msg_size)
@@ -69,7 +68,7 @@ def main():
     loop = asyncio.get_event_loop()
 
     try:
-        loop.run_until_complete(DataClient(host, port))
+        loop.run_until_complete(data_client(host, port))
 
     except KeyboardInterrupt:
         pass

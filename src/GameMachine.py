@@ -4,5 +4,5 @@ class GameMachine:
         pass
 
     @classmethod
-    def run(self, delta_time):
+    def run(cls, delta_time):
         pass
