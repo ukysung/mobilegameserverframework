@@ -30,6 +30,7 @@ def main():
 
     phase = sys.argv[1]
     server_seq = sys.argv[2]
+    server_id = 'server' + server_seq
 
     config.load(phase)
     logger.init('web_app', server_seq)
@@ -42,7 +43,7 @@ def main():
     app.router.add_route('GET', '/{name}', handle_index)
     app.router.add_route('GET', '/', handle_index)
 
-    run_app(app, port=g.CFG['server' + server_seq]['http_port'])
+    run_app(app, port=g.CFG[server_id]['http_port'])
 
 if __name__ == '__main__':
     main()

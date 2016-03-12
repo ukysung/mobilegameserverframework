@@ -6,7 +6,6 @@ import concurrent.futures
 import signal
 
 import g
-from ChannelConnection import INCOMING, INTERNAL, OUTGOING
 from ChannelConnection import handle_internal, handle_outgoing
 from ChannelConnection import ChannelConnection
 from Channel import Channel
@@ -21,23 +20,30 @@ def main():
 
     phase = sys.argv[1]
     server_seq = sys.argv[2]
+    server_id = 'server' + server_seq
 
     config.load(phase)
     logger.init('channel', server_seq)
     #master.load(phase)
 
+    # queues and pool
+    g.INCOMING = multiprocessing.Queue()
+    g.INTERNAL = multiprocessing.Queue()
+    g.OUTGOING = multiprocessing.Queue()
+    g.PROCPOOL = concurrent.futures.ProcessPoolExecutor(g.CFG[server_id]['channel_process_pool_size'])
+
     # channel
     channel = Channel()
-    process = multiprocessing.Process(target=channel.run, args=(INCOMING, INTERNAL, OUTGOING))
+    process = multiprocessing.Process(target=channel.run, args=())
     process.start()
 
     # channel_server
-    server_id = 'server' + server_seq
-    g.P_POOL = concurrent.futures.ProcessPoolExecutor(g.CFG[server_id]['channel_process_pool_size'])
-
     loop = asyncio.get_event_loop()
     loop.add_signal_handler(signal.SIGINT, loop.stop)
     loop.add_signal_handler(signal.SIGTERM, loop.stop)
+
+    loop.create_task(handle_internal())
+    loop.create_task(handle_outgoing())
 
     coro = loop.create_server(ChannelConnection, port=g.CFG[server_id]['channel_port'])
     channel_server = loop.run_until_complete(coro)
@@ -48,22 +54,19 @@ def main():
     try:
         g.LOG.info('channel_server_%s starting.. port %s',
                    server_seq, g.CFG[server_id]['channel_port'])
-        loop.create_task(handle_internal())
-        loop.create_task(handle_outgoing())
         loop.run_forever()
 
     except KeyboardInterrupt:
         g.LOG.info('keyboard interrupt..')
 
     channel_server.close()
-
     loop.run_until_complete(channel_server.wait_closed())
     loop.close()
 
-    INCOMING.close()
-    INTERNAL.close()
-    OUTGOING.close()
-    g.P_POOL.shutdown()
+    g.INCOMING.close()
+    g.INTERNAL.close()
+    g.OUTGOING.close()
+    g.PROCPOOL.shutdown()
 
     process.join()
 

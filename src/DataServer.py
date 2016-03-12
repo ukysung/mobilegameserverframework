@@ -18,15 +18,16 @@ def main():
 
     phase = sys.argv[1]
     server_seq = sys.argv[2]
+    server_id = 'server' + server_seq
 
     config.load(phase)
     logger.init('data', server_seq)
     #master.load(phase)
 
-    # data_server
-    server_id = 'server' + server_seq
-    g.P_POOL = concurrent.futures.ProcessPoolExecutor(g.CFG[server_id]['data_process_pool_size'])
+    # pool
+    g.PROCPOOL = concurrent.futures.ProcessPoolExecutor(g.CFG[server_id]['data_process_pool_size'])
 
+    # data_server
     loop = asyncio.get_event_loop()
     loop.add_signal_handler(signal.SIGINT, loop.stop)
     loop.add_signal_handler(signal.SIGTERM, loop.stop)
@@ -48,7 +49,7 @@ def main():
     loop.run_until_complete(data_server.wait_closed())
     loop.close()
 
-    g.P_POOL.shutdown()
+    g.PROCPOOL.shutdown()
 
 if __name__ == '__main__':
     main()

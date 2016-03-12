@@ -28,7 +28,7 @@ class Channel:
         self.delta_time = 0
         self.last_time = 0
 
-    def run(self, incoming, internal, outgoing):
+    def run(self):
         while self.is_running:
             time.sleep(0.001)
 
@@ -36,11 +36,11 @@ class Channel:
             self.delta_time = (self.curr_time - self.last_time) * 1000
 
             i = 0
-            while i < self.get_max and not incoming.empty():
+            while i < self.get_max and not g.INCOMING.empty():
                 i += 1
 
                 print('incoming_get')
-                (conn_id, req_msg_type, req_msg_body) = incoming.get()
+                (conn_id, req_msg_type, req_msg_body) = g.INCOMING.get()
                 print(conn_id)
                 print(req_msg_type)
                 print(req_msg_body)
@@ -60,16 +60,19 @@ class Channel:
                     print(req_msg_type)
                     print('else')
                     if req_msg_type in g.CHANNEL_HANDLERS:
-                        (conn_id, ack_msg_type, ack_msg_body, broadcast) = \
+                        (conn_id, ack_msg_type, ack_msg_body, to) = \
                             g.CHANNEL_HANDLERS[req_msg_type](conn_id, req_msg_type, req_msg_body)
 
-                    if broadcast:
+                    if to == g.TO_ME:
+                        g.OUTGOING.put([conn_id, ack_msg_type, ack_msg_body])
+
+                    if to == g.TO_ALL:
                         area_id = self.players[conn_id].area_id
                         for player_conn_id in self.areas[area_id].player_conn_ids:
-                            outgoing.put([player_conn_id, ack_msg_type, ack_msg_body])
+                            g.OUTGOING.put([player_conn_id, ack_msg_type, ack_msg_body])
 
-                    else:
-                        outgoing.put([conn_id, ack_msg_type, ack_msg_body])
+                    elif to == g.TO_DATA:
+                        g.INTERNAL.put([player_conn_id, ack_msg_type, ack_msg_body])
 
             for player in self.players.values():
                 player.run(self.delta_time)
@@ -81,4 +84,8 @@ class Channel:
 
     def stop(self, signal_num, frame_obj):
         self.is_running = False
+
+        # poison pill
+        g.INTERNAL.put(None)
+        g.OUTGOING.put(None)
 

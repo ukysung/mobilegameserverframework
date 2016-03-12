@@ -8,36 +8,38 @@ from Channel import CHANNEL_ADD_PLAYER, CHANNEL_REMOVE_PLAYER
 
 CONNS = {}
 
-INCOMING = multiprocessing.Queue()
-INTERNAL = multiprocessing.Queue()
-OUTGOING = multiprocessing.Queue()
-
 @asyncio.coroutine
 def internal_get():
-    return INTERNAL.get()
+    return g.INTERNAL.get()
 
 @asyncio.coroutine
 def handle_internal():
     while True:
-        if INTERNAL.empty():
+        if g.INTERNAL.empty():
             yield from asyncio.sleep(0.001)
             continue
 
         msg_ = yield from internal_get()
-        OUTGOING.put(msg_)
+        if msg_ is None:
+            break
+
+        g.OUTGOING.put(msg_)
 
 @asyncio.coroutine
 def outgoing_get():
-    return OUTGOING.get()
+    return g.OUTGOING.get()
 
 @asyncio.coroutine
 def handle_outgoing():
     while True:
-        if OUTGOING.empty():
+        if g.OUTGOING.empty():
             yield from asyncio.sleep(0.001)
             continue
 
         msg_ = yield from outgoing_get()
+        if msg_ is None:
+            break
+
         if msg_[0] in CONNS:
             CONNS[msg_[0]].transport.write(b'steve:' + msg_[2])
 
@@ -62,7 +64,7 @@ class ChannelConnection(asyncio.Protocol):
         CONNS[self.conn_id] = self
 
         print('incoming_put')
-        INCOMING.put([self.conn_id, CHANNEL_ADD_PLAYER, None])
+        g.INCOMING.put([self.conn_id, CHANNEL_ADD_PLAYER, None])
 
     def data_received(self, data):
         self.h_timeout.cancel()
@@ -73,7 +75,7 @@ class ChannelConnection(asyncio.Protocol):
 
         if True:
             print('incoming_put_2')
-            INCOMING.put([self.conn_id, 1, self.msg_buffer])
+            g.INCOMING.put([self.conn_id, 1, self.msg_buffer])
             self.msg_buffer = b''
 
         else:
@@ -91,7 +93,7 @@ class ChannelConnection(asyncio.Protocol):
                 msg_body = self.msg_buffer[msg_body_offset:msg_end_offset]
                 msg_header_offset = msg_end_offset
 
-                INCOMING.put([self.conn_id, msg_type, msg_body])
+                g.INCOMING.put([self.conn_id, msg_type, msg_body])
 
             self.msg_buffer = self.msg_buffer[msg_header_offset:]
 
@@ -101,7 +103,7 @@ class ChannelConnection(asyncio.Protocol):
     def connection_lost(self, ex):
         self.h_timeout.cancel()
         conn_id = self.conn_id
-        INCOMING.put([conn_id, CHANNEL_REMOVE_PLAYER, None])
+        g.INCOMING.put([conn_id, CHANNEL_REMOVE_PLAYER, None])
         del CONNS[conn_id]
 
     def connection_timed_out(self):
