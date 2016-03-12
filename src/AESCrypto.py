@@ -1,8 +1,8 @@
 
 #import hashlib
-import base64
 from Crypto import Random
 from Crypto.Cipher import AES
+import base64
 
 class AESCrypto:
     def __init__(self, key):

@@ -1,10 +1,10 @@
 
-import time
 import signal
+import time
 
 import g
-from Area import AREA_LOBBY, AREA_TOWN, AREA_DUNGEON, AREA_ARENA, Area
 from Player import Player
+from Area import AREA_LOBBY, AREA_TOWN, AREA_DUNGEON, AREA_ARENA, Area
 
 from channel_handle_message_no_1 import handle_message_no_1
 

@@ -1,17 +1,17 @@
 
 import sys
 import multiprocessing
-import asyncio
 import concurrent.futures
+import asyncio
 import signal
+
+import config
+import logger
 
 import g
 from ChannelConnection import handle_internal, handle_outgoing
 from ChannelConnection import ChannelConnection
 from Channel import Channel
-
-import config
-import logger
 
 def main():
     if len(sys.argv) < 3:

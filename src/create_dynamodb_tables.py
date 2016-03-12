@@ -1,10 +1,8 @@
 
 import sys
-import json
-
-from ModelUsers import ModelUsers
 
 import config
+from ModelUsers import ModelUsers
 
 def main():
     if len(sys.argv) < 2:

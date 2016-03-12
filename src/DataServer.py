@@ -5,11 +5,11 @@ import asyncio.futures
 import concurrent.futures
 import signal
 
-import g
-from DataConnection import DataConnection
-
 import config
 import logger
+
+import g
+from DataConnection import DataConnection
 
 def main():
     if len(sys.argv) < 3:

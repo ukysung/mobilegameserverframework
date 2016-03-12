@@ -5,9 +5,10 @@ import asyncio
 
 from aiohttp.web import Application, Response, run_app
 
-import g
 import config
 import logger
+
+import g
 
 @asyncio.coroutine
 def handle_json(request):

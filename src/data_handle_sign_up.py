@@ -1,5 +1,4 @@
 
-import struct
 import asyncio
 
 import g
