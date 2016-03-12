@@ -38,15 +38,15 @@ def main():
     process.start()
 
     # channel_server
-    loop = asyncio.get_event_loop()
-    loop.add_signal_handler(signal.SIGINT, loop.stop)
-    loop.add_signal_handler(signal.SIGTERM, loop.stop)
+    g.LOOP = asyncio.get_event_loop()
+    g.LOOP.add_signal_handler(signal.SIGINT, g.LOOP.stop)
+    g.LOOP.add_signal_handler(signal.SIGTERM, g.LOOP.stop)
 
-    loop.create_task(handle_internal())
-    loop.create_task(handle_outgoing())
+    g.LOOP.create_task(handle_internal())
+    g.LOOP.create_task(handle_outgoing())
 
-    coro = loop.create_server(ChannelConnection, port=g.CFG[server_id]['channel_port'])
-    channel_server = loop.run_until_complete(coro)
+    coro = g.LOOP.create_server(ChannelConnection, port=g.CFG[server_id]['channel_port'])
+    channel_server = g.LOOP.run_until_complete(coro)
 
     for sock in channel_server.sockets:
         print('channel_server_{} starting.. {}'.format(server_seq, sock.getsockname()))
@@ -54,14 +54,14 @@ def main():
     try:
         g.LOG.info('channel_server_%s starting.. port %s',
                    server_seq, g.CFG[server_id]['channel_port'])
-        loop.run_forever()
+        g.LOOP.run_forever()
 
     except KeyboardInterrupt:
         g.LOG.info('keyboard interrupt..')
 
     channel_server.close()
-    loop.run_until_complete(channel_server.wait_closed())
-    loop.close()
+    g.LOOP.run_until_complete(channel_server.wait_closed())
+    g.LOOP.close()
 
     g.INCOMING.close()
     g.INTERNAL.close()

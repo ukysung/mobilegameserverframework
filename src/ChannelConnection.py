@@ -53,8 +53,7 @@ class ChannelConnection(asyncio.Protocol):
 
     def connection_made(self, transport):
         self.transport = transport
-        self.h_timeout = asyncio.get_event_loop().call_later(
-            self.timeout_sec, self.connection_timed_out)
+        self.h_timeout = g.LOOP.call_later(self.timeout_sec, self.connection_timed_out)
 
         g.CONN_ID += 1
         if g.CONN_ID == 100000:
@@ -68,8 +67,7 @@ class ChannelConnection(asyncio.Protocol):
 
     def data_received(self, data):
         self.h_timeout.cancel()
-        self.h_timeout = asyncio.get_event_loop().call_later(
-            self.timeout_sec, self.connection_timed_out)
+        self.h_timeout = g.LOOP.call_later(self.timeout_sec, self.connection_timed_out)
 
         self.msg_buffer += data
 

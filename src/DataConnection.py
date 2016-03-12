@@ -31,18 +31,16 @@ class DataConnection(asyncio.Protocol):
 
     def connection_made(self, transport):
         self.transport = transport
-        self.h_timeout = asyncio.get_event_loop().call_later(
-            self.timeout_sec, self.connection_timed_out)
+        self.h_timeout = g.LOOP.call_later(self.timeout_sec, self.connection_timed_out)
 
     def data_received(self, data):
         self.h_timeout.cancel()
-        self.h_timeout = asyncio.get_event_loop().call_later(
-            self.timeout_sec, self.connection_timed_out)
+        self.h_timeout = g.LOOP.call_later(self.timeout_sec, self.connection_timed_out)
 
         self.msg_buffer += data
 
         if False:
-            asyncio.Task(self.handle_received(1, self.msg_buffer))
+            g.LOOP.create_task(self.handle_received(1, self.msg_buffer))
             self.msg_buffer = b''
 
         else:
@@ -60,7 +58,7 @@ class DataConnection(asyncio.Protocol):
                 msg_body = self.msg_buffer[msg_body_offset:msg_end_offset]
                 msg_header_offset = msg_end_offset
 
-                asyncio.Task(self.handle_received(msg_type, msg_body))
+                g.LOOP.create_task(self.handle_received(msg_type, msg_body))
 
             self.msg_buffer = self.msg_buffer[msg_header_offset:]
 

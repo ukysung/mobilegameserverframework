@@ -5,6 +5,7 @@ LOG = None
 CFG = {}
 MST = {}
 
+LOOP = None
 CONN_ID = 0
 
 INCOMING = None

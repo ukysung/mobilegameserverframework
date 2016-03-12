@@ -28,26 +28,26 @@ def main():
     g.PROCPOOL = concurrent.futures.ProcessPoolExecutor(g.CFG[server_id]['data_process_pool_size'])
 
     # data_server
-    loop = asyncio.get_event_loop()
-    loop.add_signal_handler(signal.SIGINT, loop.stop)
-    loop.add_signal_handler(signal.SIGTERM, loop.stop)
+    g.LOOP = asyncio.get_event_loop()
+    g.LOOP.add_signal_handler(signal.SIGINT, g.LOOP.stop)
+    g.LOOP.add_signal_handler(signal.SIGTERM, g.LOOP.stop)
 
-    coro = loop.create_server(DataConnection, port=g.CFG[server_id]['data_port'])
-    data_server = loop.run_until_complete(coro)
+    coro = g.LOOP.create_server(DataConnection, port=g.CFG[server_id]['data_port'])
+    data_server = g.LOOP.run_until_complete(coro)
 
     for sock in data_server.sockets:
         print('data_server_{} starting.. {}'.format(server_seq, sock.getsockname()))
 
     try:
         g.LOG.info('data_server_%s starting.. port %s', server_seq, g.CFG[server_id]['data_port'])
-        loop.run_forever()
+        g.LOOP.run_forever()
 
     except KeyboardInterrupt:
         g.LOG.info('keyboard interrupt..')
 
     data_server.close()
-    loop.run_until_complete(data_server.wait_closed())
-    loop.close()
+    g.LOOP.run_until_complete(data_server.wait_closed())
+    g.LOOP.close()
 
     g.PROCPOOL.shutdown()
 
