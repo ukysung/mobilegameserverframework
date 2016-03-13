@@ -1,6 +1,4 @@
 
-import asyncio
-
 import g
 import msg
 import msg_type_data_pb2
@@ -8,7 +6,6 @@ import msg_struct_pb2
 import msg_error_pb2
 import msg_packet_data_pb2
 
-@asyncio.coroutine
 def handle_sign_up(req_msg_type, req_msg_body):
     req = msg_packet_data_pb2.sign_up_req()
     req.ParseFromString(req_msg_body)

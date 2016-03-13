@@ -42,11 +42,10 @@ def main():
     g.LOOP.add_signal_handler(signal.SIGINT, g.LOOP.stop)
     g.LOOP.add_signal_handler(signal.SIGTERM, g.LOOP.stop)
 
-    g.LOOP.create_task(handle_internal())
-    g.LOOP.create_task(handle_outgoing())
-
-    coro = g.LOOP.create_server(ChannelConnection, port=g.CFG[server_id]['channel_port'])
-    channel_server = g.LOOP.run_until_complete(coro)
+    task_internal = g.LOOP.create_task(handle_internal())
+    task_outgoing = g.LOOP.create_task(handle_outgoing())
+    task_server = g.LOOP.create_server(ChannelConnection, port=g.CFG[server_id]['channel_port'])
+    channel_server = g.LOOP.run_until_complete(task_server)
 
     for sock in channel_server.sockets:
         print('channel_server_{} starting.. {}'.format(server_seq, sock.getsockname()))
@@ -59,16 +58,24 @@ def main():
     except KeyboardInterrupt:
         g.LOG.info('keyboard interrupt..')
 
-    channel_server.close()
-    g.LOOP.run_until_complete(channel_server.wait_closed())
-    g.LOOP.close()
+    finally:
+        # poison pill
+        g.INTERNAL.put(None)
+        g.OUTGOING.put(None)
 
-    g.INCOMING.close()
-    g.INTERNAL.close()
-    g.OUTGOING.close()
-    g.PROCPOOL.shutdown()
+        task_internal.cancel()
+        task_outgoing.cancel()
+        g.LOOP.run_forever()
 
-    process.join()
+        channel_server.close()
+        g.LOOP.close()
+
+        g.INCOMING.close()
+        g.INTERNAL.close()
+        g.OUTGOING.close()
+        g.PROCPOOL.shutdown()
+
+        process.join()
 
 if __name__ == '__main__':
     main()

@@ -45,11 +45,11 @@ def main():
     except KeyboardInterrupt:
         g.LOG.info('keyboard interrupt..')
 
-    data_server.close()
-    g.LOOP.run_until_complete(data_server.wait_closed())
-    g.LOOP.close()
+    finally:
+        data_server.close()
+        g.LOOP.close()
 
-    g.PROCPOOL.shutdown()
+        g.PROCPOOL.shutdown()
 
 if __name__ == '__main__':
     main()

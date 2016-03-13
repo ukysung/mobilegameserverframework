@@ -1,5 +1,7 @@
 
 import asyncio
+import asyncio.futures
+import concurrent.futures
 
 import g
 import msg
@@ -25,7 +27,8 @@ class DataConnection(asyncio.Protocol):
             g.LOG.error('handler for %s is not imported to DataConnection', req_msg_type)
             return
 
-        ack = yield from g.DATA_HANDLERS[req_msg_type](req_msg_type, req_msg_body)
+        ack = yield from asyncio.futures.wrap_future(
+            g.PROCPOOL.submit(g.DATA_HANDLERS[req_msg_type], req_msg_type, req_msg_body))
         self.transport.write(ack)
 
     def connection_made(self, transport):
