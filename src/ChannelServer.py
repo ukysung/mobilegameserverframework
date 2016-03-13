@@ -59,15 +59,12 @@ def main():
         g.LOG.info('keyboard interrupt..')
 
     finally:
-        # poison pill
-        g.INTERNAL.put(None)
-        g.OUTGOING.put(None)
+        channel_server.close()
 
         task_internal.cancel()
         task_outgoing.cancel()
-        g.LOOP.run_forever()
 
-        channel_server.close()
+        g.LOOP.run_forever()
         g.LOOP.close()
 
         g.INCOMING.close()
