@@ -19,7 +19,7 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='msg_error.proto',
   package='msg',
-  serialized_pb=_b('\n\x0fmsg_error.proto\x12\x03msg*\xa1\x02\n\x08\x65rr_type\x12\x0c\n\x08\x65rr_none\x10\x00\x12\x17\n\x12\x65rr_server_unknown\x10\x90N\x12\x1b\n\x16\x65rr_server_unathorized\x10\x91N\x12$\n\x1f\x65rr_server_user_userid_required\x10\xddV\x12$\n\x1f\x65rr_server_user_passwd_required\x10\xdeV\x12\x18\n\x12\x65rr_client_unknown\x10\xa0\x9c\x01\x12\x1d\n\x17\x65rr_client_unauthorized\x10\xa1\x9c\x01\x12%\n\x1f\x65rr_client_user_userid_required\x10\xed\xa4\x01\x12%\n\x1f\x65rr_client_user_passwd_required\x10\xee\xa4\x01')
+  serialized_pb=_b('\n\x0fmsg_error.proto\x12\x03msg*\xa2\x02\n\x08\x65rr_type\x12\x0c\n\x08\x65rr_none\x10\x00\x12\x17\n\x12\x65rr_server_unknown\x10\x90N\x12\x1c\n\x17\x65rr_server_unauthorized\x10\x91N\x12$\n\x1f\x65rr_server_user_userid_required\x10\xddV\x12$\n\x1f\x65rr_server_user_passwd_required\x10\xdeV\x12\x18\n\x12\x65rr_client_unknown\x10\xa0\x9c\x01\x12\x1d\n\x17\x65rr_client_unauthorized\x10\xa1\x9c\x01\x12%\n\x1f\x65rr_client_user_userid_required\x10\xed\xa4\x01\x12%\n\x1f\x65rr_client_user_passwd_required\x10\xee\xa4\x01')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -38,7 +38,7 @@ _ERR_TYPE = _descriptor.EnumDescriptor(
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='err_server_unathorized', index=2, number=10001,
+      name='err_server_unauthorized', index=2, number=10001,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
@@ -69,14 +69,14 @@ _ERR_TYPE = _descriptor.EnumDescriptor(
   containing_type=None,
   options=None,
   serialized_start=25,
-  serialized_end=314,
+  serialized_end=315,
 )
 _sym_db.RegisterEnumDescriptor(_ERR_TYPE)
 
 err_type = enum_type_wrapper.EnumTypeWrapper(_ERR_TYPE)
 err_none = 0
 err_server_unknown = 10000
-err_server_unathorized = 10001
+err_server_unauthorized = 10001
 err_server_user_userid_required = 11101
 err_server_user_passwd_required = 11102
 err_client_unknown = 20000

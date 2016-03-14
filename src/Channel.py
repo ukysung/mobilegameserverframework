@@ -56,12 +56,9 @@ class Channel:
                     self.areas[area_id].player_conn_ids.remove(conn_id)
                     del self.players[conn_id]
 
-                else:
-                    print(req_msg_type)
-                    print('else')
-                    if req_msg_type in g.CHANNEL_HANDLERS:
-                        (conn_id, ack_msg_type, ack_msg_body, to) = \
-                            g.CHANNEL_HANDLERS[req_msg_type](conn_id, req_msg_type, req_msg_body)
+                elif req_msg_type in g.CHANNEL_HANDLERS:
+                    (conn_id, ack_msg_type, ack_msg_body, to) = \
+                        g.CHANNEL_HANDLERS[req_msg_type](conn_id, req_msg_type, req_msg_body)
 
                     if to == g.TO_ME:
                         g.OUTGOING.put([conn_id, ack_msg_type, ack_msg_body])
