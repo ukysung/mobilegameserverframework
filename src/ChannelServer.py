@@ -26,7 +26,6 @@ def main():
     g.MST[1] = 2
 
     pool_size = g.CFG[g.SERVER_ID]['channel_process_pool_size']
-    timeout_sec = g.CFG[g.SERVER_ID]['channel_timeout_sec']
     port = g.CFG[g.SERVER_ID]['channel_port']
 
     # queues and pool
@@ -44,7 +43,7 @@ def main():
         g.LOOP.add_signal_handler(signal.SIGINT, g.LOOP.stop)
         g.LOOP.add_signal_handler(signal.SIGTERM, g.LOOP.stop)
 
-    except:
+    except NotImplementedError:
         pass
 
     task_internal = g.LOOP.create_task(handle_internal())

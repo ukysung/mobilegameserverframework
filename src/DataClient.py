@@ -63,7 +63,7 @@ def main():
 
     if len(sys.argv) > 2:
         host = sys.argv[1]
-        port = sys.argv[2]
+        port = int(sys.argv[2])
 
     loop = asyncio.get_event_loop()
 

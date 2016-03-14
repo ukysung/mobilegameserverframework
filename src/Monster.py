@@ -10,7 +10,7 @@ class Monster:
     def __init__(self, area_id):
         self.area_id = area_id
         self.attr = MonsterAttribute(self)
-        self.ai = MonsterAI(self)
+        self.a_i = MonsterAI(self)
         self.move = MonsterMovement(self)
         self.skill = MonsterSkill(self)
         self.action = MonsterAction(self)
@@ -18,7 +18,7 @@ class Monster:
 
     def run(self, delta_time):
         self.attr.run(delta_time)
-        self.ai.run(delta_time)
+        self.a_i.run(delta_time)
         self.move.run(delta_time)
         self.skill.run(delta_time)
         self.action.run(delta_time)

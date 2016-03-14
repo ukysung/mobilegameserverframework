@@ -35,7 +35,7 @@ def main():
         g.LOOP.add_signal_handler(signal.SIGINT, g.LOOP.stop)
         g.LOOP.add_signal_handler(signal.SIGTERM, g.LOOP.stop)
 
-    except:
+    except NotImplementedError:
         pass
 
     coro_server = g.LOOP.create_server(DataConnection, port=port)

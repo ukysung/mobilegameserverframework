@@ -21,6 +21,7 @@ class Channel:
 
         self.phase = phase
         self.server_seq = server_seq
+
         self.is_running = True
         self.get_max = 1000
         self.players = {}
@@ -70,18 +71,18 @@ class Channel:
                     del self.players[conn_id]
 
                 elif req_msg_type in g.CHANNEL_HANDLERS:
-                    (conn_id, ack_msg_type, ack_msg_body, to) = \
+                    (conn_id, ack_msg_type, ack_msg_body, rcpt) = \
                         g.CHANNEL_HANDLERS[req_msg_type](conn_id, req_msg_type, req_msg_body)
 
-                    if to == g.TO_ME:
-                        g.OUTGOING.put([conn_id, ack_msg_type, ack_msg_body])
+                    if rcpt == g.TO_ME:
+                        outgoing.put([conn_id, ack_msg_type, ack_msg_body])
 
-                    if to == g.TO_ALL:
+                    if rcpt == g.TO_ALL:
                         area_id = self.players[conn_id].area_id
                         for player_conn_id in self.areas[area_id].player_conn_ids:
                             outgoing.put([player_conn_id, ack_msg_type, ack_msg_body])
 
-                    elif to == g.TO_DATA:
+                    elif rcpt == g.TO_DATA:
                         internal.put([player_conn_id, ack_msg_type, ack_msg_body])
 
             for player in self.players.values():
