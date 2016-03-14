@@ -12,34 +12,40 @@ import g
 from DataConnection import DataConnection
 
 def main():
-    if len(sys.argv) < 3:
-        print('Usage: sudo python3 ./DataServer.py develop 00')
-        sys.exit()
+    if len(sys.argv) > 2:
+        g.PHASE = sys.argv[1]
+        g.SERVER_SEQ = sys.argv[2]
+        g.SERVER_ID = 'server' + g.SERVER_SEQ
 
-    phase = sys.argv[1]
-    server_seq = sys.argv[2]
-    server_id = 'server' + server_seq
+    config.load()
+    logger.init('data')
+    #master.load()
+    g.MST[1] = 2
 
-    config.load(phase)
-    logger.init('data', server_seq)
-    #master.load(phase)
+    pool_size = g.CFG[g.SERVER_ID]['data_process_pool_size']
+    port = g.CFG[g.SERVER_ID]['data_port']
 
     # pool
-    g.PROCPOOL = concurrent.futures.ProcessPoolExecutor(g.CFG[server_id]['data_process_pool_size'])
+    g.PROC_POOL = concurrent.futures.ProcessPoolExecutor(pool_size)
 
     # data_server
     g.LOOP = asyncio.get_event_loop()
-    g.LOOP.add_signal_handler(signal.SIGINT, g.LOOP.stop)
-    g.LOOP.add_signal_handler(signal.SIGTERM, g.LOOP.stop)
-
-    coro = g.LOOP.create_server(DataConnection, port=g.CFG[server_id]['data_port'])
-    data_server = g.LOOP.run_until_complete(coro)
-
-    for sock in data_server.sockets:
-        print('data_server_{} starting.. {}'.format(server_seq, sock.getsockname()))
 
     try:
-        g.LOG.info('data_server_%s starting.. port %s', server_seq, g.CFG[server_id]['data_port'])
+        g.LOOP.add_signal_handler(signal.SIGINT, g.LOOP.stop)
+        g.LOOP.add_signal_handler(signal.SIGTERM, g.LOOP.stop)
+
+    except:
+        pass
+
+    coro_server = g.LOOP.create_server(DataConnection, port=port)
+    data_server = g.LOOP.run_until_complete(coro_server)
+
+    for sock in data_server.sockets:
+        print('data_server_{} starting.. {}'.format(g.SERVER_SEQ, sock.getsockname()))
+
+    try:
+        g.LOG.info('data_server_%s starting.. port %s', g.SERVER_SEQ, port)
         g.LOOP.run_forever()
 
     except KeyboardInterrupt:
@@ -49,7 +55,7 @@ def main():
         data_server.close()
         g.LOOP.close()
 
-        g.PROCPOOL.shutdown()
+        g.PROC_POOL.shutdown()
 
 if __name__ == '__main__':
     main()

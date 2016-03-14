@@ -25,17 +25,14 @@ def handle_index(request):
     return Response(body=body.encode('utf-8'))
 
 def main():
-    if len(sys.argv) < 3:
-        print('Usage: sudo python3 ./DataServer.py develop 00')
-        sys.exit()
+    if len(sys.argv) > 3:
+        g.PHASE = sys.argv[1]
+        g.SERVER_SEQ = sys.argv[2]
+        g.SERVER_ID = 'server' + g.SERVER_SEQ
 
-    phase = sys.argv[1]
-    server_seq = sys.argv[2]
-    server_id = 'server' + server_seq
-
-    config.load(phase)
-    logger.init('web_app', server_seq)
-    #master.load(phase)
+    config.load()
+    logger.init('web_app')
+    #master.load()
 
     # web_app_server
     app = Application()
@@ -44,7 +41,7 @@ def main():
     app.router.add_route('GET', '/{name}', handle_index)
     app.router.add_route('GET', '/', handle_index)
 
-    run_app(app, port=g.CFG[server_id]['http_port'])
+    run_app(app, port=g.CFG[g.SERVER_ID]['http_port'])
 
 if __name__ == '__main__':
     main()

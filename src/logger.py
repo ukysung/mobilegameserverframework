@@ -26,10 +26,10 @@ def get_log_rotation():
     else:
         return 'M'
 
-def init(server_type, server_seq):
+def init(server_type):
     log_formatter = logging.Formatter('%(asctime)s,%(levelname)s,%(message)s')
     log_handler = logging.handlers.TimedRotatingFileHandler(
-        '../log/' + server_type + '_server_' + server_seq + '.csv',
+        '../log/' + server_type + '_server_' + g.SERVER_SEQ + '.csv',
         when=get_log_rotation(), interval=1)
     log_handler.setFormatter(log_formatter)
 

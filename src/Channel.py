@@ -8,14 +8,19 @@ from Area import AREA_LOBBY, AREA_TOWN, AREA_DUNGEON, AREA_ARENA, Area
 
 from channel_handle_message_no_1 import handle_message_no_1
 
+import config
+import logger
+
 CHANNEL_ADD_PLAYER = -1
 CHANNEL_REMOVE_PLAYER = -2
 
 class Channel:
-    def __init__(self):
+    def __init__(self, phase, server_seq):
         signal.signal(signal.SIGINT, self.stop)
         signal.signal(signal.SIGTERM, self.stop)
 
+        self.phase = phase
+        self.server_seq = server_seq
         self.is_running = True
         self.get_max = 1000
         self.players = {}
@@ -28,7 +33,15 @@ class Channel:
         self.delta_time = 0
         self.last_time = 0
 
-    def run(self):
+    def run(self, incoming, internal, outgoing):
+        g.PHASE = self.phase
+        g.SERVER_SEQ = self.server_seq
+        g.SERVER_ID = 'server' + g.SERVER_SEQ
+
+        config.load()
+        logger.init('channel')
+        g.MST[1] = 2
+
         while self.is_running:
             time.sleep(0.001)
 
@@ -36,11 +49,11 @@ class Channel:
             self.delta_time = (self.curr_time - self.last_time) * 1000
 
             i = 0
-            while i < self.get_max and not g.INCOMING.empty():
+            while i < self.get_max and not incoming.empty():
                 i += 1
 
                 print('incoming_get')
-                (conn_id, req_msg_type, req_msg_body) = g.INCOMING.get()
+                (conn_id, req_msg_type, req_msg_body) = incoming.get()
                 print(conn_id)
                 print(req_msg_type)
                 print(req_msg_body)
@@ -66,10 +79,10 @@ class Channel:
                     if to == g.TO_ALL:
                         area_id = self.players[conn_id].area_id
                         for player_conn_id in self.areas[area_id].player_conn_ids:
-                            g.OUTGOING.put([player_conn_id, ack_msg_type, ack_msg_body])
+                            outgoing.put([player_conn_id, ack_msg_type, ack_msg_body])
 
                     elif to == g.TO_DATA:
-                        g.INTERNAL.put([player_conn_id, ack_msg_type, ack_msg_body])
+                        internal.put([player_conn_id, ack_msg_type, ack_msg_body])
 
             for player in self.players.values():
                 player.run(self.delta_time)
@@ -81,8 +94,4 @@ class Channel:
 
     def stop(self, signal_num, frame_obj):
         self.is_running = False
-
-        # poison pill
-        g.INTERNAL.put(None)
-        g.OUTGOING.put(None)
 

@@ -58,12 +58,12 @@ def data_client(host, port):
     writer.close()
 
 def main():
-    if len(sys.argv) < 3:
-        print('Usage: python3 ./DataClient.py 127.0.0.1 21000')
-        sys.exit()
+    host = 'localhost'
+    port = 21000
 
-    host = sys.argv[1]
-    port = sys.argv[2]
+    if len(sys.argv) > 2:
+        host = sys.argv[1]
+        port = sys.argv[2]
 
     loop = asyncio.get_event_loop()
 

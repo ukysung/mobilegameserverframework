@@ -9,50 +9,54 @@ import config
 import logger
 
 import g
+from ChannelConnection import INCOMING, INTERNAL, OUTGOING
 from ChannelConnection import handle_internal, handle_outgoing
 from ChannelConnection import ChannelConnection
 from Channel import Channel
 
 def main():
-    if len(sys.argv) < 3:
-        print('Usage: sudo python3 ./ChannelServer.py develop 00')
-        sys.exit()
+    if len(sys.argv) > 2:
+        g.PHASE = sys.argv[1]
+        g.SERVER_SEQ = sys.argv[2]
+        g.SERVER_ID = 'server' + g.SERVER_SEQ
 
-    phase = sys.argv[1]
-    server_seq = sys.argv[2]
-    server_id = 'server' + server_seq
+    config.load()
+    logger.init('channel')
+    #master.load()
+    g.MST[1] = 2
 
-    config.load(phase)
-    logger.init('channel', server_seq)
-    #master.load(phase)
+    pool_size = g.CFG[g.SERVER_ID]['channel_process_pool_size']
+    timeout_sec = g.CFG[g.SERVER_ID]['channel_timeout_sec']
+    port = g.CFG[g.SERVER_ID]['channel_port']
 
     # queues and pool
-    g.INCOMING = multiprocessing.Queue()
-    g.INTERNAL = multiprocessing.Queue()
-    g.OUTGOING = multiprocessing.Queue()
-    g.PROCPOOL = concurrent.futures.ProcessPoolExecutor(g.CFG[server_id]['channel_process_pool_size'])
+    g.PROC_POOL = concurrent.futures.ProcessPoolExecutor(pool_size)
 
     # channel
-    channel = Channel()
-    process = multiprocessing.Process(target=channel.run, args=())
+    channel = Channel(g.PHASE, g.SERVER_SEQ)
+    process = multiprocessing.Process(target=channel.run, args=(INCOMING, INTERNAL, OUTGOING))
     process.start()
 
     # channel_server
     g.LOOP = asyncio.get_event_loop()
-    g.LOOP.add_signal_handler(signal.SIGINT, g.LOOP.stop)
-    g.LOOP.add_signal_handler(signal.SIGTERM, g.LOOP.stop)
+
+    try:
+        g.LOOP.add_signal_handler(signal.SIGINT, g.LOOP.stop)
+        g.LOOP.add_signal_handler(signal.SIGTERM, g.LOOP.stop)
+
+    except:
+        pass
 
     task_internal = g.LOOP.create_task(handle_internal())
     task_outgoing = g.LOOP.create_task(handle_outgoing())
-    task_server = g.LOOP.create_server(ChannelConnection, port=g.CFG[server_id]['channel_port'])
-    channel_server = g.LOOP.run_until_complete(task_server)
+    coro_server = g.LOOP.create_server(ChannelConnection, port=port)
+    channel_server = g.LOOP.run_until_complete(coro_server)
 
     for sock in channel_server.sockets:
-        print('channel_server_{} starting.. {}'.format(server_seq, sock.getsockname()))
+        print('channel_server_{} starting.. {}'.format(g.SERVER_SEQ, sock.getsockname()))
 
     try:
-        g.LOG.info('channel_server_%s starting.. port %s',
-                   server_seq, g.CFG[server_id]['channel_port'])
+        g.LOG.info('channel_server_%s starting.. port %s', g.SERVER_SEQ, port)
         g.LOOP.run_forever()
 
     except KeyboardInterrupt:
@@ -67,10 +71,10 @@ def main():
         g.LOOP.run_forever()
         g.LOOP.close()
 
-        g.INCOMING.close()
-        g.INTERNAL.close()
-        g.OUTGOING.close()
-        g.PROCPOOL.shutdown()
+        INCOMING.close()
+        INTERNAL.close()
+        OUTGOING.close()
+        g.PROC_POOL.shutdown()
 
         process.join()
 

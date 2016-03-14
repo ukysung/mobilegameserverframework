@@ -1,7 +1,5 @@
 
 import asyncio
-import asyncio.futures
-import concurrent.futures
 
 import g
 import msg
@@ -16,33 +14,33 @@ from data_handle_sign_up import handle_sign_up
 class DataConnection(asyncio.Protocol):
     def __init__(self):
         g.LOG.info('__init__')
+        self.loop = g.LOOP
         self.transport = None
-        self.timeout_sec = 600.0
+        self.timeout_sec = g.CFG[g.SERVER_ID]['data_timeout_sec']
         self.h_timeout = None
         self.msg_buffer = b''
 
     @asyncio.coroutine
     def handle_received(self, req_msg_type, req_msg_body):
         if req_msg_type not in g.DATA_HANDLERS:
-            g.LOG.error('handler for %s is not imported to DataConnection', req_msg_type)
+            g.LOG.error('DataConnection : handler for %s is not imported', req_msg_type)
             return
 
-        ack = yield from asyncio.futures.wrap_future(
-            g.PROCPOOL.submit(g.DATA_HANDLERS[req_msg_type], req_msg_type, req_msg_body))
+        ack = yield from g.DATA_HANDLERS[req_msg_type](req_msg_type, req_msg_body)
         self.transport.write(ack)
 
     def connection_made(self, transport):
         self.transport = transport
-        self.h_timeout = g.LOOP.call_later(self.timeout_sec, self.connection_timed_out)
+        self.h_timeout = self.loop.call_later(self.timeout_sec, self.connection_timed_out)
 
     def data_received(self, data):
         self.h_timeout.cancel()
-        self.h_timeout = g.LOOP.call_later(self.timeout_sec, self.connection_timed_out)
+        self.h_timeout = self.loop.call_later(self.timeout_sec, self.connection_timed_out)
 
         self.msg_buffer += data
 
         if False:
-            g.LOOP.create_task(self.handle_received(1, self.msg_buffer))
+            self.loop.create_task(self.handle_received(1, self.msg_buffer))
             self.msg_buffer = b''
 
         else:
@@ -60,7 +58,7 @@ class DataConnection(asyncio.Protocol):
                 msg_body = self.msg_buffer[msg_body_offset:msg_end_offset]
                 msg_header_offset = msg_end_offset
 
-                g.LOOP.create_task(self.handle_received(msg_type, msg_body))
+                self.loop.create_task(self.handle_received(msg_type, msg_body))
 
             self.msg_buffer = self.msg_buffer[msg_header_offset:]
 
