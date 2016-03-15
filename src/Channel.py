@@ -43,7 +43,9 @@ class Channel:
         config.load()
         logger.init('channel')
         master.load()
-        g.MST[1] = 2
+
+        # test
+        #g.MST[1] = 2
 
         while self.is_running:
             time.sleep(0.001)
