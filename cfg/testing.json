@@ -17,20 +17,17 @@
 
     "//db_shard" : 0,
 
-        "db_shard":
-        {
-            "db_shard_count" : 2,
-            "db_shard_format" : "db_%03d"
-        },
+        "db_shard_count" : 2,
+        "db_shard_format" : "db_%03d",
 
     "//database" : 0,
 
         "db_idx":
         {
             "host" : "127.0.0.1",
-            "userid" : "df_dbuser",
-            "passwd" : "df_passwd",
-            "database" : "develop_df_idx",
+            "userid" : "mgsf_dbuser",
+            "passwd" : "mgsf_passwd",
+            "database" : "develop_mgsf_idx",
             "port" : 3306,
             "charset" : "utf8",
             "pool_size" : 16,
@@ -40,9 +37,9 @@
         "db_000":
         {
             "host" : "127.0.0.1",
-            "userid" : "df_dbuser",
-            "passwd" : "df_passwd",
-            "database" : "develop_df_000",
+            "userid" : "mgsf_dbuser",
+            "passwd" : "mgsf_passwd",
+            "database" : "develop_mgsf_000",
             "port" : 3306,
             "charset" : "utf8",
             "pool_size" : 16,
@@ -52,9 +49,9 @@
         "db_001":
         {
             "host" : "127.0.0.1",
-            "userid" : "df_dbuser",
-            "passwd" : "df_passwd",
-            "database" : "develop_df_001",
+            "userid" : "mgsf_dbuser",
+            "passwd" : "mgsf_passwd",
+            "database" : "develop_mgsf_001",
             "port" : 3306,
             "charset" : "utf8",
             "pool_size" : 16,
@@ -64,9 +61,9 @@
         "db_etc":
         {
             "host" : "127.0.0.1",
-            "userid" : "df_dbuser",
-            "passwd" : "df_passwd",
-            "database" : "develop_df_etc",
+            "userid" : "mgsf_dbuser",
+            "passwd" : "mgsf_passwd",
+            "database" : "develop_mgsf_etc",
             "port" : 3306,
             "charset" : "utf8",
             "pool_size" : 16,
@@ -75,11 +72,8 @@
  
     "//rd_shard" : 0,
 
-        "rd_shard":
-        {
-            "rd_shard_count" : 2,
-            "rd_shard_format" : "rd_%03d"
-        },
+        "rd_shard_count" : 2,
+        "rd_shard_format" : "rd_%03d",
 
     "//redis" : 0,
 
