@@ -15,9 +15,12 @@ from DataConnection import DataConnection
 def main():
     server_type = 'data'
 
-    if len(sys.argv) > 2:
-        g.PHASE = sys.argv[1]
-        g.SERVER_SEQ = sys.argv[2]
+    if len(sys.argv) < 3:
+        print('Usage: sudo python3 ./DataServer.py develop 00')
+        sys.exit()
+
+    g.PHASE = sys.argv[1]
+    g.SERVER_SEQ = sys.argv[2]
 
     config.load()
     logger.init(server_type)

@@ -54,7 +54,7 @@ def play_client(host, port):
 
 def main():
     if len(sys.argv) < 3:
-        print('Usage: python3 ./PlayClient.py 127.0.0.1 22000')
+        print('Usage: python3 ./PlayClient.py localhost 22000')
         sys.exit()
 
     host = sys.argv[1]
