@@ -49,9 +49,10 @@ for f in FILES:
     root = tree.getroot()
 
     for worksheet in root.iter(tag=NS_WORKSHEET):
-        mst_dict = {}
         name = worksheet.attrib[NS_NAME]
+        print(f + ' : ' + name)
 
+        mst_dict = {}
         column_visibilities.clear()
         column_names.clear()
         column_types.clear()
@@ -80,8 +81,11 @@ for f in FILES:
                         break
 
                     data = cell.find(NS_DATA)
-                    if data is not None and data.text is not None:
-                        column_names.append(data.text)
+                    if data is not None:
+                        if data.text is not None:
+                            column_names.append(data.text)
+                        else:
+                            column_names.append(''.join([c.text for c in data.getchildren()]))
 
                     column_idx += 1
 
@@ -125,8 +129,15 @@ for f in FILES:
                         break
 
                     data = cell.find(NS_DATA)
-                    if data is not None and data.text is not None:
-                        if data.text == 'END_OF_DATA':
+                    if data is not None:
+                        data_text = None
+
+                        if data.text is not None:
+                            data_text = data.text
+                        else:
+                            data_text = ''.join([c.text for c in data.getchildren()])
+
+                        if data_text == 'END_OF_DATA':
                             break
 
                         visible = column_visibilities[column_idx] != 'unlisted'
