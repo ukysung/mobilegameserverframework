@@ -5,23 +5,23 @@ import logging.handlers
 import g
 
 def get_log_level():
-    if g.CFG['log']['level'] == 'debug':
+    if g.CFG['log_level'] == 'debug':
         return logging.DEBUG
-    elif g.CFG['log']['level'] == 'info':
+    elif g.CFG['log_level'] == 'info':
         return logging.INFO
-    elif g.CFG['log']['level'] == 'warn':
+    elif g.CFG['log_level'] == 'warn':
         return logging.WARNING
-    elif g.CFG['log']['level'] == 'error':
+    elif g.CFG['log_level'] == 'error':
         return logging.ERROR
     else:
         return logging.DEBUG
 
 def get_log_rotation():
-    if g.CFG['log']['rotation'] == 'every_minute':
+    if g.CFG['log_rotation'] == 'every_minute':
         return 'M'
-    elif g.CFG['log']['rotation'] == 'hourly':
+    elif g.CFG['log_rotation'] == 'hourly':
         return 'H'
-    elif g.CFG['log']['rotation'] == 'daily':
+    elif g.CFG['log_rotation'] == 'daily':
         return 'D'
     else:
         return 'M'

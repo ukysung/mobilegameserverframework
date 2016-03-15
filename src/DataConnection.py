@@ -16,7 +16,7 @@ class DataConnection(asyncio.Protocol):
         g.LOG.info('__init__')
         self.loop = g.LOOP
         self.transport = None
-        self.timeout_sec = g.CFG['server_common']['data_timeout_sec']
+        self.timeout_sec = g.CFG['data_timeout_sec']
         self.h_timeout = None
         self.msg_buffer = b''
 

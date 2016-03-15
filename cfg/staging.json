@@ -2,11 +2,8 @@
 
     "//log" : 0,
 
-        "log":
-        {
-            "level" : "debug",
-            "rotation" : "hourly"
-        },
+        "level" : "debug",
+        "rotation" : "hourly",
 
     "//dynamodb" : 0,
  
@@ -31,9 +28,9 @@
         "db_idx":
         {
             "host" : "127.0.0.1",
-            "userid" : "df_dbuser",
-            "passwd" : "df_passwd",
-            "database" : "develop_df_idx",
+            "userid" : "mgsf_dbuser",
+            "passwd" : "mgsf_passwd",
+            "database" : "develop_mgsf_idx",
             "port" : 3306,
             "charset" : "utf8",
             "pool_size" : 16,
@@ -43,9 +40,9 @@
         "db_000":
         {
             "host" : "127.0.0.1",
-            "userid" : "df_dbuser",
-            "passwd" : "df_passwd",
-            "database" : "develop_df_000",
+            "userid" : "mgsf_dbuser",
+            "passwd" : "mgsf_passwd",
+            "database" : "develop_mgsf_000",
             "port" : 3306,
             "charset" : "utf8",
             "pool_size" : 16,
@@ -55,9 +52,9 @@
         "db_001":
         {
             "host" : "127.0.0.1",
-            "userid" : "df_dbuser",
-            "passwd" : "df_passwd",
-            "database" : "develop_df_001",
+            "userid" : "mgsf_dbuser",
+            "passwd" : "mgsf_passwd",
+            "database" : "develop_mgsf_001",
             "port" : 3306,
             "charset" : "utf8",
             "pool_size" : 16,
@@ -67,9 +64,9 @@
         "db_etc":
         {
             "host" : "127.0.0.1",
-            "userid" : "df_dbuser",
-            "passwd" : "df_passwd",
-            "database" : "develop_df_etc",
+            "userid" : "mgsf_dbuser",
+            "passwd" : "mgsf_passwd",
+            "database" : "develop_mgsf_etc",
             "port" : 3306,
             "charset" : "utf8",
             "pool_size" : 16,
@@ -96,14 +93,13 @@
 
     "//server_common" : 0,
 
-        "server_common":
-        {
-            "data_timeout_sec" : 1800,
-            "data_proc_pool_size" : 4,
+        "data_timeout_sec" : 1800,
+        "data_proc_pool_size" : 4,
 
-            "play_timeout_sec" : 600,
-            "play_proc_pool_size" : 3
-        },
+        "play_timeout_sec" : 600,
+        "play_proc_pool_size" : 3,
+
+        "crypto_key" : "there are so many secrets",
  
     "//server_port" : 0,
 

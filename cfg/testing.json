@@ -2,11 +2,8 @@
 
     "//log" : 0,
 
-        "log":
-        {
-            "level" : "debug",
-            "rotation" : "hourly"
-        },
+        "log_level" : "debug",
+        "log_rotation" : "hourly",
  
     "//dynamodb" : 0,
  
@@ -96,14 +93,13 @@
 
     "//server_common" : 0,
 
-        "server_common":
-        {
-            "data_timeout_sec" : 1800,
-            "data_proc_pool_size" : 4,
+        "data_timeout_sec" : 1800,
+        "data_proc_pool_size" : 4,
 
-            "play_timeout_sec" : 600,
-            "play_proc_pool_size" : 3
-        },
+        "play_timeout_sec" : 600,
+        "play_proc_pool_size" : 3,
+
+        "crypto_key" : "there are too many secrets",
 
     "//server_port" : 0,
 

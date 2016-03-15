@@ -45,7 +45,7 @@ class PlayConnection(asyncio.Protocol):
         self.loop = g.LOOP
         self.conn_id = 0
         self.transport = None
-        self.timeout_sec = g.CFG['server_common']['play_timeout_sec']
+        self.timeout_sec = g.CFG['play_timeout_sec']
         self.h_timeout = None
         self.msg_buffer = b''
 

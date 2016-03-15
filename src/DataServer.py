@@ -26,7 +26,7 @@ def main():
     # test
     g.MST[1] = 2
 
-    pool_size = g.CFG['server_common'][server_type + '_proc_pool_size']
+    pool_size = g.CFG[server_type + '_proc_pool_size']
     port = g.CFG[server_type + g.SERVER_SEQ]
 
     # pool
