@@ -5,8 +5,8 @@ import time
 import g
 import config
 import logger
+import master_data
 
-from MasterData import MasterData
 from Player import Player
 from Area import AREA_LOBBY, AREA_TOWN, AREA_DUNGEON, AREA_ARENA, Area
 
@@ -41,9 +41,10 @@ class PlayLoop:
 
         config.load()
         logger.init('play')
+        master_data.load()
 
-        g.MST = MasterData()
-        g.MST.load()
+        # test
+        g.MST[1] = 2
 
         while self.is_running:
             time.sleep(0.001)

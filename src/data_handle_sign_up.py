@@ -1,7 +1,6 @@
 
 import asyncio
 import asyncio.futures
-import concurrent.futures
 
 import g
 import msg
@@ -20,7 +19,7 @@ def handle_sign_up(req_msg_type, req_msg_body):
 
     ack = msg_packet_data_pb2.sign_up_ack()
     ack.err_code = msg_error_pb2.err_server_unknown
-    ack.auth_token = ''
+    ack.auth_token = str(g.MST[1])
 
     # do something with db here
     j = yield from asyncio.futures.wrap_future(g.PROC_POOL.submit(b, 1))

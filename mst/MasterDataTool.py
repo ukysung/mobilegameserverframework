@@ -1,11 +1,11 @@
 
 import sys
-import json
 
 from os import listdir
 from os.path import isfile, join
 
 import xml.etree.cElementTree as cET
+import msgpack
 
 def is_int(type_):
     return type_ in ['int(11)', 'bigint(20)']
@@ -25,7 +25,6 @@ if len(sys.argv) < 2:
     print('Usage: python3 ./MasterDataTool.py develop')
     sys.exit()
 
-T = '    '
 PHASE = sys.argv[1]
 
 PATH = './' + PHASE
@@ -40,17 +39,17 @@ NS_CELL = NS + 'Cell'
 NS_INDEX = NS + 'Index'
 NS_DATA = NS + 'Data'
 
-for f in FILES:
+for file_ in FILES:
     column_visibilities = []
     column_names = []
     column_types = []
 
-    tree = cET.parse(join(PATH, f))
+    tree = cET.parse(join(PATH, file_))
     root = tree.getroot()
 
     for worksheet in root.iter(tag=NS_WORKSHEET):
         name = worksheet.attrib[NS_NAME]
-        print(f + ' : ' + name)
+        print(file_ + ' : ' + name)
 
         mst_dict = {}
         column_visibilities.clear()
@@ -120,9 +119,9 @@ for f in FILES:
                     if data_mid is not None and NS_INDEX in cell.attrib:
                         cell_attrib_index = int(cell.attrib[NS_INDEX]) - 1
                         while column_idx < cell_attrib_index and column_idx < column_len:
-                            mst_dict[data_mid] = {
-                                column_names[column_idx]:default_value(column_types[column_idx])
-                            }
+                            mst_dict[data_mid][column_names[column_idx]] = \
+                                default_value(column_types[column_idx])
+
                             column_idx += 1
 
                     if column_idx == column_len:
@@ -163,6 +162,6 @@ for f in FILES:
 
             row_index += 1
 
-        with open('./' + PHASE + '_json/' + name + '.json', 'w') as fh:
-            json.dump(mst_dict, fh)
+        with open('./' + PHASE + '_msgpacked/' + name + '.msgpacked', 'wb') as mst_file:
+            mst_file.write(msgpack.packb(mst_dict))
 

@@ -8,8 +8,8 @@ import signal
 import g
 import config
 import logger
+import master_data
 
-from MasterData import MasterData
 from PlayConnection import INCOMING, INTERNAL, OUTGOING
 from PlayConnection import handle_internal, handle_outgoing
 from PlayConnection import PlayConnection
@@ -24,9 +24,10 @@ def main():
 
     config.load()
     logger.init(server_type)
+    master_data.load()
 
-    g.MST = MasterData()
-    g.MST.load()
+    # test
+    g.MST[1] = 2
 
     pool_size = g.CFG['server_common'][server_type + '_proc_pool_size']
     port = g.CFG[server_type + g.SERVER_SEQ]

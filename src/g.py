@@ -5,7 +5,7 @@ SERVER_SEQ = '00'
 
 LOG = None
 CFG = {}
-MST = None
+MST = {}
 LOOP = None
 
 PROC_POOL = None

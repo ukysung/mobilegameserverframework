@@ -15,6 +15,7 @@ mobilegameserver
 * sudo pip3 install protobuf==3.0.0-beta-2
 * sudo pip3 install pycrypto
 * sudo pip3 install aiohttp
+* sudo pip3 install msgpack-python
 * sudo pip3 install awscli
 * aws configure
 
