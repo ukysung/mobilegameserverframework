@@ -3,14 +3,14 @@ import signal
 import time
 
 import g
+import config
+import logger
+
+from MasterData import MasterData
 from Player import Player
 from Area import AREA_LOBBY, AREA_TOWN, AREA_DUNGEON, AREA_ARENA, Area
 
 from channel_handle_message_no_1 import handle_message_no_1
-
-import config
-import logger
-import master
 
 CHANNEL_ADD_PLAYER = -1
 CHANNEL_REMOVE_PLAYER = -2
@@ -42,10 +42,9 @@ class Channel:
 
         config.load()
         logger.init('channel')
-        master.load()
 
-        # test
-        #g.MST[1] = 2
+        g.MST = MasterData()
+        g.MST.load()
 
         while self.is_running:
             time.sleep(0.001)

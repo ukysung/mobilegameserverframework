@@ -5,11 +5,11 @@ import asyncio
 
 from aiohttp.web import Application, Response, run_app
 
+import g
 import config
 import logger
-import master
 
-import g
+from MasterData import MasterData
 
 @asyncio.coroutine
 def handle_json(request):
@@ -34,7 +34,9 @@ def main():
 
     config.load()
     logger.init(server_type)
-    master.load()
+
+    g.MST = MasterData()
+    g.MST.load()
 
     # web_app_server
     app = Application()

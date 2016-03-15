@@ -5,11 +5,11 @@ import concurrent.futures
 import asyncio
 import signal
 
+import g
 import config
 import logger
-import master
 
-import g
+from MasterData import MasterData
 from ChannelConnection import INCOMING, INTERNAL, OUTGOING
 from ChannelConnection import handle_internal, handle_outgoing
 from ChannelConnection import ChannelConnection
@@ -24,10 +24,9 @@ def main():
 
     config.load()
     logger.init(server_type)
-    master.load()
 
-    # test
-    #g.MST[1] = 2
+    g.MST = MasterData()
+    g.MST.load()
 
     pool_size = g.CFG['server_common'][server_type + '_proc_pool_size']
     port = g.CFG[server_type + g.SERVER_SEQ]

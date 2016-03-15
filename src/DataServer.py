@@ -5,11 +5,11 @@ import asyncio.futures
 import concurrent.futures
 import signal
 
+import g
 import config
 import logger
-import master
 
-import g
+from MasterData import MasterData
 from DataConnection import DataConnection
 
 def main():
@@ -21,11 +21,9 @@ def main():
 
     config.load()
     logger.init(server_type)
-    master.load()
 
-    # test
-    #print(g.MST['action'][str(301)]['action_status'])
-    #g.MST[1] = 2
+    g.MST = MasterData()
+    g.MST.load()
 
     pool_size = g.CFG['server_common'][server_type + '_proc_pool_size']
     port = g.CFG[server_type + g.SERVER_SEQ]

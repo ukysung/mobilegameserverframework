@@ -26,7 +26,6 @@ def handle_sign_up(req_msg_type, req_msg_body):
     j = yield from asyncio.futures.wrap_future(g.PROC_POOL.submit(b, 1))
 
     ack.err_code = msg_error_pb2.err_none
-    ack.auth_token = str(g.MST[1] + j)
 
     return msg.pack(msg_type_data_pb2.t_sign_up_ack, ack)
 g.DATA_HANDLERS[msg_type_data_pb2.t_sign_up_req] = handle_sign_up
