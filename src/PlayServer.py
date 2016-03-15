@@ -10,13 +10,13 @@ import config
 import logger
 
 from MasterData import MasterData
-from ChannelConnection import INCOMING, INTERNAL, OUTGOING
-from ChannelConnection import handle_internal, handle_outgoing
-from ChannelConnection import ChannelConnection
-from Channel import Channel
+from PlayConnection import INCOMING, INTERNAL, OUTGOING
+from PlayConnection import handle_internal, handle_outgoing
+from PlayConnection import PlayConnection
+from PlayLoop import PlayLoop
 
 def main():
-    server_type = 'channel'
+    server_type = 'play'
 
     if len(sys.argv) > 2:
         g.PHASE = sys.argv[1]
@@ -34,12 +34,12 @@ def main():
     # queues and pool
     g.PROC_POOL = concurrent.futures.ProcessPoolExecutor(pool_size)
 
-    # channel
-    channel = Channel(g.PHASE, g.SERVER_SEQ)
-    process = multiprocessing.Process(target=channel.run, args=(INCOMING, INTERNAL, OUTGOING))
+    # play
+    play_loop = PlayLoop(g.PHASE, g.SERVER_SEQ)
+    process = multiprocessing.Process(target=play_loop.run, args=(INCOMING, INTERNAL, OUTGOING))
     process.start()
 
-    # channel_server
+    # play_server
     g.LOOP = asyncio.get_event_loop()
 
     try:
@@ -51,10 +51,11 @@ def main():
 
     task_internal = g.LOOP.create_task(handle_internal())
     task_outgoing = g.LOOP.create_task(handle_outgoing())
-    coro_server = g.LOOP.create_server(ChannelConnection, port=port)
-    channel_server = g.LOOP.run_until_complete(coro_server)
 
-    for sock in channel_server.sockets:
+    coro_server = g.LOOP.create_server(PlayConnection, port=port)
+    play_server = g.LOOP.run_until_complete(coro_server)
+
+    for sock in play_server.sockets:
         print('{}_server_{} starting.. {}'.format(server_type, g.SERVER_SEQ, sock.getsockname()))
 
     try:
@@ -65,7 +66,7 @@ def main():
         g.LOG.info('keyboard interrupt..')
 
     finally:
-        channel_server.close()
+        play_server.close()
 
         task_internal.cancel()
         task_outgoing.cancel()

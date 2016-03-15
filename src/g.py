@@ -11,9 +11,9 @@ LOOP = None
 PROC_POOL = None
 DATA_HANDLERS = {}
 
-# channel
+# play
 CONN_ID = 0
-CHANNEL_HANDLERS = {}
+PLAY_HANDLERS = {}
 
 TO_ME = 1
 TO_ALL = 2

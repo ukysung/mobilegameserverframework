@@ -4,7 +4,7 @@ import asyncio
 
 import g
 import msg
-from Channel import CHANNEL_ADD_PLAYER, CHANNEL_REMOVE_PLAYER
+from PlayLoop import PLAYER_CREATE, PLAYER_DELETE
 
 CONNS = {}
 INCOMING = multiprocessing.Queue()
@@ -40,12 +40,12 @@ def handle_outgoing():
         if msg_[0] in CONNS:
             CONNS[msg_[0]].transport.write(b'steve:' + msg_[2])
 
-class ChannelConnection(asyncio.Protocol):
+class PlayConnection(asyncio.Protocol):
     def __init__(self):
         self.loop = g.LOOP
         self.conn_id = 0
         self.transport = None
-        self.timeout_sec = g.CFG['server_common']['channel_timeout_sec']
+        self.timeout_sec = g.CFG['server_common']['play_timeout_sec']
         self.h_timeout = None
         self.msg_buffer = b''
 
@@ -61,7 +61,7 @@ class ChannelConnection(asyncio.Protocol):
         CONNS[self.conn_id] = self
 
         print('incoming_put')
-        INCOMING.put([self.conn_id, CHANNEL_ADD_PLAYER, None])
+        INCOMING.put([self.conn_id, PLAYER_CREATE, None])
 
     def data_received(self, data):
         self.h_timeout.cancel()
@@ -99,7 +99,7 @@ class ChannelConnection(asyncio.Protocol):
     def connection_lost(self, ex):
         self.h_timeout.cancel()
         conn_id = self.conn_id
-        INCOMING.put([conn_id, CHANNEL_REMOVE_PLAYER, None])
+        INCOMING.put([conn_id, PLAYER_DELETE, None])
         del CONNS[conn_id]
 
     def connection_timed_out(self):

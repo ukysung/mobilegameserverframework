@@ -26,7 +26,7 @@ def handle_sign_up_ack(msg_body):
 HANDLERS.append(handle_sign_up_ack)
 
 @asyncio.coroutine
-def channel_client(host, port):
+def play_client(host, port):
     reader, writer = yield from asyncio.open_connection(host, port)
 
     i = 0
@@ -54,7 +54,7 @@ def channel_client(host, port):
 
 def main():
     if len(sys.argv) < 3:
-        print('Usage: python3 ./ChannelClient.py 127.0.0.1 22000')
+        print('Usage: python3 ./PlayClient.py 127.0.0.1 22000')
         sys.exit()
 
     host = sys.argv[1]
@@ -63,7 +63,7 @@ def main():
     loop = asyncio.get_event_loop()
 
     try:
-        loop.run_until_complete(channel_client(host, port))
+        loop.run_until_complete(play_client(host, port))
 
     except KeyboardInterrupt:
         pass

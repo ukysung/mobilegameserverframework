@@ -101,15 +101,15 @@
             "data_timeout_sec" : 1800,
             "data_proc_pool_size" : 4,
 
-            "channel_timeout_sec" : 600,
-            "channel_proc_pool_size" : 3
+            "play_timeout_sec" : 600,
+            "play_proc_pool_size" : 3
         },
 
     "//server_port" : 0,
 
         "http00" : 20000,
         "data00" : 21000,
-        "channel00" : 22000,
+        "play00" : 22000,
 
     "//end" : 0
 

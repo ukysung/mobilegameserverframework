@@ -10,12 +10,12 @@ from MasterData import MasterData
 from Player import Player
 from Area import AREA_LOBBY, AREA_TOWN, AREA_DUNGEON, AREA_ARENA, Area
 
-from channel_handle_message_no_1 import handle_message_no_1
+from play_handle_message_no_1 import handle_message_no_1
 
-CHANNEL_ADD_PLAYER = -1
-CHANNEL_REMOVE_PLAYER = -2
+PLAYER_CREATE = -1
+PLAYER_DELETE = -2
 
-class Channel:
+class PlayLoop:
     def __init__(self, phase, server_seq):
         signal.signal(signal.SIGINT, self.stop)
         signal.signal(signal.SIGTERM, self.stop)
@@ -38,10 +38,9 @@ class Channel:
     def run(self, incoming, internal, outgoing):
         g.PHASE = self.phase
         g.SERVER_SEQ = self.server_seq
-        g.SERVER_ID = 'server' + g.SERVER_SEQ
 
         config.load()
-        logger.init('channel')
+        logger.init('play')
 
         g.MST = MasterData()
         g.MST.load()
@@ -61,21 +60,21 @@ class Channel:
                 print(conn_id)
                 print(req_msg_type)
                 print(req_msg_body)
-                if req_msg_type == CHANNEL_ADD_PLAYER:
+                if req_msg_type == PLAYER_CREATE:
                     print('add_player')
                     area_id = 0
                     self.players[conn_id] = Player(area_id)
                     self.areas[area_id].player_conn_ids.append(conn_id)
 
-                elif req_msg_type == CHANNEL_REMOVE_PLAYER:
+                elif req_msg_type == PLAYER_DELETE:
                     print('remove_player')
                     area_id = self.players[conn_id].area_id
                     self.areas[area_id].player_conn_ids.remove(conn_id)
                     del self.players[conn_id]
 
-                elif req_msg_type in g.CHANNEL_HANDLERS:
+                elif req_msg_type in g.PLAY_HANDLERS:
                     (conn_id, ack_msg_type, ack_msg_body, rcpt) = \
-                        g.CHANNEL_HANDLERS[req_msg_type](conn_id, req_msg_type, req_msg_body)
+                        g.PLAY_HANDLERS[req_msg_type](conn_id, req_msg_type, req_msg_body)
 
                     if rcpt == g.TO_ME:
                         outgoing.put([conn_id, ack_msg_type, ack_msg_body])
