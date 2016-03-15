@@ -143,21 +143,21 @@ for f in FILES:
                         visible = column_visibilities[column_idx] != 'unlisted'
 
                         if column_idx == 0:
-                            data_mid = data.text
+                            data_mid = data_text
                             mst_dict[data_mid] = {}
 
                         elif visible and 'list' in column_types[column_idx]:
-                            mst_dict[data_mid][column_names[column_idx]] = data.text.split(';')
+                            mst_dict[data_mid][column_names[column_idx]] = data_text.split(';')
 
                         elif visible:
                             if is_int(column_types[column_idx]):
-                                mst_dict[data_mid][column_names[column_idx]] = int(data.text)
+                                mst_dict[data_mid][column_names[column_idx]] = int(data_text)
 
                             elif is_float(column_types[column_idx]):
-                                mst_dict[data_mid][column_names[column_idx]] = float(data.text)
+                                mst_dict[data_mid][column_names[column_idx]] = float(data_text)
 
                             else:
-                                mst_dict[data_mid][column_names[column_idx]] = data.text
+                                mst_dict[data_mid][column_names[column_idx]] = data_text
 
                     column_idx += 1
 
