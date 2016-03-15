@@ -1,9 +1,10 @@
 
 import sys
 import json
-import decimal
+
 from os import listdir
 from os.path import isfile, join
+
 import xml.etree.cElementTree as cET
 
 def is_int(type_):
@@ -151,6 +152,6 @@ for f in FILES:
 
             row_index += 1
 
-        with open('../src/mst_' + name + '.json', 'w') as fh:
+        with open('./' + PHASE + '_json/' + name + '.json', 'w') as fh:
             json.dump(mst_dict, fh)
 

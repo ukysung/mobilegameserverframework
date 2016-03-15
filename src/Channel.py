@@ -10,6 +10,7 @@ from channel_handle_message_no_1 import handle_message_no_1
 
 import config
 import logger
+import master
 
 CHANNEL_ADD_PLAYER = -1
 CHANNEL_REMOVE_PLAYER = -2
@@ -41,6 +42,7 @@ class Channel:
 
         config.load()
         logger.init('channel')
+        master.load()
         g.MST[1] = 2
 
         while self.is_running:

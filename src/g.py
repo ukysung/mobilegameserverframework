@@ -2,7 +2,7 @@
 # common
 PHASE = 'develop'
 SERVER_SEQ = '00'
-SERVER_ID = 'server' + SERVER_SEQ
+SERVER_PORT = 'server' + SERVER_SEQ
 
 LOG = None
 CFG = {}

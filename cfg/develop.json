@@ -94,37 +94,22 @@
             "timeout_sec" : 0
         },
 
-    "//servers" : 0,
+    "//server_common" : 0,
 
-        "server00":
+        "server_common":
         {
-            "address" : "127.0.0.1",
-
-            "http_port" : 20000,
-
-            "data_port" : 21000,
             "data_timeout_sec" : 1800,
-            "data_process_pool_size" : 4,
+            "data_proc_pool_size" : 4,
 
-            "channel_port" : 22000,
             "channel_timeout_sec" : 600,
-            "channel_process_pool_size" : 3
+            "channel_proc_pool_size" : 3
         },
 
-        "server01":
-        {
-            "address" : "127.0.0.1",
+    "//server_port" : 0,
 
-            "http_port" : 20001,
-
-            "data_port" : 21001,
-            "data_timeout_sec" : 1800,
-            "data_process_pool_size" : 4,
-
-            "channel_port" : 22001,
-            "channel_timeout_sec" : 600,
-            "channel_process_pool_size" : 3
-        },
+        "http00" : 20000,
+        "data00" : 21000,
+        "channel00" : 22000,
 
     "//end" : 0
 

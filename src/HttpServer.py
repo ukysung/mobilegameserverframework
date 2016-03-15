@@ -7,6 +7,7 @@ from aiohttp.web import Application, Response, run_app
 
 import config
 import logger
+import master
 
 import g
 
@@ -25,14 +26,15 @@ def handle_index(request):
     return Response(body=body.encode('utf-8'))
 
 def main():
+    server_type = 'http'
+
     if len(sys.argv) > 3:
         g.PHASE = sys.argv[1]
         g.SERVER_SEQ = sys.argv[2]
-        g.SERVER_ID = 'server' + g.SERVER_SEQ
 
     config.load()
-    logger.init('web_app')
-    #master.load()
+    logger.init(server_type)
+    master.load()
 
     # web_app_server
     app = Application()
@@ -41,7 +43,7 @@ def main():
     app.router.add_route('GET', '/{name}', handle_index)
     app.router.add_route('GET', '/', handle_index)
 
-    run_app(app, port=g.CFG[g.SERVER_ID]['http_port'])
+    run_app(app, port=g.CFG[server_type + g.SERVER_SEQ])
 
 if __name__ == '__main__':
     main()

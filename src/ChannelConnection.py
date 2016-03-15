@@ -23,9 +23,6 @@ def handle_internal():
             continue
 
         msg_ = yield from internal_get()
-        if msg_ is None:
-            break
-
         OUTGOING.put(msg_)
 
 @asyncio.coroutine
@@ -40,9 +37,6 @@ def handle_outgoing():
             continue
 
         msg_ = yield from outgoing_get()
-        if msg_ is None:
-            break
-
         if msg_[0] in CONNS:
             CONNS[msg_[0]].transport.write(b'steve:' + msg_[2])
 
@@ -51,7 +45,7 @@ class ChannelConnection(asyncio.Protocol):
         self.loop = g.LOOP
         self.conn_id = 0
         self.transport = None
-        self.timeout_sec = g.CFG[g.SERVER_ID]['channel_timeout_sec']
+        self.timeout_sec = g.CFG['server_common']['channel_timeout_sec']
         self.h_timeout = None
         self.msg_buffer = b''
 
