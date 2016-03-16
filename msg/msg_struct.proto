@@ -12,26 +12,65 @@ package msg;
         required float z = 3;
     }
 
+    message v3angle
+    {
+        required float x = 1;
+        required float y = 2;
+        required float z = 3;
+        required float a = 4;
+    }
+
 // character
 
     message char_info
     {
         required string char_name = 1;
         required int32 char_mid = 2;
+
         required int32 level = 3;
         required int64 exp = 4;
-        required int32 gold = 5;
-        required int32 sera = 6;
-        required int32 skill_point = 7;
-        required int32 equip_weapon = 8;
-        required int32 equip_head = 9;
-        required int32 equip_body = 10;
-        required int32 equip_wings = 11;
-        required int32 skill_slot1 = 12;
-        required int32 skill_slot2 = 13;
-        required int32 skill_slot3 = 14;
-        required int32 skill_slot4 = 15;
-        required int64 last_logintime = 16;
+
+        required int32 ruby = 5;
+        required int32 gold = 6;
+
+        required int32 max_hp = 7;
+        required int32 max_mp = 8;
+
+        required int32 equip_weapon = 9;
+        required int32 equip_head = 10;
+        required int32 equip_body = 11;
+        required int32 equip_wings = 12;
+        //repeated item_info equip_list = 12;
+
+        required int32 skill_point = 13;
+        required int32 skill_slot1 = 14;
+        required int32 skill_slot2 = 15;
+        required int32 skill_slot3 = 16;
+        required int32 skill_slot4 = 17;
+
+        required string guild_name = 18;
+        required string last_logintime = 19;
+    }
+
+    message char_view
+    {
+        required string char_name = 1;
+        required int32 char_mid = 2;
+
+        required int32 level = 3;
+        required int64 exp = 4;
+
+        required int32 max_hp = 5;
+        required int32 max_mp = 6;
+
+        required int32 equip_weapon = 7;
+        required int32 equip_head = 8;
+        required int32 equip_body = 9;
+        required int32 equip_wings = 10;
+        //repeated item_info equip_list = 10;
+
+        required string guild_name = 11;
+        required string last_logintime = 12;
     }
 
 // item
@@ -49,6 +88,38 @@ package msg;
     {
         required int32 skill_mid = 1;
     }
+
+    message damage_info
+    {
+        required int32 target_id = 1;
+        required int32 target_mid = 2;
+
+        required damage_type damage_type_ = 3;
+        required int32 damage_amount = 4;
+    }
+
+// dungeon
+
+// monster
+
+    message monster_info
+    {
+        required int32 actor_id = 1;
+        required int32 monster_mid = 2;
+
+        required bool is_moving = 3;
+        required float angle = 4;
+        required vector3 current_pos = 5;
+        required vector3 moving_pos = 6;
+
+        required actor_status actor_status_ = 7;
+        required int32 max_hp = 8;
+        required int32 hp = 9;
+
+        repeated int32 abnormality_mids = 10;
+    }
+
+// interactor
 
 // end
 

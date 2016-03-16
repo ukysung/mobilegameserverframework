@@ -73,6 +73,18 @@ package msg;
         repeated item_info item_list = 2;
     }
 
+    message equip_item_req
+    {
+        required string auth_token = 1;
+        required string char_name = 2;
+        required string item_id = 3;
+    }
+
+    message equip_item_ack
+    {
+        required err_type err_code = 1;
+    }
+
 // skill
  
     message get_skill_list_req
@@ -85,6 +97,34 @@ package msg;
     {
         required err_type err_code = 1;
         repeated skill_info skill_list = 2;
+    }
+ 
+    message learn_skill_req
+    {
+        required string auth_token = 1;
+        required string char_name = 2;
+        required int32 skill_mid = 3;
+    }
+
+    message learn_skill_ack
+    {
+        required err_type err_code = 1;
+        repeated skill_info skill_list = 2;
+    }
+ 
+    message equip_skill_req
+    {
+        required string auth_token = 1;
+        required string char_name = 2;
+        required int32 skill_slot = 3;
+        required int32 skill_mid = 4;
+    }
+
+    message equip_skill_ack
+    {
+        required err_type err_code = 1;
+        required int32 skill_slot = 3;
+        required int32 skill_mid = 4;
     }
 
 // end

@@ -19,7 +19,7 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='msg_enum.proto',
   package='msg',
-  serialized_pb=_b('\n\x0emsg_enum.proto\x12\x03msg*\x1e\n\rplatform_type\x12\r\n\tplat_none\x10\x00*A\n\nactor_type\x12\x0e\n\nact_player\x10\x01\x12\x0f\n\x0b\x61\x63t_monster\x10\x02\x12\x12\n\x0e\x61\x63t_interactor\x10\x03*7\n\x0c\x61\x63tor_status\x12\x0c\n\x08is_alive\x10\x01\x12\x0c\n\x08is_dying\x10\x02\x12\x0b\n\x07is_dead\x10\x03*Y\n\tpart_type\x12\r\n\tpart_none\x10\x00\x12\x0f\n\x0bpart_weapon\x10\x01\x12\r\n\tpart_head\x10\x03\x12\r\n\tpart_body\x10\x02\x12\x0e\n\npart_wings\x10\x04')
+  serialized_pb=_b('\n\x0emsg_enum.proto\x12\x03msg*\x1e\n\rplatform_type\x12\r\n\tplat_none\x10\x00*A\n\nactor_type\x12\x0e\n\nact_player\x10\x01\x12\x0f\n\x0b\x61\x63t_monster\x10\x02\x12\x12\n\x0e\x61\x63t_interactor\x10\x03*7\n\x0c\x61\x63tor_status\x12\x0c\n\x08is_alive\x10\x01\x12\x0c\n\x08is_dying\x10\x02\x12\x0b\n\x07is_dead\x10\x03*Y\n\tpart_type\x12\r\n\tpart_none\x10\x00\x12\x0f\n\x0bpart_weapon\x10\x01\x12\r\n\tpart_head\x10\x03\x12\r\n\tpart_body\x10\x02\x12\x0e\n\npart_wings\x10\x04*5\n\x0eskill_category\x12\x10\n\x0cskill_active\x10\x01\x12\x11\n\rskill_passive\x10\x02*\x1e\n\nskill_type\x12\x10\n\x0cskill_normal\x10\x01*5\n\x0b\x64\x61mage_type\x12\x11\n\rdamage_normal\x10\x01\x12\x13\n\x0f\x64\x61mage_critical\x10\x02')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -131,6 +131,71 @@ _PART_TYPE = _descriptor.EnumDescriptor(
 _sym_db.RegisterEnumDescriptor(_PART_TYPE)
 
 part_type = enum_type_wrapper.EnumTypeWrapper(_PART_TYPE)
+_SKILL_CATEGORY = _descriptor.EnumDescriptor(
+  name='skill_category',
+  full_name='msg.skill_category',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='skill_active', index=0, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='skill_passive', index=1, number=2,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=270,
+  serialized_end=323,
+)
+_sym_db.RegisterEnumDescriptor(_SKILL_CATEGORY)
+
+skill_category = enum_type_wrapper.EnumTypeWrapper(_SKILL_CATEGORY)
+_SKILL_TYPE = _descriptor.EnumDescriptor(
+  name='skill_type',
+  full_name='msg.skill_type',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='skill_normal', index=0, number=1,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=325,
+  serialized_end=355,
+)
+_sym_db.RegisterEnumDescriptor(_SKILL_TYPE)
+
+skill_type = enum_type_wrapper.EnumTypeWrapper(_SKILL_TYPE)
+_DAMAGE_TYPE = _descriptor.EnumDescriptor(
+  name='damage_type',
+  full_name='msg.damage_type',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='damage_normal', index=0, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='damage_critical', index=1, number=2,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=357,
+  serialized_end=410,
+)
+_sym_db.RegisterEnumDescriptor(_DAMAGE_TYPE)
+
+damage_type = enum_type_wrapper.EnumTypeWrapper(_DAMAGE_TYPE)
 plat_none = 0
 act_player = 1
 act_monster = 2
@@ -143,12 +208,20 @@ part_weapon = 1
 part_head = 3
 part_body = 2
 part_wings = 4
+skill_active = 1
+skill_passive = 2
+skill_normal = 1
+damage_normal = 1
+damage_critical = 2
 
 
 DESCRIPTOR.enum_types_by_name['platform_type'] = _PLATFORM_TYPE
 DESCRIPTOR.enum_types_by_name['actor_type'] = _ACTOR_TYPE
 DESCRIPTOR.enum_types_by_name['actor_status'] = _ACTOR_STATUS
 DESCRIPTOR.enum_types_by_name['part_type'] = _PART_TYPE
+DESCRIPTOR.enum_types_by_name['skill_category'] = _SKILL_CATEGORY
+DESCRIPTOR.enum_types_by_name['skill_type'] = _SKILL_TYPE
+DESCRIPTOR.enum_types_by_name['damage_type'] = _DAMAGE_TYPE
 
 
 # @@protoc_insertion_point(module_scope)

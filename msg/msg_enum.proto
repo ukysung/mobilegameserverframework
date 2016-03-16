@@ -28,3 +28,21 @@ enum part_type
     part_body = 2;
     part_wings = 4;
 }
+
+enum skill_category
+{
+    skill_active = 1;
+    skill_passive = 2;
+}
+
+enum skill_type
+{
+    skill_normal = 1;
+}
+
+enum damage_type
+{
+    damage_normal = 1;
+    damage_critical = 2;
+}
+

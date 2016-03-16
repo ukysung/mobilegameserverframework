@@ -15,7 +15,20 @@ package msg;
     message enter_town_ack
     {
         required err_type err_code = 1;
-        required vector3 init_pos = 2;
+        required v3angle pos = 2;
+    }
+
+    message enter_dungeon_req
+    {
+        required string auth_token = 1;
+        required string char_name = 2;
+        required int32 dungeon_mid = 3;
+    }
+
+    message enter_dungeon_ack
+    {
+        required err_type err_code = 1;
+        required v3angle pos = 2;
     }
 
 // end

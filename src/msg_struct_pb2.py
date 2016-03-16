@@ -19,7 +19,7 @@ import msg_enum_pb2
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='msg_struct.proto',
   package='msg',
-  serialized_pb=_b('\n\x10msg_struct.proto\x12\x03msg\x1a\x0emsg_enum.proto\"*\n\x07vector3\x12\t\n\x01x\x18\x01 \x02(\x02\x12\t\n\x01y\x18\x02 \x02(\x02\x12\t\n\x01z\x18\x03 \x02(\x02\"\xbc\x02\n\tchar_info\x12\x11\n\tchar_name\x18\x01 \x02(\t\x12\x10\n\x08\x63har_mid\x18\x02 \x02(\x05\x12\r\n\x05level\x18\x03 \x02(\x05\x12\x0b\n\x03\x65xp\x18\x04 \x02(\x03\x12\x0c\n\x04gold\x18\x05 \x02(\x05\x12\x0c\n\x04sera\x18\x06 \x02(\x05\x12\x13\n\x0bskill_point\x18\x07 \x02(\x05\x12\x14\n\x0c\x65quip_weapon\x18\x08 \x02(\x05\x12\x12\n\nequip_head\x18\t \x02(\x05\x12\x12\n\nequip_body\x18\n \x02(\x05\x12\x13\n\x0b\x65quip_wings\x18\x0b \x02(\x05\x12\x13\n\x0bskill_slot1\x18\x0c \x02(\x05\x12\x13\n\x0bskill_slot2\x18\r \x02(\x05\x12\x13\n\x0bskill_slot3\x18\x0e \x02(\x05\x12\x13\n\x0bskill_slot4\x18\x0f \x02(\x05\x12\x16\n\x0elast_logintime\x18\x10 \x02(\x03\"R\n\titem_info\x12\x0f\n\x07item_id\x18\x01 \x02(\t\x12\"\n\nequip_part\x18\x02 \x02(\x0e\x32\x0e.msg.part_type\x12\x10\n\x08item_mid\x18\x03 \x02(\x05\"\x1f\n\nskill_info\x12\x11\n\tskill_mid\x18\x01 \x02(\x05')
+  serialized_pb=_b('\n\x10msg_struct.proto\x12\x03msg\x1a\x0emsg_enum.proto\"*\n\x07vector3\x12\t\n\x01x\x18\x01 \x02(\x02\x12\t\n\x01y\x18\x02 \x02(\x02\x12\t\n\x01z\x18\x03 \x02(\x02\"5\n\x07v3angle\x12\t\n\x01x\x18\x01 \x02(\x02\x12\t\n\x01y\x18\x02 \x02(\x02\x12\t\n\x01z\x18\x03 \x02(\x02\x12\t\n\x01\x61\x18\x04 \x02(\x02\"\xf0\x02\n\tchar_info\x12\x11\n\tchar_name\x18\x01 \x02(\t\x12\x10\n\x08\x63har_mid\x18\x02 \x02(\x05\x12\r\n\x05level\x18\x03 \x02(\x05\x12\x0b\n\x03\x65xp\x18\x04 \x02(\x03\x12\x0c\n\x04ruby\x18\x05 \x02(\x05\x12\x0c\n\x04gold\x18\x06 \x02(\x05\x12\x0e\n\x06max_hp\x18\x07 \x02(\x05\x12\x0e\n\x06max_mp\x18\x08 \x02(\x05\x12\x14\n\x0c\x65quip_weapon\x18\t \x02(\x05\x12\x12\n\nequip_head\x18\n \x02(\x05\x12\x12\n\nequip_body\x18\x0b \x02(\x05\x12\x13\n\x0b\x65quip_wings\x18\x0c \x02(\x05\x12\x13\n\x0bskill_point\x18\r \x02(\x05\x12\x13\n\x0bskill_slot1\x18\x0e \x02(\x05\x12\x13\n\x0bskill_slot2\x18\x0f \x02(\x05\x12\x13\n\x0bskill_slot3\x18\x10 \x02(\x05\x12\x13\n\x0bskill_slot4\x18\x11 \x02(\x05\x12\x12\n\nguild_name\x18\x12 \x02(\t\x12\x16\n\x0elast_logintime\x18\x13 \x02(\t\"\xeb\x01\n\tchar_view\x12\x11\n\tchar_name\x18\x01 \x02(\t\x12\x10\n\x08\x63har_mid\x18\x02 \x02(\x05\x12\r\n\x05level\x18\x03 \x02(\x05\x12\x0b\n\x03\x65xp\x18\x04 \x02(\x03\x12\x0e\n\x06max_hp\x18\x05 \x02(\x05\x12\x0e\n\x06max_mp\x18\x06 \x02(\x05\x12\x14\n\x0c\x65quip_weapon\x18\x07 \x02(\x05\x12\x12\n\nequip_head\x18\x08 \x02(\x05\x12\x12\n\nequip_body\x18\t \x02(\x05\x12\x13\n\x0b\x65quip_wings\x18\n \x02(\x05\x12\x12\n\nguild_name\x18\x0b \x02(\t\x12\x16\n\x0elast_logintime\x18\x0c \x02(\t\"R\n\titem_info\x12\x0f\n\x07item_id\x18\x01 \x02(\t\x12\"\n\nequip_part\x18\x02 \x02(\x0e\x32\x0e.msg.part_type\x12\x10\n\x08item_mid\x18\x03 \x02(\x05\"\x1f\n\nskill_info\x12\x11\n\tskill_mid\x18\x01 \x02(\x05\"s\n\x0b\x64\x61mage_info\x12\x11\n\ttarget_id\x18\x01 \x02(\x05\x12\x12\n\ntarget_mid\x18\x02 \x02(\x05\x12&\n\x0c\x64\x61mage_type_\x18\x03 \x02(\x0e\x32\x10.msg.damage_type\x12\x15\n\rdamage_amount\x18\x04 \x02(\x05\"\xfc\x01\n\x0cmonster_info\x12\x10\n\x08\x61\x63tor_id\x18\x01 \x02(\x05\x12\x13\n\x0bmonster_mid\x18\x02 \x02(\x05\x12\x11\n\tis_moving\x18\x03 \x02(\x08\x12\r\n\x05\x61ngle\x18\x04 \x02(\x02\x12!\n\x0b\x63urrent_pos\x18\x05 \x02(\x0b\x32\x0c.msg.vector3\x12 \n\nmoving_pos\x18\x06 \x02(\x0b\x32\x0c.msg.vector3\x12(\n\ractor_status_\x18\x07 \x02(\x0e\x32\x11.msg.actor_status\x12\x0e\n\x06max_hp\x18\x08 \x02(\x05\x12\n\n\x02hp\x18\t \x02(\x05\x12\x18\n\x10\x61\x62normality_mids\x18\n \x03(\x05')
   ,
   dependencies=[msg_enum_pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -71,6 +71,57 @@ _VECTOR3 = _descriptor.Descriptor(
 )
 
 
+_V3ANGLE = _descriptor.Descriptor(
+  name='v3angle',
+  full_name='msg.v3angle',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='x', full_name='msg.v3angle.x', index=0,
+      number=1, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='y', full_name='msg.v3angle.y', index=1,
+      number=2, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='z', full_name='msg.v3angle.z', index=2,
+      number=3, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='a', full_name='msg.v3angle.a', index=3,
+      number=4, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=85,
+  serialized_end=138,
+)
+
+
 _CHAR_INFO = _descriptor.Descriptor(
   name='char_info',
   full_name='msg.char_info',
@@ -107,86 +158,107 @@ _CHAR_INFO = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='gold', full_name='msg.char_info.gold', index=4,
+      name='ruby', full_name='msg.char_info.ruby', index=4,
       number=5, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='sera', full_name='msg.char_info.sera', index=5,
+      name='gold', full_name='msg.char_info.gold', index=5,
       number=6, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='skill_point', full_name='msg.char_info.skill_point', index=6,
+      name='max_hp', full_name='msg.char_info.max_hp', index=6,
       number=7, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='equip_weapon', full_name='msg.char_info.equip_weapon', index=7,
+      name='max_mp', full_name='msg.char_info.max_mp', index=7,
       number=8, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='equip_head', full_name='msg.char_info.equip_head', index=8,
+      name='equip_weapon', full_name='msg.char_info.equip_weapon', index=8,
       number=9, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='equip_body', full_name='msg.char_info.equip_body', index=9,
+      name='equip_head', full_name='msg.char_info.equip_head', index=9,
       number=10, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='equip_wings', full_name='msg.char_info.equip_wings', index=10,
+      name='equip_body', full_name='msg.char_info.equip_body', index=10,
       number=11, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='skill_slot1', full_name='msg.char_info.skill_slot1', index=11,
+      name='equip_wings', full_name='msg.char_info.equip_wings', index=11,
       number=12, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='skill_slot2', full_name='msg.char_info.skill_slot2', index=12,
+      name='skill_point', full_name='msg.char_info.skill_point', index=12,
       number=13, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='skill_slot3', full_name='msg.char_info.skill_slot3', index=13,
+      name='skill_slot1', full_name='msg.char_info.skill_slot1', index=13,
       number=14, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='skill_slot4', full_name='msg.char_info.skill_slot4', index=14,
+      name='skill_slot2', full_name='msg.char_info.skill_slot2', index=14,
       number=15, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='last_logintime', full_name='msg.char_info.last_logintime', index=15,
-      number=16, type=3, cpp_type=2, label=2,
+      name='skill_slot3', full_name='msg.char_info.skill_slot3', index=15,
+      number=16, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='skill_slot4', full_name='msg.char_info.skill_slot4', index=16,
+      number=17, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='guild_name', full_name='msg.char_info.guild_name', index=17,
+      number=18, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='last_logintime', full_name='msg.char_info.last_logintime', index=18,
+      number=19, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -201,8 +273,115 @@ _CHAR_INFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=86,
-  serialized_end=402,
+  serialized_start=141,
+  serialized_end=509,
+)
+
+
+_CHAR_VIEW = _descriptor.Descriptor(
+  name='char_view',
+  full_name='msg.char_view',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='char_name', full_name='msg.char_view.char_name', index=0,
+      number=1, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='char_mid', full_name='msg.char_view.char_mid', index=1,
+      number=2, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='level', full_name='msg.char_view.level', index=2,
+      number=3, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='exp', full_name='msg.char_view.exp', index=3,
+      number=4, type=3, cpp_type=2, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='max_hp', full_name='msg.char_view.max_hp', index=4,
+      number=5, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='max_mp', full_name='msg.char_view.max_mp', index=5,
+      number=6, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='equip_weapon', full_name='msg.char_view.equip_weapon', index=6,
+      number=7, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='equip_head', full_name='msg.char_view.equip_head', index=7,
+      number=8, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='equip_body', full_name='msg.char_view.equip_body', index=8,
+      number=9, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='equip_wings', full_name='msg.char_view.equip_wings', index=9,
+      number=10, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='guild_name', full_name='msg.char_view.guild_name', index=10,
+      number=11, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='last_logintime', full_name='msg.char_view.last_logintime', index=11,
+      number=12, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=512,
+  serialized_end=747,
 )
 
 
@@ -245,8 +424,8 @@ _ITEM_INFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=404,
-  serialized_end=486,
+  serialized_start=749,
+  serialized_end=831,
 )
 
 
@@ -275,15 +454,167 @@ _SKILL_INFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=488,
-  serialized_end=519,
+  serialized_start=833,
+  serialized_end=864,
+)
+
+
+_DAMAGE_INFO = _descriptor.Descriptor(
+  name='damage_info',
+  full_name='msg.damage_info',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='target_id', full_name='msg.damage_info.target_id', index=0,
+      number=1, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='target_mid', full_name='msg.damage_info.target_mid', index=1,
+      number=2, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='damage_type_', full_name='msg.damage_info.damage_type_', index=2,
+      number=3, type=14, cpp_type=8, label=2,
+      has_default_value=False, default_value=1,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='damage_amount', full_name='msg.damage_info.damage_amount', index=3,
+      number=4, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=866,
+  serialized_end=981,
+)
+
+
+_MONSTER_INFO = _descriptor.Descriptor(
+  name='monster_info',
+  full_name='msg.monster_info',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='actor_id', full_name='msg.monster_info.actor_id', index=0,
+      number=1, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='monster_mid', full_name='msg.monster_info.monster_mid', index=1,
+      number=2, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='is_moving', full_name='msg.monster_info.is_moving', index=2,
+      number=3, type=8, cpp_type=7, label=2,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='angle', full_name='msg.monster_info.angle', index=3,
+      number=4, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='current_pos', full_name='msg.monster_info.current_pos', index=4,
+      number=5, type=11, cpp_type=10, label=2,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='moving_pos', full_name='msg.monster_info.moving_pos', index=5,
+      number=6, type=11, cpp_type=10, label=2,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='actor_status_', full_name='msg.monster_info.actor_status_', index=6,
+      number=7, type=14, cpp_type=8, label=2,
+      has_default_value=False, default_value=1,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='max_hp', full_name='msg.monster_info.max_hp', index=7,
+      number=8, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='hp', full_name='msg.monster_info.hp', index=8,
+      number=9, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='abnormality_mids', full_name='msg.monster_info.abnormality_mids', index=9,
+      number=10, type=5, cpp_type=1, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=984,
+  serialized_end=1236,
 )
 
 _ITEM_INFO.fields_by_name['equip_part'].enum_type = msg_enum_pb2._PART_TYPE
+_DAMAGE_INFO.fields_by_name['damage_type_'].enum_type = msg_enum_pb2._DAMAGE_TYPE
+_MONSTER_INFO.fields_by_name['current_pos'].message_type = _VECTOR3
+_MONSTER_INFO.fields_by_name['moving_pos'].message_type = _VECTOR3
+_MONSTER_INFO.fields_by_name['actor_status_'].enum_type = msg_enum_pb2._ACTOR_STATUS
 DESCRIPTOR.message_types_by_name['vector3'] = _VECTOR3
+DESCRIPTOR.message_types_by_name['v3angle'] = _V3ANGLE
 DESCRIPTOR.message_types_by_name['char_info'] = _CHAR_INFO
+DESCRIPTOR.message_types_by_name['char_view'] = _CHAR_VIEW
 DESCRIPTOR.message_types_by_name['item_info'] = _ITEM_INFO
 DESCRIPTOR.message_types_by_name['skill_info'] = _SKILL_INFO
+DESCRIPTOR.message_types_by_name['damage_info'] = _DAMAGE_INFO
+DESCRIPTOR.message_types_by_name['monster_info'] = _MONSTER_INFO
 
 vector3 = _reflection.GeneratedProtocolMessageType('vector3', (_message.Message,), dict(
   DESCRIPTOR = _VECTOR3,
@@ -292,12 +623,26 @@ vector3 = _reflection.GeneratedProtocolMessageType('vector3', (_message.Message,
   ))
 _sym_db.RegisterMessage(vector3)
 
+v3angle = _reflection.GeneratedProtocolMessageType('v3angle', (_message.Message,), dict(
+  DESCRIPTOR = _V3ANGLE,
+  __module__ = 'msg_struct_pb2'
+  # @@protoc_insertion_point(class_scope:msg.v3angle)
+  ))
+_sym_db.RegisterMessage(v3angle)
+
 char_info = _reflection.GeneratedProtocolMessageType('char_info', (_message.Message,), dict(
   DESCRIPTOR = _CHAR_INFO,
   __module__ = 'msg_struct_pb2'
   # @@protoc_insertion_point(class_scope:msg.char_info)
   ))
 _sym_db.RegisterMessage(char_info)
+
+char_view = _reflection.GeneratedProtocolMessageType('char_view', (_message.Message,), dict(
+  DESCRIPTOR = _CHAR_VIEW,
+  __module__ = 'msg_struct_pb2'
+  # @@protoc_insertion_point(class_scope:msg.char_view)
+  ))
+_sym_db.RegisterMessage(char_view)
 
 item_info = _reflection.GeneratedProtocolMessageType('item_info', (_message.Message,), dict(
   DESCRIPTOR = _ITEM_INFO,
@@ -312,6 +657,20 @@ skill_info = _reflection.GeneratedProtocolMessageType('skill_info', (_message.Me
   # @@protoc_insertion_point(class_scope:msg.skill_info)
   ))
 _sym_db.RegisterMessage(skill_info)
+
+damage_info = _reflection.GeneratedProtocolMessageType('damage_info', (_message.Message,), dict(
+  DESCRIPTOR = _DAMAGE_INFO,
+  __module__ = 'msg_struct_pb2'
+  # @@protoc_insertion_point(class_scope:msg.damage_info)
+  ))
+_sym_db.RegisterMessage(damage_info)
+
+monster_info = _reflection.GeneratedProtocolMessageType('monster_info', (_message.Message,), dict(
+  DESCRIPTOR = _MONSTER_INFO,
+  __module__ = 'msg_struct_pb2'
+  # @@protoc_insertion_point(class_scope:msg.monster_info)
+  ))
+_sym_db.RegisterMessage(monster_info)
 
 
 # @@protoc_insertion_point(module_scope)
