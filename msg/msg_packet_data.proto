@@ -38,8 +38,8 @@ package msg;
     message create_character_req
     {
         required string auth_token = 1;
-        required string char_name = 3;
         required int32 char_mid = 2;
+        required string char_name = 3;
     }
 
     message create_character_ack

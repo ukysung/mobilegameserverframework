@@ -3,6 +3,9 @@ package msg;
 
 enum type_play
 {
+
+// town : 210
+
     t_enter_town_req = 21001;
     t_enter_town_ack = 21002;
 }

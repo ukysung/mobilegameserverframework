@@ -5,26 +5,25 @@ enum err_type
 {
     err_none = 0;
 
-// server / 100
+// server : 100
 
     err_server_unknown = 10000;
     err_server_unauthorized = 10001;
 
-// server / user / 111
+// server : user : 111
 
     err_server_user_userid_required = 11101;
     err_server_user_passwd_required = 11102;
 
-// server / character / 112
+// server : character : 112
 
-// client / 200
+// client : 200
     
     err_client_unknown = 20000;
     err_client_unauthorized = 20001;
 
-// client / user / 211
+// client : user : 211
 
     err_client_user_userid_required = 21101;
     err_client_user_passwd_required = 21102;
-
 }

@@ -38,7 +38,7 @@ package msg;
 
     message item_info
     {
-        required uint64 inven_seq = 1;
+        required string itemid = 1;
         required part_type equip_part = 2;
         required int32 item_mid = 3;
     }

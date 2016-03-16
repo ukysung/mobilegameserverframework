@@ -4,7 +4,7 @@ package msg;
 enum type_data
 {
 
-// user (11)
+// user : 111
 
     t_sign_up_req = 11101;
     t_sign_up_ack = 11102;
@@ -12,7 +12,7 @@ enum type_data
     t_sign_in_req = 11103;
     t_sign_in_ack = 11104;
 
-// character (12) 
+// character : 112
 
     t_create_character_req = 11201;
     t_create_character_ack = 11202;
