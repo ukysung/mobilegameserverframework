@@ -20,7 +20,7 @@ import msg_struct_pb2
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='msg_packet_play.proto',
   package='msg',
-  serialized_pb=_b('\n\x15msg_packet_play.proto\x12\x03msg\x1a\x0fmsg_error.proto\x1a\x10msg_struct.proto\"!\n\x0e\x65nter_town_req\x12\x0f\n\x07town_id\x18\x01 \x02(\x05\"Q\n\x0e\x65nter_town_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12\x1e\n\x08init_pos\x18\x02 \x02(\x0b\x32\x0c.msg.vector3')
+  serialized_pb=_b('\n\x15msg_packet_play.proto\x12\x03msg\x1a\x0fmsg_error.proto\x1a\x10msg_struct.proto\"7\n\x0e\x65nter_town_req\x12\x12\n\nauth_token\x18\x01 \x02(\t\x12\x11\n\tchar_name\x18\x02 \x02(\t\"Q\n\x0e\x65nter_town_ack\x12\x1f\n\x08\x65rr_code\x18\x01 \x02(\x0e\x32\r.msg.err_type\x12\x1e\n\x08init_pos\x18\x02 \x02(\x0b\x32\x0c.msg.vector3')
   ,
   dependencies=[msg_error_pb2.DESCRIPTOR,msg_struct_pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -36,9 +36,16 @@ _ENTER_TOWN_REQ = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='town_id', full_name='msg.enter_town_req.town_id', index=0,
-      number=1, type=5, cpp_type=1, label=2,
-      has_default_value=False, default_value=0,
+      name='auth_token', full_name='msg.enter_town_req.auth_token', index=0,
+      number=1, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='char_name', full_name='msg.enter_town_req.char_name', index=1,
+      number=2, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -54,7 +61,7 @@ _ENTER_TOWN_REQ = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=65,
-  serialized_end=98,
+  serialized_end=120,
 )
 
 
@@ -90,8 +97,8 @@ _ENTER_TOWN_ACK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=100,
-  serialized_end=181,
+  serialized_start=122,
+  serialized_end=203,
 )
 
 _ENTER_TOWN_ACK.fields_by_name['err_code'].enum_type = msg_error_pb2._ERR_TYPE

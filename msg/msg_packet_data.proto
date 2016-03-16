@@ -10,7 +10,7 @@ package msg;
     message sign_up_req
     {
         required platform_type plat_type = 1;
-        required string userid = 2;
+        required string user_id = 2;
         required string passwd = 3;
     }
 
@@ -23,7 +23,7 @@ package msg;
     message sign_in_req
     {
         required platform_type plat_type = 1;
-        required string userid = 2;
+        required string user_id = 2;
         required string passwd = 3;
     }
 
@@ -64,7 +64,7 @@ package msg;
     message get_item_list_req
     {
         required string auth_token = 1;
-        required string charid = 2;
+        required string char_name = 2;
     }
 
     message get_item_list_ack
@@ -78,7 +78,7 @@ package msg;
     message get_skill_list_req
     {
         required string auth_token = 1;
-        required string charid = 2;
+        required string char_name = 2;
     }
 
     message get_skill_list_ack

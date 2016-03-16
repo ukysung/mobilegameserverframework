@@ -8,7 +8,8 @@ package msg;
 
     message enter_town_req
     {
-        required int32 town_id = 1;
+        required string auth_token = 1;
+        required string char_name = 2;
     }
 
     message enter_town_ack

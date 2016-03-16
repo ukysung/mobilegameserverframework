@@ -9,23 +9,31 @@ import msg_struct_pb2
 import msg_error_pb2
 import msg_packet_data_pb2
 
+VARS = {
+    'host': 'localhost',
+    'port': 21000,
+    'user_id': 'usr_01',
+    'passwd': 'pass_1',
+    'auth_token': '',
+    'char_mid': 1,
+    'char_name': 'chr_01',
+    'dungeon_mid': 1,
+}
+
 HANDLERS = []
 
 def handle_sign_up_req():
     req = msg_packet_data_pb2.sign_up_req()
     req.plat_type = msg_enum_pb2.plat_none
-    req.userid = 'email@server.com'
-    req.passwd = 'my_passwd'
+    req.user_id = VARS['user_id']
+    req.passwd = VARS['passwd']
 
     return msg.pack(msg_type_data_pb2.t_sign_up_req, req)
 HANDLERS.append(handle_sign_up_req)
 
 def handle_sign_up_ack(msg_body):
-    print(1)
     ack = msg_packet_data_pb2.sign_up_ack()
-    print(2)
     ack.ParseFromString(msg_body)
-    print(3)
 
     print('auth_token:' + ack.auth_token)
 HANDLERS.append(handle_sign_up_ack)
@@ -58,17 +66,23 @@ def data_client(host, port):
     writer.close()
 
 def main():
-    if len(sys.argv) < 3:
-        print('Usage: python3 ./DataClient.py localhost 21000')
+    if len(sys.argv) < 7:
+        print('Usage: python3 ./DataClient.py localhost 21000 user_id passwd char_mid char_name dungeon_mid')
+        print('Usage: python3 ./DataClient.py localhost 21000 usr_01 pass_1 1 chr_01 1')
         sys.exit()
 
-    host = sys.argv[1]
-    port = sys.argv[2]
+    VARS['host'] = sys.argv[1]
+    VARS['port'] = sys.argv[2]
+    VARS['user_id'] = sys.argv[3]
+    VARS['passwd'] = sys.argv[4]
+    VARS['char_mid'] = int(sys.argv[5])
+    VARS['char_name'] = sys.argv[6]
+    VARS['dungeon_mid'] = sys.argv[7]
 
     loop = asyncio.get_event_loop()
 
     try:
-        loop.run_until_complete(data_client(host, port))
+        loop.run_until_complete(data_client(VARS['host'], VARS['port']))
 
     except KeyboardInterrupt:
         pass
