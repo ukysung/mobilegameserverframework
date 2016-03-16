@@ -67,7 +67,7 @@ def data_client(host, port):
 
 def main():
     if len(sys.argv) < 7:
-        print('Usage: python3 ./DataClient.py localhost 21000 user_id passwd char_mid char_name dungeon_mid')
+        print('Usage: python3 ./DataClient.py host port user_id passwd char_mid char_name dungeon_mid')
         print('Usage: python3 ./DataClient.py localhost 21000 usr_01 pass_1 1 chr_01 1')
         sys.exit()
 
