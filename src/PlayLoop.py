@@ -77,7 +77,7 @@ class PlayLoop:
                     (conn_id, ack_msg_type, ack_msg_body, rcpt) = \
                         g.PLAY_HANDLERS[req_msg_type](conn_id, req_msg_type, req_msg_body)
 
-                    if rcpt == g.TO_ME:
+                    if rcpt == e.TO_ME:
                         outgoing.put([conn_id, ack_msg_type, ack_msg_body])
 
                     if rcpt == g.TO_ALL:

@@ -14,8 +14,3 @@ DATA_HANDLERS = {}
 # play
 CONN_ID = 0
 PLAY_HANDLERS = {}
-
-TO_ME = 1
-TO_ALL = 2
-TO_DATA = 3
-
