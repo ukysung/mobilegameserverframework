@@ -1,6 +1,7 @@
 
 import sys
 
+import g
 import config
 from ModelUsers import ModelUsers
 
@@ -9,13 +10,13 @@ def main():
         print('Usage: python3 ./create_dynamodb_tables.py develop')
         sys.exit()
 
-    phase = sys.argv[1]
+    g.PHASE = sys.argv[1]
 
-    config.load(phase)
+    config.load()
 
     model_users = ModelUsers()
     #model_users.create()
-    #model_users.put()
+    model_users.put()
 
 if __name__ == '__main__':
     main()
