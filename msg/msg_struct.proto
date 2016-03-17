@@ -100,6 +100,8 @@ package msg;
 
 // dungeon
 
+// player
+
 // monster
 
     message monster_info
