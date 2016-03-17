@@ -5,6 +5,8 @@ import base64
 from Crypto import Random
 from Crypto.Cipher import AES
 
+import g
+
 class AESCrypto:
     def __init__(self, key):
         self.block_size = 32
@@ -35,4 +37,20 @@ class AESCrypto:
 #e = a.encrypt('test test')
 #print(e)
 #print(a.decrypt(e))
+
+def auth_token_generator(user_id, char_names):
+    return AESCrypto(g.CFG['crypto_key']).encrypt(user_id + '|'.join(char_names))
+
+def auth_token_validator(auth_token, char_name):
+    aes_crypto = AESCrypto(g.CFG['crypto_key'])
+
+    try:
+        decrypted = aes_crypto.decrypt(auth_token)
+        if char_name in decrypted:
+            return True
+
+    finally:
+        pass
+
+    return False
 
