@@ -3,17 +3,15 @@ import signal
 import time
 
 import g
+import e
 import config
 import logger
 import master_data
 
 from Player import Player
-from Area import AREA_LOBBY, AREA_TOWN, AREA_DUNGEON, AREA_ARENA, Area
+from Area import Area
 
 from play_handle_message_no_1 import handle_message_no_1
-
-PLAYER_CREATE = -1
-PLAYER_DELETE = -2
 
 class PlayLoop:
     def __init__(self, phase, server_seq):
@@ -28,7 +26,7 @@ class PlayLoop:
         self.players = {}
         self.area_id = 0
         self.areas = {}
-        self.areas[self.area_id] = Area(AREA_LOBBY)
+        self.areas[self.area_id] = Area(e.AREA_LOBBY)
         self.area_id += 1
 
         self.curr_time = 0
@@ -61,13 +59,13 @@ class PlayLoop:
                 print(conn_id)
                 print(req_msg_type)
                 print(req_msg_body)
-                if req_msg_type == PLAYER_CREATE:
+                if req_msg_type == e.PLAYER_CREATE:
                     print('add_player')
                     area_id = 0
                     self.players[conn_id] = Player(area_id)
                     self.areas[area_id].player_conn_ids.append(conn_id)
 
-                elif req_msg_type == PLAYER_DELETE:
+                elif req_msg_type == e.PLAYER_DELETE:
                     print('remove_player')
                     area_id = self.players[conn_id].area_id
                     self.areas[area_id].player_conn_ids.remove(conn_id)
@@ -80,12 +78,12 @@ class PlayLoop:
                     if rcpt == e.TO_ME:
                         outgoing.put([conn_id, ack_msg_type, ack_msg_body])
 
-                    if rcpt == g.TO_ALL:
+                    if rcpt == e.TO_ALL:
                         area_id = self.players[conn_id].area_id
                         for player_conn_id in self.areas[area_id].player_conn_ids:
                             outgoing.put([player_conn_id, ack_msg_type, ack_msg_body])
 
-                    elif rcpt == g.TO_DATA:
+                    elif rcpt == e.TO_DATA:
                         internal.put([player_conn_id, ack_msg_type, ack_msg_body])
 
             for player in self.players.values():

@@ -2,12 +2,6 @@
 import g
 from GameMachine import GameMachine
 
-# area_types
-AREA_LOBBY = 1
-AREA_TOWN = 2
-AREA_DUNGEON = 3
-AREA_ARENA = 4
-
 class Area:
     def __init__(self, area_type):
         g.LOG.info('area__init__')

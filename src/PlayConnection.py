@@ -3,8 +3,8 @@ import multiprocessing
 import asyncio
 
 import g
+import e
 import msg
-from PlayLoop import PLAYER_CREATE, PLAYER_DELETE
 
 CONNS = {}
 INCOMING = multiprocessing.Queue()
@@ -61,7 +61,7 @@ class PlayConnection(asyncio.Protocol):
         CONNS[self.conn_id] = self
 
         print('incoming_put')
-        INCOMING.put([self.conn_id, PLAYER_CREATE, None])
+        INCOMING.put([self.conn_id, e.PLAYER_CREATE, None])
 
     def data_received(self, data):
         self.h_timeout.cancel()
@@ -99,7 +99,7 @@ class PlayConnection(asyncio.Protocol):
     def connection_lost(self, ex):
         self.h_timeout.cancel()
         conn_id = self.conn_id
-        INCOMING.put([conn_id, PLAYER_DELETE, None])
+        INCOMING.put([conn_id, e.PLAYER_DELETE, None])
         del CONNS[conn_id]
 
     def connection_timed_out(self):
