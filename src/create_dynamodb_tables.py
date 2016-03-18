@@ -15,8 +15,8 @@ def main():
     config.load()
 
     model_users = ModelUsers()
-    #model_users.create()
-    model_users.put()
+    model_users.create()
+    #model_users.put()
 
 if __name__ == '__main__':
     main()

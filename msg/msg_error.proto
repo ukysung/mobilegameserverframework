@@ -12,7 +12,7 @@ enum err_type
 
 // server : user : 111
 
-    err_server_user_userid_required = 11101;
+    err_server_user_user_id_required = 11101;
     err_server_user_passwd_required = 11102;
 
 // server : character : 112
@@ -24,6 +24,6 @@ enum err_type
 
 // client : user : 211
 
-    err_client_user_userid_required = 21101;
+    err_client_user_user_id_required = 21101;
     err_client_user_passwd_required = 21102;
 }

@@ -14,13 +14,13 @@ class ModelUsers:
             TableName='users',
             KeySchema=[
                 {
-                    'AttributeName': 'userid',
+                    'AttributeName': 'user_id',
                     'KeyType': 'HASH'
                 }
             ],
             AttributeDefinitions=[
                 {
-                    'AttributeName': 'userid',
+                    'AttributeName': 'user_id',
                     'AttributeType': 'S'
                 }
             ],
@@ -34,14 +34,14 @@ class ModelUsers:
         print('table status: ' + table.table_status)
 
     def put(self):
-        userid = 'userid'
+        user_id = 'user_id'
         passwd = 'passwd'
 
         table = self.dynamodb.Table('users')
 
         result = table.put_item(
             Item={
-                'userid': userid,
+                'user_id': user_id,
                 'passwd': passwd
             }
         )
