@@ -12,7 +12,7 @@ HANDLERS = []
 
 def handle_sign_up_req():
     req = msg_packet_data_pb2.sign_up_req()
-    req.useremail = 'email@server.com'
+    req.user_id = 'email@server.com'
     req.passwd = 'password'
 
     return msg.pack(msg_type_data_pb2.t_sign_up_req, req)
