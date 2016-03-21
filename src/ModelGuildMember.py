@@ -12,7 +12,7 @@ class ModelUsers:
     def __init__(self):
         self.dynamodb = boto3.resource('dynamodb', region_name='',
                                        endpoint_url=g.CFG['dynamodb']['endpoint_url'])
-        self.table_name = 'users'
+        self.table_name = 'guild_member'
 
     def create_table(self):
         table = self.dynamodb.create_table(

@@ -3,27 +3,38 @@ import sys
 import asyncio
 
 import msg
-import msg_type_data_pb2
+import msg_type_play_pb2
+import msg_enum_pb2
 import msg_struct_pb2
 import msg_error_pb2
-import msg_packet_data_pb2
+import msg_packet_play_pb2
+
+VARS = {
+    'host': 'localhost',
+    'port': 22000,
+    'auth_token': '',
+    'char_name': 'chr_01',
+    'dungeon_mid': 1,
+}
 
 HANDLERS = []
 
-def handle_sign_up_req():
-    req = msg_packet_data_pb2.sign_up_req()
-    req.user_id = 'email@server.com'
-    req.passwd = 'password'
+def handle_enter_town_req():
+    print(sys._getframe().f_code.co_name)
 
-    return msg.pack(msg_type_data_pb2.t_sign_up_req, req)
-HANDLERS.append(handle_sign_up_req)
+    req = msg_packet_play_pb2.enter_town_req()
 
-def handle_sign_up_ack(msg_body):
-    ack = msg_packet_data_pb2.sign_up_ack()
+    return msg.pack(msg_type_play_pb2.t_enter_town_req, req)
+HANDLERS.append(handle_enter_town_req)
+
+def handle_enter_town_ack(msg_body):
+    print(sys._getframe().f_code.co_name)
+
+    ack = msg_packet_play_pb2.enter_town_ack()
     ack.ParseFromString(msg_body)
 
-    print(ack.auth_token)
-HANDLERS.append(handle_sign_up_ack)
+    print(ack.err_code)
+HANDLERS.append(handle_enter_town_ack)
 
 @asyncio.coroutine
 def play_client(host, port):
@@ -33,6 +44,7 @@ def play_client(host, port):
     if len(HANDLERS) == i:
         return
     writer.write(HANDLERS[i]())
+    print()
 
     while True:
         msg_head = yield from reader.read(msg.HEADER_SIZE)
@@ -44,21 +56,31 @@ def play_client(host, port):
         if len(HANDLERS) == i:
             break
         HANDLERS[i](msg_body)
+        print()
 
         i += 1
         if len(HANDLERS) == i:
             break
         writer.write(HANDLERS[i]())
+        print()
 
     writer.close()
+    print('\nOKAY\n')
 
 def main():
-    if len(sys.argv) < 3:
-        print('Usage: python3 ./PlayClient.py localhost 22000')
-        sys.exit()
+    if len(sys.argv) < 5:
+        print('\nUsage: python3 ./PlayClient.py host port auth_token char_name dungeon_mid\n')
 
-    host = sys.argv[1]
-    port = sys.argv[2]
+        for key in VARS:
+            print(key + ' : ' + str(VARS[key]))
+        print()
+
+    else:
+        VARS['host'] = sys.argv[1]
+        VARS['port'] = sys.argv[2]
+        VARS['auth_token'] = sys.argv[3]
+        VARS['char_name'] = sys.argv[4]
+        VARS['dungeon_mid'] = sys.argv[5]
 
     loop = asyncio.get_event_loop()
 
