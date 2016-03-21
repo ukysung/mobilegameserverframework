@@ -11,7 +11,7 @@ import master_data
 from Player import Player
 from Area import Area
 
-from play_handle_message_no_1 import handle_message_no_1
+import play_handle
 
 class PlayLoop:
     def __init__(self, phase, server_seq):
@@ -73,7 +73,7 @@ class PlayLoop:
 
                 elif req_msg_type in g.PLAY_HANDLERS:
                     (conn_id, ack_msg_type, ack_msg_body, rcpt) = \
-                        g.PLAY_HANDLERS[req_msg_type](conn_id, req_msg_type, req_msg_body)
+                        g.PLAY_HANDLERS[req_msg_type](conn_id, req_msg_body)
 
                     if rcpt == e.TO_ME:
                         outgoing.put([conn_id, ack_msg_type, ack_msg_body])

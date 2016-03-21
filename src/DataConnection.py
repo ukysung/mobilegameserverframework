@@ -8,8 +8,7 @@ import msg_struct_pb2
 import msg_error_pb2
 import msg_packet_data_pb2
 
-from data_handle_sign_up import handle_sign_up
-#from data_handle_sign_in import handle_sign_in
+import data_handle
 
 class DataConnection(asyncio.Protocol):
     def __init__(self):
@@ -26,7 +25,7 @@ class DataConnection(asyncio.Protocol):
             g.LOG.error('DataConnection : handler for %s is not imported', req_msg_type)
             return
 
-        ack = yield from g.DATA_HANDLERS[req_msg_type](req_msg_type, req_msg_body)
+        ack = yield from g.DATA_HANDLERS[req_msg_type](req_msg_body)
         self.transport.write(ack)
 
     def connection_made(self, transport):
