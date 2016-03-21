@@ -45,7 +45,8 @@ package msg;
     message create_character_ack
     {
         required err_type err_code = 1;
-        repeated char_info char_list = 2;
+        required string auth_token = 2;
+        repeated char_info char_list = 3;
     }
 
     message get_char_list_req
@@ -57,6 +58,29 @@ package msg;
     {
         required err_type err_code = 1;
         repeated char_info char_list = 2;
+    }
+
+    message select_character_req
+    {
+        required string auth_token = 1;
+        required string char_name = 2;
+    }
+
+    message select_character_ack
+    {
+        required err_type err_code = 1;
+    }
+
+    message delete_character_req
+    {
+        required string auth_token = 1;
+        required string char_name = 2;
+    }
+
+    message delete_character_ack
+    {
+        required err_type err_code = 1;
+        required string auth_token = 2;
     }
 
 // item

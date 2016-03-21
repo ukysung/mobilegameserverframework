@@ -1,5 +1,6 @@
 
 import sys
+import time
 import asyncio
 
 import msg
@@ -9,20 +10,24 @@ import msg_struct_pb2
 import msg_error_pb2
 import msg_packet_data_pb2
 
+TIME = str(int(time.time()))
+
 VARS = {
     'host': 'localhost',
     'port': 21000,
-    'user_id': 'usr_01',
-    'passwd': 'pass_1',
+    'user_id': 'u' + TIME,
+    'passwd': 'p' + TIME,
     'auth_token': '',
     'char_mid': 1,
-    'char_name': 'chr_01',
+    'char_name': 'c' + TIME,
     'dungeon_mid': 1,
 }
 
 HANDLERS = []
 
 def handle_sign_up_req():
+    print(sys._getframe().f_code.co_name)
+
     req = msg_packet_data_pb2.sign_up_req()
     req.plat_type = msg_enum_pb2.plat_none
     req.user_id = VARS['user_id']
@@ -32,10 +37,12 @@ def handle_sign_up_req():
 HANDLERS.append(handle_sign_up_req)
 
 def handle_sign_up_ack(msg_body):
+    print(sys._getframe().f_code.co_name)
+
     ack = msg_packet_data_pb2.sign_up_ack()
     ack.ParseFromString(msg_body)
 
-    print('auth_token:' + ack.auth_token)
+    print('auth_token : ' + ack.auth_token)
 HANDLERS.append(handle_sign_up_ack)
 
 @asyncio.coroutine
@@ -46,6 +53,7 @@ def data_client(host, port):
     if len(HANDLERS) == i:
         return
     writer.write(HANDLERS[i]())
+    print()
 
     while True:
         msg_head = yield from reader.read(msg.HEADER_SIZE)
@@ -57,27 +65,33 @@ def data_client(host, port):
         if len(HANDLERS) == i:
             break
         HANDLERS[i](msg_body)
+        print()
 
         i += 1
         if len(HANDLERS) == i:
             break
         writer.write(HANDLERS[i]())
+        print()
 
     writer.close()
+    print('\nOKAY\n')
 
 def main():
     if len(sys.argv) < 7:
-        print('Usage: python3 ./DataClient.py host port user_id passwd char_mid char_name dungeon_mid')
-        print('Usage: python3 ./DataClient.py localhost 21000 usr_01 pass_1 1 chr_01 1')
-        sys.exit()
+        print('\nUsage: python3 ./DataClient.py host port user_id passwd char_mid char_name dungeon_mid\n')
 
-    VARS['host'] = sys.argv[1]
-    VARS['port'] = sys.argv[2]
-    VARS['user_id'] = sys.argv[3]
-    VARS['passwd'] = sys.argv[4]
-    VARS['char_mid'] = int(sys.argv[5])
-    VARS['char_name'] = sys.argv[6]
-    VARS['dungeon_mid'] = sys.argv[7]
+        for key in VARS:
+            print(key + ' : ' + str(VARS[key]))
+        print()
+
+    else:
+        VARS['host'] = sys.argv[1]
+        VARS['port'] = sys.argv[2]
+        VARS['user_id'] = sys.argv[3]
+        VARS['passwd'] = sys.argv[4]
+        VARS['char_mid'] = int(sys.argv[5])
+        VARS['char_name'] = sys.argv[6]
+        VARS['dungeon_mid'] = sys.argv[7]
 
     loop = asyncio.get_event_loop()
 
