@@ -3,6 +3,7 @@ import sys
 import json
 import asyncio
 
+import boto3
 from aiohttp.web import Application, Response, run_app
 
 import g
@@ -10,17 +11,18 @@ import config
 import logger
 import master_data
 
-import boto3
 
 @asyncio.coroutine
 def handle_dynamodb(request):
     data = {}
     body = json.dumps(data)
 
-    client = boto3.client('dynamodb', region_name='', endpoint_url='http://127.0.0.1:8000', aws_access_key_id=None, aws_secret_access_key=None)
+    client = boto3.client('dynamodb', region_name='', endpoint_url='http://127.0.0.1:8000',
+                          aws_access_key_id=None, aws_secret_access_key=None)
     print(client.list_tables())
 
-    dynamodb = boto3.resource('dynamodb', region_name='', endpoint_url='http://127.0.0.1:8000', aws_access_key_id=None, aws_secret_access_key=None)
+    dynamodb = boto3.resource('dynamodb', region_name='', endpoint_url='http://127.0.0.1:8000',
+                              aws_access_key_id=None, aws_secret_access_key=None)
     print(list(dynamodb.tables.all()))
 
     body = 'OK'

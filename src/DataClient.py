@@ -78,7 +78,8 @@ def data_client(host, port):
 
 def main():
     if len(sys.argv) < 7:
-        print('\nUsage: python3 ./DataClient.py host port user_id passwd char_mid char_name dungeon_mid\n')
+        print('\nUsage: python3 ./DataClient.py host port user_id passwd \
+              char_mid char_name dungeon_mid\n')
 
         for key in VARS:
             print(key + ' : ' + str(VARS[key]))
