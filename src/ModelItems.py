@@ -12,7 +12,7 @@ class ModelUsers:
     def __init__(self):
         self.dynamodb = boto3.resource('dynamodb', region_name='',
                                        endpoint_url=g.CFG['dynamodb']['endpoint_url'])
-        self.table_name = 'items'
+        self.table_name = 'characters'
 
     def create_table(self):
         table = self.dynamodb.create_table(
@@ -98,21 +98,35 @@ class ModelUsers:
         else:
             return None
 
-    def update(self, key_dict, val_dict):
+    def update(self, key_dict, update_dict):
         table = self.dynamodb.Table(self.table_name)
+
+        expression = 'set '
+        names = {}
+        values = {}
+
+        i = 0
+        for name, value in update_dict.items():
+            i += 1
+            if i > 1:
+                expression += ', '
+
+            expression += 'attr' + str(i) + ' = :val' + str(i)
+            names['attr' + str(i)] = name
+            values[':val' + str(i)] = value
+
         response = table.update_item(
             Key=key_dict,
-            UpdateExpression='set a = :a, b = :b',
-            ExpressionAttributeValues={
-                ':a': val_dict['a'],
-                ':b': val_dict['b']
-            },
+            UpdateExpression=expression,
+            ExpressionAttributeNames=names,
+            ExpressionAttributeValues=values,
             ReturnValues='UPDATED_NEW'
+            #ReturnValues='ALL_NEW'
         )
 
         print(json.dumps(response))
 
-    def update_if(self, key_dict, val_dict):
+    def update_if(self, key_dict, update_dict):
         table = self.dynamodb.Table(self.table_name)
 
         try:
@@ -121,7 +135,7 @@ class ModelUsers:
                 UpdateExpression='remove actors[0]',
                 ConditionExpression='size(actors) > :num',
                 ExpressionAttributeValues={
-                    ':num': val_dict['num']
+                    ':num': update_dict['num']
                 },
                 ReturnValues='UPDATED_NEW'
             )
@@ -138,14 +152,28 @@ class ModelUsers:
 
         print(json.dumps(response))
 
-    def increase(self, key_dict, val_dict):
+    def increase(self, key_dict, increase_dict):
         table = self.dynamodb.Table(self.table_name)
+
+        expression = 'set '
+        names = {}
+        values = {}
+
+        i = 0
+        for name, value in increase_dict.items():
+            i += 1
+            if i > 1:
+                expression += ', '
+
+            expression += 'attr' + str(i) + ' = attr' + str(i) + ' + :val' + str(i)
+            names['attr' + str(i)] = name
+            values[':val' + str(i)] = value
+
         response = table.update_item(
             Key=key_dict,
-            UpdateExpression='set a = a + :a',
-            ExpressionAttributeValues={
-                ':a': val_dict['a']
-            },
+            UpdateExpression=expression,
+            ExpressionAttributeNames=names,
+            ExpressionAttributeValues=values,
             ReturnValues='UPDATED_NEW'
         )
 
