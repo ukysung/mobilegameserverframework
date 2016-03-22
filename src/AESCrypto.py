@@ -43,24 +43,36 @@ class AESCrypto:
 #print(e)
 #print(a.decrypt(e))
 
-def auth_token_generator(user_id, char_names):
+def generate_auth_token(user_id, char_names):
     char_names_joined = ''
     if len(char_names) > 0:
         char_names_joined = '|'.join(char_names)
 
     return AESCrypto(g.CFG['crypto_key']).encrypt(user_id + '|' + char_names_joined)
 
-def auth_token_validator(auth_token, char_name, user_id):
+def validate_char_name(auth_token, char_name):
     aes_crypto = AESCrypto(g.CFG['crypto_key'])
 
     try:
-        char_names = aes_crypto.decrypt(auth_token).decode().split('|')
+        char_names = aes_crypto.decrypt(auth_token).split('|')
         token_user_id = char_names.pop(0)
 
         if char_name in char_names:
             return True
 
-        elif user_id == token_user_id:
+    finally:
+        pass
+
+    return False
+
+def validate_user_id(auth_token, user_id):
+    aes_crypto = AESCrypto(g.CFG['crypto_key'])
+
+    try:
+        char_names = aes_crypto.decrypt(auth_token).split('|')
+        token_user_id = char_names.pop(0)
+
+        if user_id == token_user_id:
             return True
 
     finally:
