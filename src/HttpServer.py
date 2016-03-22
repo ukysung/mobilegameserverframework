@@ -11,7 +11,6 @@ import config
 import logger
 import master_data
 
-
 @asyncio.coroutine
 def handle_dynamodb(request):
     data = {}

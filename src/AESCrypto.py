@@ -55,7 +55,7 @@ def validate_char_name(auth_token, char_name):
 
     try:
         char_names = aes_crypto.decrypt(auth_token).split('|')
-        token_user_id = char_names.pop(0)
+        char_names.pop(0)
 
         if char_name in char_names:
             return True

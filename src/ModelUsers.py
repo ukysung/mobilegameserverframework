@@ -11,8 +11,9 @@ import g
 class ModelUsers:
     def __init__(self):
         self.dynamodb = boto3.resource('dynamodb', region_name='',
-                                       endpoint_url=g.CFG['dynamodb']['endpoint_url'])
-        self.table_name = 'characters'
+                                       endpoint_url=g.CFG['dynamodb']['endpoint_url'],
+                                       aws_access_key_id=None, aws_secret_access_key=None)
+        self.table_name = 'users'
 
     def create_table(self):
         table = self.dynamodb.create_table(
@@ -53,7 +54,7 @@ class ModelUsers:
 
         print(json.dumps(response))
 
-    def put_if(self, item_dict, attr, value):
+    def put_if_not(self, item_dict, attr, value):
         table = self.dynamodb.Table(self.table_name)
 
         try:

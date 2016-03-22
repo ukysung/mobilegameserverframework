@@ -12,6 +12,15 @@ import master_data
 
 from DataConnection import DataConnection
 
+def shutdown():
+    g.SERVER.close()
+
+    g.THREAD_POOL.shutdown()
+    for task in asyncio.Task.all_tasks():
+        task.cancel()
+
+    g.LOOP.stop()
+
 def main():
     server_type = 'data'
 
@@ -33,22 +42,22 @@ def main():
     port = g.CFG[server_type + g.SERVER_SEQ]
 
     # pool
-    g.PROC_POOL = concurrent.futures.ProcessPoolExecutor(pool_size)
+    g.THREAD_POOL = concurrent.futures.ThreadPoolExecutor(pool_size)
 
     # data_server
     g.LOOP = asyncio.get_event_loop()
 
     try:
-        g.LOOP.add_signal_handler(signal.SIGINT, g.LOOP.stop)
-        g.LOOP.add_signal_handler(signal.SIGTERM, g.LOOP.stop)
+        g.LOOP.add_signal_handler(signal.SIGINT, shutdown)
+        g.LOOP.add_signal_handler(signal.SIGTERM, shutdown)
 
     except NotImplementedError:
         pass
 
-    coro_server = g.LOOP.create_server(DataConnection, port=port)
-    data_server = g.LOOP.run_until_complete(coro_server)
+    coro = g.LOOP.create_server(DataConnection, port=port)
+    g.SERVER = g.LOOP.run_until_complete(coro)
 
-    for sock in data_server.sockets:
+    for sock in g.SERVER.sockets:
         print('{}_server_{} starting.. {}'.format(server_type, g.SERVER_SEQ, sock.getsockname()))
 
     try:
@@ -56,13 +65,7 @@ def main():
         g.LOOP.run_forever()
 
     except KeyboardInterrupt:
-        g.LOG.info('keyboard interrupt..')
-
-    finally:
-        data_server.close()
-        g.LOOP.close()
-
-        g.PROC_POOL.shutdown()
+        shutdown()
 
 if __name__ == '__main__':
     main()

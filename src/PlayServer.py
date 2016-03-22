@@ -10,10 +10,26 @@ import config
 import logger
 import master_data
 
-from PlayConnection import INCOMING, INTERNAL, OUTGOING
 from PlayConnection import handle_internal, handle_outgoing
 from PlayConnection import PlayConnection
 from PlayLoop import PlayLoop
+
+def shutdown():
+    g.SERVER.close()
+
+    g.TASK_INTERNAL.cancel()
+    g.TASK_OUTGOING.cancel()
+
+    g.INCOMING.close()
+    g.INTERNAL.close()
+    g.OUTGOING.close()
+
+    g.THREAD_POOL.shutdown()
+    for task in asyncio.Task.all_tasks():
+        task.cancel()
+
+    g.PROCESS.join()
+    g.LOOP.stop()
 
 def main():
     server_type = 'play'
@@ -35,31 +51,34 @@ def main():
     pool_size = g.CFG[server_type + '_proc_pool_size']
     port = g.CFG[server_type + g.SERVER_SEQ]
 
-    # queues and pool
-    g.PROC_POOL = concurrent.futures.ProcessPoolExecutor(pool_size)
+    # pool
+    g.INCOMING = multiprocessing.Queue()
+    g.INTERNAL = multiprocessing.Queue()
+    g.OUTGOING = multiprocessing.Queue()
+    g.THREAD_POOL = concurrent.futures.ThreadPoolExecutor(pool_size)
 
     # play
     play_loop = PlayLoop(g.PHASE, g.SERVER_SEQ)
-    process = multiprocessing.Process(target=play_loop.run, args=(INCOMING, INTERNAL, OUTGOING))
-    process.start()
+    g.PROCESS = multiprocessing.Process(target=play_loop.run, args=(g.INCOMING, g.INTERNAL, g.OUTGOING))
+    g.PROCESS.start()
 
     # play_server
     g.LOOP = asyncio.get_event_loop()
 
     try:
-        g.LOOP.add_signal_handler(signal.SIGINT, g.LOOP.stop)
-        g.LOOP.add_signal_handler(signal.SIGTERM, g.LOOP.stop)
+        g.LOOP.add_signal_handler(signal.SIGINT, shutdown)
+        g.LOOP.add_signal_handler(signal.SIGTERM, shutdown)
 
     except NotImplementedError:
         pass
 
-    task_internal = g.LOOP.create_task(handle_internal())
-    task_outgoing = g.LOOP.create_task(handle_outgoing())
+    g.TASK_INTERNAL = g.LOOP.create_task(handle_internal())
+    g.TASK_OUTGOING = g.LOOP.create_task(handle_outgoing())
 
-    coro_server = g.LOOP.create_server(PlayConnection, port=port)
-    play_server = g.LOOP.run_until_complete(coro_server)
+    coro = g.LOOP.create_server(PlayConnection, port=port)
+    g.SERVER = g.LOOP.run_until_complete(coro)
 
-    for sock in play_server.sockets:
+    for sock in g.SERVER.sockets:
         print('{}_server_{} starting.. {}'.format(server_type, g.SERVER_SEQ, sock.getsockname()))
 
     try:
@@ -67,23 +86,7 @@ def main():
         g.LOOP.run_forever()
 
     except KeyboardInterrupt:
-        g.LOG.info('keyboard interrupt..')
-
-    finally:
-        play_server.close()
-
-        task_internal.cancel()
-        task_outgoing.cancel()
-
-        g.LOOP.run_forever()
-        g.LOOP.close()
-
-        INCOMING.close()
-        INTERNAL.close()
-        OUTGOING.close()
-        g.PROC_POOL.shutdown()
-
-        process.join()
+        shutdown()
 
 if __name__ == '__main__':
     main()

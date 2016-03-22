@@ -43,6 +43,7 @@ def handle_sign_up_ack(msg_body):
     ack.ParseFromString(msg_body)
 
     print('auth_token : ' + ack.auth_token)
+    VARS['auth_token'] = ack.auth_token
 HANDLERS.append(handle_sign_up_ack)
 
 def handle_sign_in_req():
@@ -63,7 +64,30 @@ def handle_sign_in_ack(msg_body):
     ack.ParseFromString(msg_body)
 
     print('auth_token : ' + ack.auth_token)
+    VARS['auth_token'] = ack.auth_token
 HANDLERS.append(handle_sign_in_ack)
+
+def handle_create_character_req():
+    print(sys._getframe().f_code.co_name)
+
+    req = msg_packet_data_pb2.create_character_req()
+    req.auth_token = VARS['auth_token']
+    req.char_mid = VARS['char_mid']
+    req.char_name = VARS['char_name']
+
+    return msg.pack(msg_type_data_pb2.t_create_character_req, req)
+HANDLERS.append(handle_create_character_req)
+
+def handle_create_character_ack(msg_body):
+    print(sys._getframe().f_code.co_name)
+
+    ack = msg_packet_data_pb2.create_character_ack()
+    ack.ParseFromString(msg_body)
+
+    print('auth_token : ' + ack.auth_token)
+    VARS['auth_token'] = ack.auth_token
+HANDLERS.append(handle_create_character_ack)
+
 
 @asyncio.coroutine
 def data_client(host, port):
