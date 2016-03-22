@@ -19,7 +19,7 @@ class AESCrypto:
         self.key = self.key[:32]
 
     def pad(self, str_):
-        padding = self.block_size - (len(str_) % self.block_size)
+        padding = self.block_size - (len(str_.encode('utf-8')) % self.block_size)
         return str_ + (padding * chr(padding))
 
     @classmethod
@@ -36,10 +36,10 @@ class AESCrypto:
         decoded = base64.b64decode(encoded)
         d_iv = decoded[:16]
         aes = AES.new(self.key, AES.MODE_CBC, d_iv)
-        return self.unpad(aes.decrypt(decoded[16:]))
+        return self.unpad(aes.decrypt(decoded[16:])).decode('utf-8')
 
 #a = AESCrypto('this is my key')
-#e = a.encrypt('test test')
+#e = a.encrypt('test 한글 test')
 #print(e)
 #print(a.decrypt(e))
 
