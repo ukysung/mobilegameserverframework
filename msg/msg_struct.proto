@@ -111,8 +111,8 @@ package msg;
 
         required bool is_moving = 3;
         required float angle = 4;
-        required vector3 current_pos = 5;
-        required vector3 moving_pos = 6;
+        required vector3 curr_pos = 5;
+        required vector3 next_pos = 6;
 
         required actor_status actor_status_ = 7;
         required int32 max_hp = 8;
