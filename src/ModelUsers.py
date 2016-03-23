@@ -43,7 +43,8 @@ class ModelUsers:
         table = self.dynamodb.Table(self.table_name)
         response = table.delete()
 
-        print(json.dumps(response))
+        print(response)
+        #print(json.dumps(response))
 
         table.meta.client.get_waiter('table_exists')
         print('table status: ' + table.table_status)
