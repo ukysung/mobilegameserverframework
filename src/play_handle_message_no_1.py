@@ -1,6 +1,6 @@
 
-import g
 import e
+import g
 
 def handle_message_no_1(conn_id, req_msg_body):
     g.LOG.info('handle_message_no_1')

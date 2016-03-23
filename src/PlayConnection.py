@@ -51,8 +51,8 @@ class PlayConnection(asyncio.Protocol):
         self.h_timeout = self.loop.call_later(self.timeout_sec, self.connection_timed_out)
 
         g.CONN_ID += 1
-        if g.CONN_ID == 100000:
-            g.CONN_ID = 1
+        if g.CONN_ID == g.CONN_ID_MAX:
+            g.CONN_ID = g.CONN_ID_MIN
 
         self.conn_id = g.CONN_ID
         CONNS[self.conn_id] = self

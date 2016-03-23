@@ -19,7 +19,7 @@ import msg_enum_pb2
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='msg_struct.proto',
   package='msg',
-  serialized_pb=_b('\n\x10msg_struct.proto\x12\x03msg\x1a\x0emsg_enum.proto\"*\n\x07vector3\x12\t\n\x01x\x18\x01 \x02(\x02\x12\t\n\x01y\x18\x02 \x02(\x02\x12\t\n\x01z\x18\x03 \x02(\x02\"5\n\x07v3angle\x12\t\n\x01x\x18\x01 \x02(\x02\x12\t\n\x01y\x18\x02 \x02(\x02\x12\t\n\x01z\x18\x03 \x02(\x02\x12\t\n\x01\x61\x18\x04 \x02(\x02\"\xf0\x02\n\tchar_info\x12\x11\n\tchar_name\x18\x01 \x02(\t\x12\x10\n\x08\x63har_mid\x18\x02 \x02(\x05\x12\r\n\x05level\x18\x03 \x02(\x05\x12\x0b\n\x03\x65xp\x18\x04 \x02(\x03\x12\x0c\n\x04ruby\x18\x05 \x02(\x05\x12\x0c\n\x04gold\x18\x06 \x02(\x05\x12\x0e\n\x06max_hp\x18\x07 \x02(\x05\x12\x0e\n\x06max_mp\x18\x08 \x02(\x05\x12\x14\n\x0c\x65quip_weapon\x18\t \x02(\x05\x12\x12\n\nequip_head\x18\n \x02(\x05\x12\x12\n\nequip_body\x18\x0b \x02(\x05\x12\x13\n\x0b\x65quip_wings\x18\x0c \x02(\x05\x12\x13\n\x0bskill_point\x18\r \x02(\x05\x12\x13\n\x0bskill_slot1\x18\x0e \x02(\x05\x12\x13\n\x0bskill_slot2\x18\x0f \x02(\x05\x12\x13\n\x0bskill_slot3\x18\x10 \x02(\x05\x12\x13\n\x0bskill_slot4\x18\x11 \x02(\x05\x12\x12\n\nguild_name\x18\x12 \x02(\t\x12\x16\n\x0elast_logintime\x18\x13 \x02(\t\"\xeb\x01\n\tchar_view\x12\x11\n\tchar_name\x18\x01 \x02(\t\x12\x10\n\x08\x63har_mid\x18\x02 \x02(\x05\x12\r\n\x05level\x18\x03 \x02(\x05\x12\x0b\n\x03\x65xp\x18\x04 \x02(\x03\x12\x0e\n\x06max_hp\x18\x05 \x02(\x05\x12\x0e\n\x06max_mp\x18\x06 \x02(\x05\x12\x14\n\x0c\x65quip_weapon\x18\x07 \x02(\x05\x12\x12\n\nequip_head\x18\x08 \x02(\x05\x12\x12\n\nequip_body\x18\t \x02(\x05\x12\x13\n\x0b\x65quip_wings\x18\n \x02(\x05\x12\x12\n\nguild_name\x18\x0b \x02(\t\x12\x16\n\x0elast_logintime\x18\x0c \x02(\t\"R\n\titem_info\x12\x0f\n\x07item_id\x18\x01 \x02(\t\x12\"\n\nequip_part\x18\x02 \x02(\x0e\x32\x0e.msg.part_type\x12\x10\n\x08item_mid\x18\x03 \x02(\x05\"\x1f\n\nskill_info\x12\x11\n\tskill_mid\x18\x01 \x02(\x05\"s\n\x0b\x64\x61mage_info\x12\x11\n\ttarget_id\x18\x01 \x02(\x05\x12\x12\n\ntarget_mid\x18\x02 \x02(\x05\x12&\n\x0c\x64\x61mage_type_\x18\x03 \x02(\x0e\x32\x10.msg.damage_type\x12\x15\n\rdamage_amount\x18\x04 \x02(\x05\"\xf7\x01\n\x0cmonster_info\x12\x10\n\x08\x61\x63tor_id\x18\x01 \x02(\x05\x12\x13\n\x0bmonster_mid\x18\x02 \x02(\x05\x12\x11\n\tis_moving\x18\x03 \x02(\x08\x12\r\n\x05\x61ngle\x18\x04 \x02(\x02\x12\x1e\n\x08\x63urr_pos\x18\x05 \x02(\x0b\x32\x0c.msg.vector3\x12\x1e\n\x08next_pos\x18\x06 \x02(\x0b\x32\x0c.msg.vector3\x12(\n\ractor_status_\x18\x07 \x02(\x0e\x32\x11.msg.actor_status\x12\x0e\n\x06max_hp\x18\x08 \x02(\x05\x12\n\n\x02hp\x18\t \x02(\x05\x12\x18\n\x10\x61\x62normality_mids\x18\n \x03(\x05')
+  serialized_pb=_b('\n\x10msg_struct.proto\x12\x03msg\x1a\x0emsg_enum.proto\"*\n\x07vector3\x12\t\n\x01x\x18\x01 \x02(\x02\x12\t\n\x01y\x18\x02 \x02(\x02\x12\t\n\x01z\x18\x03 \x02(\x02\"5\n\x07v3angle\x12\t\n\x01x\x18\x01 \x02(\x02\x12\t\n\x01y\x18\x02 \x02(\x02\x12\t\n\x01z\x18\x03 \x02(\x02\x12\t\n\x01\x61\x18\x04 \x02(\x02\"\xf0\x02\n\tchar_info\x12\x11\n\tchar_name\x18\x01 \x02(\t\x12\x10\n\x08\x63har_mid\x18\x02 \x02(\x05\x12\r\n\x05level\x18\x03 \x02(\x05\x12\x0b\n\x03\x65xp\x18\x04 \x02(\x03\x12\x0c\n\x04ruby\x18\x05 \x02(\x05\x12\x0c\n\x04gold\x18\x06 \x02(\x05\x12\x0e\n\x06max_hp\x18\x07 \x02(\x05\x12\x0e\n\x06max_mp\x18\x08 \x02(\x05\x12\x14\n\x0c\x65quip_weapon\x18\t \x02(\x05\x12\x12\n\nequip_head\x18\n \x02(\x05\x12\x12\n\nequip_body\x18\x0b \x02(\x05\x12\x13\n\x0b\x65quip_wings\x18\x0c \x02(\x05\x12\x13\n\x0bskill_point\x18\r \x02(\x05\x12\x13\n\x0bskill_slot1\x18\x0e \x02(\x05\x12\x13\n\x0bskill_slot2\x18\x0f \x02(\x05\x12\x13\n\x0bskill_slot3\x18\x10 \x02(\x05\x12\x13\n\x0bskill_slot4\x18\x11 \x02(\x05\x12\x12\n\nguild_name\x18\x12 \x02(\t\x12\x16\n\x0elast_logintime\x18\x13 \x02(\t\"\xeb\x01\n\tchar_view\x12\x11\n\tchar_name\x18\x01 \x02(\t\x12\x10\n\x08\x63har_mid\x18\x02 \x02(\x05\x12\r\n\x05level\x18\x03 \x02(\x05\x12\x0b\n\x03\x65xp\x18\x04 \x02(\x03\x12\x0e\n\x06max_hp\x18\x05 \x02(\x05\x12\x0e\n\x06max_mp\x18\x06 \x02(\x05\x12\x14\n\x0c\x65quip_weapon\x18\x07 \x02(\x05\x12\x12\n\nequip_head\x18\x08 \x02(\x05\x12\x12\n\nequip_body\x18\t \x02(\x05\x12\x13\n\x0b\x65quip_wings\x18\n \x02(\x05\x12\x12\n\nguild_name\x18\x0b \x02(\t\x12\x16\n\x0elast_logintime\x18\x0c \x02(\t\"R\n\titem_info\x12\x0f\n\x07item_id\x18\x01 \x02(\t\x12\"\n\nequip_part\x18\x02 \x02(\x0e\x32\x0e.msg.part_type\x12\x10\n\x08item_mid\x18\x03 \x02(\x05\"\x1f\n\nskill_info\x12\x11\n\tskill_mid\x18\x01 \x02(\x05\"s\n\x0b\x64\x61mage_info\x12\x11\n\ttarget_id\x18\x01 \x02(\x05\x12\x12\n\ntarget_mid\x18\x02 \x02(\x05\x12&\n\x0c\x64\x61mage_type_\x18\x03 \x02(\x0e\x32\x10.msg.damage_type\x12\x15\n\rdamage_amount\x18\x04 \x02(\x05\"\xe8\x03\n\x0bplayer_info\x12\x16\n\x0eplayer_conn_id\x18\x01 \x02(\x05\x12\x0f\n\x07user_id\x18\x02 \x02(\t\x12\x11\n\tchar_name\x18\x03 \x02(\t\x12\x10\n\x08\x63har_mid\x18\x04 \x02(\x05\x12\x12\n\nchar_level\x18\x05 \x02(\x05\x12\x11\n\tis_moving\x18\x06 \x02(\x08\x12\r\n\x05\x61ngle\x18\x07 \x02(\x02\x12\x1e\n\x08\x63urr_pos\x18\x08 \x02(\x0b\x32\x0c.msg.vector3\x12\x1e\n\x08next_pos\x18\t \x02(\x0b\x32\x0c.msg.vector3\x12(\n\ractor_status_\x18\n \x02(\x0e\x32\x11.msg.actor_status\x12\x0e\n\x06max_hp\x18\x0b \x02(\x05\x12\n\n\x02hp\x18\x0c \x02(\x05\x12\x0e\n\x06\x61ttack\x18\r \x02(\x05\x12\x0f\n\x07\x64\x65\x66\x65nce\x18\x0e \x02(\x05\x12\x12\n\nmove_speed\x18\x0f \x02(\x02\x12\x19\n\x11\x61ttack_speed_rate\x18\x10 \x02(\x02\x12\x14\n\x0c\x65quip_weapon\x18\x11 \x02(\x05\x12\x12\n\nequip_head\x18\x12 \x02(\x05\x12\x12\n\nequip_body\x18\x13 \x02(\x05\x12\x13\n\x0b\x65quip_wings\x18\x14 \x02(\x05\x12\x18\n\x10\x61\x62normality_mids\x18\x15 \x03(\x05\x12\x12\n\nguild_name\x18\x16 \x02(\t\"\xf7\x01\n\x0cmonster_info\x12\x10\n\x08\x61\x63tor_id\x18\x01 \x02(\x05\x12\x13\n\x0bmonster_mid\x18\x02 \x02(\x05\x12\x11\n\tis_moving\x18\x03 \x02(\x08\x12\r\n\x05\x61ngle\x18\x04 \x02(\x02\x12\x1e\n\x08\x63urr_pos\x18\x05 \x02(\x0b\x32\x0c.msg.vector3\x12\x1e\n\x08next_pos\x18\x06 \x02(\x0b\x32\x0c.msg.vector3\x12(\n\ractor_status_\x18\x07 \x02(\x0e\x32\x11.msg.actor_status\x12\x0e\n\x06max_hp\x18\x08 \x02(\x05\x12\n\n\x02hp\x18\t \x02(\x05\x12\x18\n\x10\x61\x62normality_mids\x18\n \x03(\x05')
   ,
   dependencies=[msg_enum_pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -510,6 +510,183 @@ _DAMAGE_INFO = _descriptor.Descriptor(
 )
 
 
+_PLAYER_INFO = _descriptor.Descriptor(
+  name='player_info',
+  full_name='msg.player_info',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='player_conn_id', full_name='msg.player_info.player_conn_id', index=0,
+      number=1, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='user_id', full_name='msg.player_info.user_id', index=1,
+      number=2, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='char_name', full_name='msg.player_info.char_name', index=2,
+      number=3, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='char_mid', full_name='msg.player_info.char_mid', index=3,
+      number=4, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='char_level', full_name='msg.player_info.char_level', index=4,
+      number=5, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='is_moving', full_name='msg.player_info.is_moving', index=5,
+      number=6, type=8, cpp_type=7, label=2,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='angle', full_name='msg.player_info.angle', index=6,
+      number=7, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='curr_pos', full_name='msg.player_info.curr_pos', index=7,
+      number=8, type=11, cpp_type=10, label=2,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='next_pos', full_name='msg.player_info.next_pos', index=8,
+      number=9, type=11, cpp_type=10, label=2,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='actor_status_', full_name='msg.player_info.actor_status_', index=9,
+      number=10, type=14, cpp_type=8, label=2,
+      has_default_value=False, default_value=1,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='max_hp', full_name='msg.player_info.max_hp', index=10,
+      number=11, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='hp', full_name='msg.player_info.hp', index=11,
+      number=12, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='attack', full_name='msg.player_info.attack', index=12,
+      number=13, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='defence', full_name='msg.player_info.defence', index=13,
+      number=14, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='move_speed', full_name='msg.player_info.move_speed', index=14,
+      number=15, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='attack_speed_rate', full_name='msg.player_info.attack_speed_rate', index=15,
+      number=16, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='equip_weapon', full_name='msg.player_info.equip_weapon', index=16,
+      number=17, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='equip_head', full_name='msg.player_info.equip_head', index=17,
+      number=18, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='equip_body', full_name='msg.player_info.equip_body', index=18,
+      number=19, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='equip_wings', full_name='msg.player_info.equip_wings', index=19,
+      number=20, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='abnormality_mids', full_name='msg.player_info.abnormality_mids', index=20,
+      number=21, type=5, cpp_type=1, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='guild_name', full_name='msg.player_info.guild_name', index=21,
+      number=22, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=984,
+  serialized_end=1472,
+)
+
+
 _MONSTER_INFO = _descriptor.Descriptor(
   name='monster_info',
   full_name='msg.monster_info',
@@ -598,12 +775,15 @@ _MONSTER_INFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=984,
-  serialized_end=1231,
+  serialized_start=1475,
+  serialized_end=1722,
 )
 
 _ITEM_INFO.fields_by_name['equip_part'].enum_type = msg_enum_pb2._PART_TYPE
 _DAMAGE_INFO.fields_by_name['damage_type_'].enum_type = msg_enum_pb2._DAMAGE_TYPE
+_PLAYER_INFO.fields_by_name['curr_pos'].message_type = _VECTOR3
+_PLAYER_INFO.fields_by_name['next_pos'].message_type = _VECTOR3
+_PLAYER_INFO.fields_by_name['actor_status_'].enum_type = msg_enum_pb2._ACTOR_STATUS
 _MONSTER_INFO.fields_by_name['curr_pos'].message_type = _VECTOR3
 _MONSTER_INFO.fields_by_name['next_pos'].message_type = _VECTOR3
 _MONSTER_INFO.fields_by_name['actor_status_'].enum_type = msg_enum_pb2._ACTOR_STATUS
@@ -614,6 +794,7 @@ DESCRIPTOR.message_types_by_name['char_view'] = _CHAR_VIEW
 DESCRIPTOR.message_types_by_name['item_info'] = _ITEM_INFO
 DESCRIPTOR.message_types_by_name['skill_info'] = _SKILL_INFO
 DESCRIPTOR.message_types_by_name['damage_info'] = _DAMAGE_INFO
+DESCRIPTOR.message_types_by_name['player_info'] = _PLAYER_INFO
 DESCRIPTOR.message_types_by_name['monster_info'] = _MONSTER_INFO
 
 vector3 = _reflection.GeneratedProtocolMessageType('vector3', (_message.Message,), dict(
@@ -664,6 +845,13 @@ damage_info = _reflection.GeneratedProtocolMessageType('damage_info', (_message.
   # @@protoc_insertion_point(class_scope:msg.damage_info)
   ))
 _sym_db.RegisterMessage(damage_info)
+
+player_info = _reflection.GeneratedProtocolMessageType('player_info', (_message.Message,), dict(
+  DESCRIPTOR = _PLAYER_INFO,
+  __module__ = 'msg_struct_pb2'
+  # @@protoc_insertion_point(class_scope:msg.player_info)
+  ))
+_sym_db.RegisterMessage(player_info)
 
 monster_info = _reflection.GeneratedProtocolMessageType('monster_info', (_message.Message,), dict(
   DESCRIPTOR = _MONSTER_INFO,
