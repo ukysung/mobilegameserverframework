@@ -111,27 +111,26 @@ package msg;
         required int32 char_mid = 4;
         required int32 char_level = 5;
 
-        required bool is_moving = 6;
-        required float angle = 7;
-        required vector3 curr_pos = 8;
-        required vector3 next_pos = 9;
+        required int32 equip_weapon = 6;
+        required int32 equip_head = 7;
+        required int32 equip_body = 8;
+        required int32 equip_wings = 9;
+        //repeated item_info equip_list = 9;
 
-        required actor_status actor_status_ = 10;
-        required int32 max_hp = 11;
-        required int32 hp = 12;
+        required bool is_moving = 10;
+        required float angle = 11;
+        required vector3 curr_pos = 12;
+        required vector3 next_pos = 13;
 
-        required int32 attack = 13;
-        required int32 defence = 14;
+        required actor_status actor_status_ = 14;
+        required int32 max_hp = 15;
+        required int32 hp = 16;
 
-        required float move_speed = 15;
-        required float attack_speed_rate = 16;
+        required int32 attack = 17;
+        required int32 defence = 18;
 
-        required int32 equip_weapon = 17;
-        required int32 equip_head = 18;
-        required int32 equip_body = 19;
-        required int32 equip_wings = 20;
-        //repeated item_info equip_list = 20;
-
+        required float move_speed = 19;
+        required float attack_speed_rate = 20;
         repeated int32 abnormality_mids = 21;
 
        required string guild_name = 22;
