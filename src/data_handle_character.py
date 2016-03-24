@@ -12,9 +12,9 @@ import msg_packet_data_pb2
 import AESCrypto
 
 from ModelUsers import ModelUsers
-import data_handle_character
+import data_handle_user
 
-print(1)
+print(2)
 
 def put_user(plat_type, user_id, passwd):
     print(3)
