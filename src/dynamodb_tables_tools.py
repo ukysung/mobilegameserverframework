@@ -1,5 +1,8 @@
 
 import sys
+import json
+
+import boto3
 
 import g
 import config
@@ -22,13 +25,29 @@ def main():
     models = []
     models.append(ModelUsers())
 
-    if command == 'create':
+    if command == 'list':
+        dynamodb = boto3.resource('dynamodb',
+                                  aws_access_key_id=None,
+                                  aws_secret_access_key=None,
+                                  region_name='',
+                                  endpoint_url=g.CFG['dynamodb']['endpoint_url'])
+
+        for table in dynamodb.tables.all():
+            print(table.name)
+
+    elif command == 'create':
         for model in models:
-            model.create_table()
+            response = model.create_table()
+            print(json.dumps(response))
+
+    elif command == 'test':
+        for model in models:
+            response = model.test()
 
     elif command == 'delete':
         for model in models:
-            model.delete_table()
+            response = model.delete_table()
+            print(json.dumps(response))
 
 if __name__ == '__main__':
     main()

@@ -10,7 +10,10 @@ import g
 
 class ModelUsers:
     def __init__(self):
-        self.dynamodb = boto3.resource('dynamodb', region_name='',
+        self.dynamodb = boto3.resource('dynamodb',
+                                       aws_access_key_id=None,
+                                       aws_secret_access_key=None,
+                                       region_name='',
                                        endpoint_url=g.CFG['dynamodb']['endpoint_url'])
         self.table_name = 'characters'
 

@@ -1,6 +1,6 @@
 
 import asyncio
-import asyncio.futures
+from asyncio.futures import wrap_future
 
 import g
 import msg
@@ -19,7 +19,8 @@ def put_user(plat_type, user_id, passwd):
     model_users.put({
         'plat_type': plat_type,
         'user_id': user_id,
-        'passwd': passwd
+        'passwd': passwd,
+        'char_names': []
     })
     print(4)
     print(plat_type)
@@ -48,7 +49,7 @@ def handle_sign_up(req_msg_body):
     ack.auth_token = ''
 
     print(1)
-    yield from asyncio.futures.wrap_future(g.THREAD_POOL.submit(put_user, req.plat_type, req.user_id, req.passwd))
+    yield from wrap_future(g.THREAD_POOL.submit(put_user, req.plat_type, req.user_id, req.passwd))
     print(2)
 
     ack.err_code = msg_error_pb2.err_none

@@ -8,41 +8,20 @@ from botocore.exceptions import ClientError
 
 import g
 
-class ModelUsers:
+class Model:
     def __init__(self):
+        self.table_name = ''
+        self.test_key_dict = {}
+
         self.dynamodb = boto3.resource('dynamodb',
                                        aws_access_key_id=None,
                                        aws_secret_access_key=None,
                                        region_name='',
                                        endpoint_url=g.CFG['dynamodb']['endpoint_url'])
-        self.table_name = 'users'
 
-    def create_table(self):
-        table = self.dynamodb.create_table(
-            TableName=self.table_name,
-            KeySchema=[
-                {
-                    'AttributeName': 'user_id',
-                    'KeyType': 'HASH'
-                }
-            ],
-            AttributeDefinitions=[
-                {
-                    'AttributeName': 'user_id',
-                    'AttributeType': 'S'
-                }
-            ],
-            ProvisionedThroughput={
-                'ReadCapacityUnits': 10,
-                'WriteCapacityUnits': 10
-            }
-        )
-
-        table.meta.client.get_waiter('table_exists')
-        print('table status: ' + table.table_status)
+        self.table = self.dynamodb.Table(self.table_name)
 
     def delete_table(self):
-        table = self.dynamodb.Table(self.table_name)
         response = table.delete()
 
         print(response)
@@ -52,14 +31,11 @@ class ModelUsers:
         print('table status: ' + table.table_status)
 
     def put(self, item_dict):
-        table = self.dynamodb.Table(self.table_name)
         response = table.put_item(Item=item_dict)
 
         print(json.dumps(response))
 
     def put_if_not(self, item_dict, attr, value):
-        table = self.dynamodb.Table(self.table_name)
-
         try:
             response = table.put_item(
                 Item=item_dict,
@@ -79,7 +55,6 @@ class ModelUsers:
         print(json.dumps(response))
 
     def query(self, key, value):
-        table = self.dynamodb.Table(self.table_name)
         response = table.query(KeyConditionExpression=Key(key).eq(value))
 
         print(json.dumps(response))
@@ -91,7 +66,6 @@ class ModelUsers:
             return None
 
     def get(self, key_dict):
-        table = self.dynamodb.Table(self.table_name)
         response = table.get_item(Key=key_dict)
 
         print(json.dumps(response))
@@ -103,8 +77,6 @@ class ModelUsers:
             return None
 
     def update(self, key_dict, update_dict):
-        table = self.dynamodb.Table(self.table_name)
-
         expression = 'set '
         names = {}
         values = {}
@@ -131,8 +103,6 @@ class ModelUsers:
         print(json.dumps(response))
 
     def update_if(self, key_dict, update_dict):
-        table = self.dynamodb.Table(self.table_name)
-
         try:
             response = table.update_item(
                 Key=key_dict,
@@ -157,8 +127,6 @@ class ModelUsers:
         print(json.dumps(response))
 
     def increase(self, key_dict, increase_dict):
-        table = self.dynamodb.Table(self.table_name)
-
         expression = 'set '
         names = {}
         values = {}
@@ -183,15 +151,29 @@ class ModelUsers:
 
         print(json.dumps(response))
 
+        '''
+        table = get_dynamodb_resource().Table("table_name")
+            result = table.update_item(
+                Key={
+                    'hash_key': hash_key,
+                    'range_key': range_key
+                },
+                UpdateExpression="SET some_attr = list_append(some_attr, :i)",
+                ExpressionAttributeValues={
+                    ':i': [some_value],
+                },
+                ReturnValues="UPDATED_NEW"
+        )
+        if result['ResponseMetadata']['HTTPStatusCode'] == 200 and 'Attributes' in result:
+            return result['Attributes']['some_attr']
+        '''
+
     def delete(self, key_dict):
-        table = self.dynamodb.Table(self.table_name)
         response = table.delete_item(Key=key_dict)
 
         print(json.dumps(response))
 
     def delete_if(self, key_dict):
-        table = self.dynamodb.Table(self.table_name)
-
         try:
             response = table.delete_item(
                 Key=key_dict,
