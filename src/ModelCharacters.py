@@ -201,6 +201,23 @@ class ModelUsers:
 
         print(json.dumps(response))
 
+        '''
+        table = get_dynamodb_resource().Table("table_name")
+            result = table.update_item(
+                Key={
+                    'hash_key': hash_key,
+                    'range_key': range_key
+                },
+                UpdateExpression="SET some_attr = list_append(some_attr, :i)",
+                ExpressionAttributeValues={
+                    ':i': [some_value],
+                },
+                ReturnValues="UPDATED_NEW"
+        )
+        if result['ResponseMetadata']['HTTPStatusCode'] == 200 and 'Attributes' in result:
+            return result['Attributes']['some_attr']
+        '''
+
     def delete(self, key_dict):
         table = self.dynamodb.Table(self.table_name)
         response = table.delete_item(Key=key_dict)

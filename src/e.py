@@ -12,5 +12,6 @@ PLAYER_DELETE = -2
 # which queue to put
 TO_ME = 1
 TO_ALL = 2
-TO_DATA = 3
+TO_PLAY_LOOP = 3
+TO_THREAD_POOL = 4
 
