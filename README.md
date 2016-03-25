@@ -37,3 +37,4 @@ sudo wget https://bootstrap.pypa.io/get-pip.py
 sudo python3 ./get-pip.py 
 sudo pip3 install pip --upgrade
 
+test
