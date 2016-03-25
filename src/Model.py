@@ -11,7 +11,7 @@ import g
 class Model:
     def __init__(self):
         self.table_name = ''
-        self.test_key_dict = {}
+        self.test_key = {}
 
         self.dynamodb = boto3.resource('dynamodb',
                                        aws_access_key_id=None,
@@ -22,23 +22,23 @@ class Model:
         self.table = self.dynamodb.Table(self.table_name)
 
     def delete_table(self):
-        response = table.delete()
+        response = self.table.delete()
 
         print(response)
         #print(json.dumps(response))
 
-        table.meta.client.get_waiter('table_exists')
-        print('table status: ' + table.table_status)
+        self.table.meta.client.get_waiter('table_exists')
+        print('table status: ' + self.table.table_status)
 
-    def put(self, item_dict):
-        response = table.put_item(Item=item_dict)
+    def put(self, item):
+        response = self.table.put_item(Item=item)
 
         print(json.dumps(response))
 
-    def put_if_not(self, item_dict, attr, value):
+    def put_if_not(self, item, attr, value):
         try:
-            response = table.put_item(
-                Item=item_dict,
+            response = self.table.put_item(
+                Item=item,
                 ConditionExpression=Attr(attr).ne(value) #& Attr('title').ne(title)
             )
 
@@ -55,7 +55,7 @@ class Model:
         print(json.dumps(response))
 
     def query(self, key, value):
-        response = table.query(KeyConditionExpression=Key(key).eq(value))
+        response = self.table.query(KeyConditionExpression=Key(key).eq(value))
 
         print(json.dumps(response))
 
@@ -65,8 +65,8 @@ class Model:
         else:
             return None
 
-    def get(self, key_dict):
-        response = table.get_item(Key=key_dict)
+    def get(self, key):
+        response = self.table.get_item(Key=key)
 
         print(json.dumps(response))
 
@@ -76,23 +76,23 @@ class Model:
         else:
             return None
 
-    def update(self, key_dict, update_dict):
+    def update(self, key, data):
         expression = 'set '
         names = {}
         values = {}
 
         i = 0
-        for name, value in update_dict.items():
+        for name, value in data.items():
             i += 1
             if i > 1:
                 expression += ', '
 
-            expression += 'attr' + str(i) + ' = :val' + str(i)
+            expression += 'attr' + str(i) + ' = :value' + str(i)
             names['attr' + str(i)] = name
-            values[':val' + str(i)] = value
+            values[':value' + str(i)] = value
 
-        response = table.update_item(
-            Key=key_dict,
+        response = self.table.update_item(
+            Key=key,
             UpdateExpression=expression,
             ExpressionAttributeNames=names,
             ExpressionAttributeValues=values,
@@ -102,14 +102,15 @@ class Model:
 
         print(json.dumps(response))
 
-    def update_if(self, key_dict, update_dict):
+    '''
+    def update_if(self, key, data):
         try:
-            response = table.update_item(
-                Key=key_dict,
+            response = self.table.update_item(
+                Key=key,
                 UpdateExpression='remove actors[0]',
                 ConditionExpression='size(actors) > :num',
                 ExpressionAttributeValues={
-                    ':num': update_dict['num']
+                    ':num': data['num']
                 },
                 ReturnValues='UPDATED_NEW'
             )
@@ -125,61 +126,56 @@ class Model:
             print('PutItem succeeded:')
 
         print(json.dumps(response))
+    '''
 
-    def increase(self, key_dict, increase_dict):
+    def increase(self, key, data):
         expression = 'set '
         names = {}
         values = {}
 
         i = 0
-        for name, value in increase_dict.items():
+        for name, value in data.items():
             i += 1
             if i > 1:
                 expression += ', '
 
-            expression += 'attr' + str(i) + ' = attr' + str(i) + ' + :val' + str(i)
+            expression += 'attr' + str(i) + ' = attr' + str(i) + ' + :value' + str(i)
             names['attr' + str(i)] = name
-            values[':val' + str(i)] = value
+            values[':value' + str(i)] = value
 
-        response = table.update_item(
-            Key=key_dict,
+        response = self.table.update_item(
+            Key=key,
             UpdateExpression=expression,
             ExpressionAttributeNames=names,
             ExpressionAttributeValues=values,
             ReturnValues='UPDATED_NEW'
         )
 
-        print(json.dumps(response))
-
-        '''
-        table = get_dynamodb_resource().Table("table_name")
-            result = table.update_item(
-                Key={
-                    'hash_key': hash_key,
-                    'range_key': range_key
-                },
-                UpdateExpression="SET some_attr = list_append(some_attr, :i)",
-                ExpressionAttributeValues={
-                    ':i': [some_value],
-                },
-                ReturnValues="UPDATED_NEW"
+    def append(self, key, attr, value):
+        response = self.table.update_item(
+            Key=key,
+            UpdateExpression='set ' + attr + ' = list_append(' + attr + ', :value)',
+            ExpressionAttributeValues={
+                ':value': [value],
+            },
+            ReturnValues='UPDATED_NEW'
         )
-        if result['ResponseMetadata']['HTTPStatusCode'] == 200 and 'Attributes' in result:
-            return result['Attributes']['some_attr']
-        '''
-
-    def delete(self, key_dict):
-        response = table.delete_item(Key=key_dict)
 
         print(json.dumps(response))
 
-    def delete_if(self, key_dict):
+    def delete(self, key):
+        response = self.table.delete_item(Key=key)
+
+        print(json.dumps(response))
+
+    '''
+    def delete_if(self, key, attr, value):
         try:
-            response = table.delete_item(
-                Key=key_dict,
-                ConditionExpression='rating <= :val',
+            response = self.table.delete_item(
+                Key=key,
+                ConditionExpression='rating <= :value',
                 ExpressionAttributeValues={
-                    ':val': 5
+                    ':value': value
                 }
             )
 
@@ -194,5 +190,4 @@ class Model:
             print('PutItem succeeded:')
 
         print(json.dumps(response))
-
-
+    '''
