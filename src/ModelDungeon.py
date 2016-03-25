@@ -1,10 +1,10 @@
 
 from Model import Model
 
-class ModelItems(Model):
+class ModelDungeon(Model):
     def __init__(self):
-        self.table_name = 'items'
-        self.test_key = {'char_name': 'test_char_01', 'item_id': 'test_item_01'}
+        self.table_name = 'dungeon'
+        self.test_key = {'char_name': 'test_char_01', 'dungeon_mid': 1}
         Model.__init__(self)
 
     def create_table(self):
@@ -16,7 +16,7 @@ class ModelItems(Model):
                     'KeyType': 'HASH'
                 },
                 {
-                    'AttributeName': 'item_id',
+                    'AttributeName': 'dungeon_mid',
                     'KeyType': 'RANGE'
                 }
             ],
@@ -26,8 +26,8 @@ class ModelItems(Model):
                     'AttributeType': 'S'
                 },
                 {
-                    'AttributeName': 'item_id',
-                    'AttributeType': 'S'
+                    'AttributeName': 'dungeon_mid',
+                    'AttributeType': 'N'
                 }
             ],
             ProvisionedThroughput={

@@ -22,12 +22,12 @@ class Model:
 
         self.table = self.dynamodb.Table(self.table_name)
 
-    def delete_table(self):
-        response = self.table.delete()
-        print(response)
-
-        self.table.meta.client.get_waiter('table_exists')
-        print('table status: ' + self.table.table_status)
+    #def delete_table(self):
+    #    response = self.table.delete()
+    #    print(response)
+    #
+    #    self.table.meta.client.get_waiter('table_exists')
+    #    print('table status: ' + self.table.table_status)
 
     def put(self, item):
         return self.table.put_item(Item=item)

@@ -32,15 +32,15 @@ def main():
     config.load()
 
     models = []
-    #models.append(ModelUsers())
-    #models.append(ModelCharacters())
-    #models.append(ModelItems())
+    models.append(ModelUsers())
+    models.append(ModelCharacters())
+    models.append(ModelItems())
     models.append(ModelSkill())
-    #models.append(ModelDungeon())
-    #models.append(ModelQuest())
-    #models.append(ModelGuild())
-    #models.append(ModelGuildMember())
-    #models.append(ModelFriend())
+    models.append(ModelDungeon())
+    models.append(ModelQuest())
+    models.append(ModelGuild())
+    models.append(ModelGuildMember())
+    models.append(ModelFriend())
 
     if command == 'list':
         dynamodb = boto3.resource('dynamodb',
@@ -55,7 +55,6 @@ def main():
     elif command == 'create':
         for model in models:
             response = model.create_table()
-            print(json.dumps(response))
 
     elif command == 'test':
         for model in models:

@@ -39,3 +39,8 @@ class ModelGuildMember(Model):
         new_table.meta.client.get_waiter('table_exists')
         print('new table status: ' + new_table.table_status)
 
+    def test(self):
+        self.put(self.test_key)
+        self.get(self.test_key)
+        self.delete(self.test_key)
+
