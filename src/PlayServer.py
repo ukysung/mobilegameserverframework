@@ -3,6 +3,7 @@ import sys
 import multiprocessing
 import concurrent.futures
 import asyncio
+import asyncio_redis
 import signal
 
 import g
@@ -24,6 +25,7 @@ def shutdown():
     g.INTERNAL.close()
     g.OUTGOING.close()
 
+    g.REDIS_POOL.close()
     g.THREAD_POOL.shutdown()
     for task in asyncio.Task.all_tasks():
         task.cancel()
@@ -48,14 +50,13 @@ def main():
     # test
     g.MST[1] = 2
 
-    pool_size = g.CFG[server_type + '_proc_pool_size']
+    pool_size = g.CFG[server_type + '_thread_pool_size']
     port = g.CFG[server_type + g.SERVER_SEQ]
 
-    # pool
+    # queue
     g.INCOMING = multiprocessing.Queue()
     g.INTERNAL = multiprocessing.Queue()
     g.OUTGOING = multiprocessing.Queue()
-    g.THREAD_POOL = concurrent.futures.ThreadPoolExecutor(pool_size)
 
     # play
     play_loop = PlayLoop(g.PHASE, g.SERVER_SEQ)
@@ -64,6 +65,10 @@ def main():
 
     # play_server
     g.LOOP = asyncio.get_event_loop()
+
+    # pool
+    g.REDIS_POOL = yield from asyncio_redis.Pool.create(host='127.0.0.1', port=6379, poolsize=10)
+    g.THREAD_POOL = concurrent.futures.ThreadPoolExecutor(pool_size)
 
     try:
         g.LOOP.add_signal_handler(signal.SIGINT, shutdown)

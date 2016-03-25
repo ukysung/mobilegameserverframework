@@ -16,6 +16,7 @@ mobilegameserver
 * sudo pip3 install pycrypto
 * sudo pip3 install aiohttp
 * sudo pip3 install msgpack-python
+* sudo pip3 install asyncio-redis
 * sudo pip3 install awscli
 * aws configure
 

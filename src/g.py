@@ -9,6 +9,7 @@ MST = {}
 LOOP = None
 SERVER = None
 
+REDIS_POOL = None
 THREAD_POOL = None
 DATA_HANDLERS = {}
 

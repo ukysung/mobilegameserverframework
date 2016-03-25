@@ -1,6 +1,7 @@
 
 import sys
 import asyncio
+import asyncio_redis
 import asyncio.futures
 import concurrent.futures
 import signal
@@ -15,6 +16,7 @@ from DataConnection import DataConnection
 def shutdown():
     g.SERVER.close()
 
+    g.REDIS_POOL.close()
     g.THREAD_POOL.shutdown()
     for task in asyncio.Task.all_tasks():
         task.cancel()
@@ -38,14 +40,15 @@ def main():
     # test
     g.MST[1] = 2
 
-    pool_size = g.CFG[server_type + '_proc_pool_size']
+    pool_size = g.CFG[server_type + '_thread_pool_size']
     port = g.CFG[server_type + g.SERVER_SEQ]
-
-    # pool
-    g.THREAD_POOL = concurrent.futures.ThreadPoolExecutor(pool_size)
 
     # data_server
     g.LOOP = asyncio.get_event_loop()
+
+    # pool
+    g.REDIS_POOL = yield from asyncio_redis.Pool.create(host='127.0.0.1', port=6379, poolsize=10)
+    g.THREAD_POOL = concurrent.futures.ThreadPoolExecutor(pool_size)
 
     try:
         g.LOOP.add_signal_handler(signal.SIGINT, shutdown)
