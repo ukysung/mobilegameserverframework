@@ -11,24 +11,23 @@ import msg_packet_data_pb2
 
 import AESCrypto
 
-from ModelUsers import ModelUsers
-import data_handle_user
+from ModelCharacters import ModelCharacters
+import data_handle_user as user
 
-print(2)
+def test1():
+    print('test1')
 
-def put_user(plat_type, user_id, passwd):
+def put_character(req, user_id):
     print(3)
-    model_users = ModelUsers()
-    model_users.put({
-        'plat_type': plat_type,
+    model_characters = ModelCharacters()
+    model_characters.put({
+        'char_name': req.char_name,
         'user_id': user_id,
-        'passwd': passwd,
-        'char_names': []
+        'char_mid': req.char_mid
     })
     print(4)
-    print(plat_type)
-    print(user_id)
-    print(passwd)
+    print(req.char_name)
+    print(req.char_mid)
     '''
     model_users.put_if_not({
             'platform_type': plat_type,
@@ -41,40 +40,44 @@ def put_user(plat_type, user_id, passwd):
     )
     '''
     print(5)
+    char_names = user.add_character(user_id, req.char_name)
+    return char_names
 
 @asyncio.coroutine
-def handle_sign_up(req_msg_body):
-    req = msg_packet_data_pb2.sign_up_req()
+def handle_create_character(req_msg_body):
+    req = msg_packet_data_pb2.create_character_req()
     req.ParseFromString(req_msg_body)
 
-    ack = msg_packet_data_pb2.sign_up_ack()
+    ack = msg_packet_data_pb2.create_character_ack()
     ack.err_code = msg_error_pb2.err_server_unknown
     ack.auth_token = ''
 
+    user_id = AESCrypto.get_user_id(req.auth_token)
+
     print(1)
-    yield from wrap_future(g.THREAD_POOL.submit(put_user, req.plat_type, req.user_id, req.passwd))
+    char_names = yield from wrap_future(g.THREAD_POOL.submit(put_character, req, user_id))
     print(2)
 
     ack.err_code = msg_error_pb2.err_none
-    ack.auth_token = AESCrypto.auth_token_generator(req.user_id, [])
+    ack.auth_token = AESCrypto.generate_auth_token(user_id, char_names)
 
     return msg.pack(msg_type_data_pb2.t_sign_up_ack, ack)
-g.DATA_HANDLERS[msg_type_data_pb2.t_sign_up_req] = handle_sign_up
+g.DATA_HANDLERS[msg_type_data_pb2.t_create_character_req] = handle_create_character
 
 @asyncio.coroutine
-def handle_sign_in(req_msg_body):
-    req = msg_packet_data_pb2.sign_in_req()
+def handle_get_char_list(req_msg_body):
+    req = msg_packet_data_pb2.get_char_list_req()
     req.ParseFromString(req_msg_body)
 
-    ack = msg_packet_data_pb2.sign_in_ack()
+    ack = msg_packet_data_pb2.get_char_list_ack()
     ack.err_code = msg_error_pb2.err_server_unknown
-    ack.auth_token = AESCrypto.auth_token_generator(req.user_id, [])
+    ack.auth_token = ''
 
     # do something with db here
-    j = yield from asyncio.futures.wrap_future(g.PROC_POOL.submit(b, 1))
+    j = yield from asyncio.futures.wrap_future(g.THREAD_POOL.submit(b, 1))
 
     ack.err_code = msg_error_pb2.err_none
 
     return msg.pack(msg_type_data_pb2.t_sign_in_ack, ack)
-g.DATA_HANDLERS[msg_type_data_pb2.t_sign_in_req] = handle_sign_in
+g.DATA_HANDLERS[msg_type_data_pb2.t_get_char_list_req] = handle_get_char_list
 

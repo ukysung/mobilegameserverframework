@@ -5,7 +5,7 @@ class ModelItems(Model):
     def __init__(self):
         self.table_name = 'items'
         self.test_key = {'char_name': 'test_char_01', 'item_id': 'test_item_01'}
-        Model.__init__()
+        Model.__init__(self)
 
     def create_table(self):
         new_table = self.dynamodb.create_table(

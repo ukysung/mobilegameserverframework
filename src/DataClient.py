@@ -88,6 +88,23 @@ def handle_create_character_ack(msg_body):
     VARS['auth_token'] = ack.auth_token
 HANDLERS.append(handle_create_character_ack)
 
+def handle_get_char_list_req():
+    print(sys._getframe().f_code.co_name)
+
+    req = msg_packet_data_pb2.get_char_list_req()
+    req.auth_token = VARS['auth_token']
+
+    return msg.pack(msg_type_data_pb2.t_get_char_list_req, req)
+HANDLERS.append(handle_get_char_list_req)
+
+def handle_get_char_list_ack(msg_body):
+    print(sys._getframe().f_code.co_name)
+
+    ack = msg_packet_data_pb2.get_char_list_ack()
+    ack.ParseFromString(msg_body)
+
+    print('err_code: ' + ack.err_code)
+HANDLERS.append(handle_create_character_ack)
 
 @asyncio.coroutine
 def data_client(host, port):

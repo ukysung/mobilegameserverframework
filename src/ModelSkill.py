@@ -5,7 +5,7 @@ class ModelSkill(Model):
     def __init__(self):
         self.table_name = 'skil'
         self.test_key = {'char_name': 'test_char_01', 'skill_id': 1}
-        Model.__init__()
+        Model.__init__(self)
 
     def create_table(self):
         new_table = self.dynamodb.create_table(

@@ -5,7 +5,7 @@ class ModelFriend(Model):
     def __init__(self):
         self.table_name = 'friend'
         self.test_key = {'char_name': 'test_char_01', 'friend_char_name': 'test_char_02'}
-        Model.__init__()
+        Model.__init__(self)
 
     def create_table(self):
         new_table = self.dynamodb.create_table(

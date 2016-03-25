@@ -5,7 +5,7 @@ class ModelGuildMember(Model):
     def __init__(self):
         self.table_name = 'guild_member'
         self.test_key = {'guild_name': 'test_guild_01', 'char_name': 'test_char_01'}
-        Model.__init__()
+        Model.__init__(self)
 
     def create_table(self):
         new_table = self.dynamodb.create_table(

@@ -5,7 +5,7 @@ class ModelCharacters(Model):
     def __init__(self):
         self.table_name = 'characters'
         self.test_key = {'char_name': 'test_char_01'}
-        Model.__init__()
+        Model.__init__(self)
 
     def create_table(self):
         new_table = self.dynamodb.create_table(
@@ -21,34 +21,7 @@ class ModelCharacters(Model):
                     'AttributeName': 'char_name',
                     'AttributeType': 'S'
                 }
-                '''
-                ,
-                {
-                    'AttributeName': 'user_id',
-                    'AttribyteType': 'S'
-                }
-                '''
             ],
-            '''
-            GlobalSecondaryIndexes=[
-                {
-                    'IndexName': 'user_id',
-                    'KeySchema': [
-                        {
-                            'AttributeName': 'user_id',
-                            'KeyType': 'HASH'
-                        }
-                    ],
-                    'Projection': {
-                        'ProjectionType': 'ALL'
-                    },
-                    'ProvisionedThroughput': {
-                        'ReadCapacityUnits': 10,
-                        'WriteCapacityUnits': 10
-                    }
-                }
-            ],
-            '''
             ProvisionedThroughput={
                 'ReadCapacityUnits': 10,
                 'WriteCapacityUnits': 10

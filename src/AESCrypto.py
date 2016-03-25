@@ -50,6 +50,20 @@ def generate_auth_token(user_id, char_names):
 
     return AESCrypto(g.CFG['crypto_key']).encrypt(user_id + '|' + char_names_joined)
 
+def get_user_id(auth_token):
+    aes_crypto = AESCrypto(g.CFG['crypto_key'])
+
+    try:
+        char_names = aes_crypto.decrypt(auth_token).split('|')
+        user_id = char_names.pop(0)
+
+        return user_id
+
+    finally:
+        pass
+
+    return None
+
 def validate_char_name(auth_token, char_name):
     aes_crypto = AESCrypto(g.CFG['crypto_key'])
 
@@ -58,21 +72,6 @@ def validate_char_name(auth_token, char_name):
         char_names.pop(0)
 
         if char_name in char_names:
-            return True
-
-    finally:
-        pass
-
-    return False
-
-def validate_user_id(auth_token, user_id):
-    aes_crypto = AESCrypto(g.CFG['crypto_key'])
-
-    try:
-        char_names = aes_crypto.decrypt(auth_token).split('|')
-        token_user_id = char_names.pop(0)
-
-        if user_id == token_user_id:
             return True
 
     finally:

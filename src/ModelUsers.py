@@ -5,7 +5,7 @@ class ModelUsers(Model):
     def __init__(self):
         self.table_name = 'users'
         self.test_key = {'user_id': 'user_01'}
-        Model.__init__()
+        Model.__init__(self)
 
     def create_table(self):
         new_table = self.dynamodb.create_table(

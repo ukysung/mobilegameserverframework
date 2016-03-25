@@ -9,10 +9,11 @@ from botocore.exceptions import ClientError
 import g
 
 class Model:
-    def __init__(self):
-        self.table_name = ''
-        self.test_key = {}
+    table = None
+    table_name = ''
+    test_key = None
 
+    def __init__(self):
         self.dynamodb = boto3.resource('dynamodb',
                                        aws_access_key_id=None,
                                        aws_secret_access_key=None,
