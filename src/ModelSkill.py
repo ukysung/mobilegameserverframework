@@ -3,8 +3,8 @@ from Model import Model
 
 class ModelSkill(Model):
     def __init__(self):
-        self.table_name = 'skil'
-        self.test_key = {'char_name': 'test_char_01', 'skill_id': 1}
+        self.table_name = 'skill'
+        self.test_key = {'char_name': 'test_char_01', 'skill_mid': 1}
         Model.__init__(self)
 
     def create_table(self):
@@ -16,7 +16,7 @@ class ModelSkill(Model):
                     'KeyType': 'HASH'
                 },
                 {
-                    'AttributeName': 'skill_id',
+                    'AttributeName': 'skill_mid',
                     'KeyType': 'RANGE'
                 }
             ],
@@ -26,7 +26,7 @@ class ModelSkill(Model):
                     'AttributeType': 'S'
                 },
                 {
-                    'AttributeName': 'skill_id',
+                    'AttributeName': 'skill_mid',
                     'AttributeType': 'N'
                 }
             ],

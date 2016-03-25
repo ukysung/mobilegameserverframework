@@ -11,7 +11,7 @@ import g
 class Model:
     table = None
     table_name = ''
-    test_key = None
+    test_key = {}
 
     def __init__(self):
         self.dynamodb = boto3.resource('dynamodb',
@@ -24,41 +24,30 @@ class Model:
 
     def delete_table(self):
         response = self.table.delete()
-
         print(response)
-        #print(json.dumps(response))
 
         self.table.meta.client.get_waiter('table_exists')
         print('table status: ' + self.table.table_status)
 
     def put(self, item):
-        response = self.table.put_item(Item=item)
-
-        print(json.dumps(response))
+        return self.table.put_item(Item=item)
 
     def put_if_not(self, item, attr, value):
+        response = None
+
         try:
             response = self.table.put_item(
                 Item=item,
                 ConditionExpression=Attr(attr).ne(value) #& Attr('title').ne(title)
             )
 
-        except ClientError as ex:
-            if ex.response['Error']['Code'] == 'ConditionalCheckFailedException':
-                print(ex.response['Error']['Message'])
+        except ClientError:
+            pass
 
-            else:
-                raise
+        return response
 
-        else:
-            print('PutItem succeeded:')
-
-        print(json.dumps(response))
-
-    def query(self, key, value):
-        response = self.table.query(KeyConditionExpression=Key(key).eq(value))
-
-        print(json.dumps(response))
+    def get(self, key):
+        response = self.table.get_item(Key=key)
 
         if 'Items' in response:
             return response['Items']
@@ -66,10 +55,8 @@ class Model:
         else:
             return None
 
-    def get(self, key):
-        response = self.table.get_item(Key=key)
-
-        print(json.dumps(response))
+    def query(self, key, value):
+        response = self.table.query(KeyConditionExpression=Key(key).eq(value))
 
         if 'Items' in response:
             return response['Items']
@@ -92,7 +79,7 @@ class Model:
             names['attr' + str(i)] = name
             values[':value' + str(i)] = value
 
-        response = self.table.update_item(
+        return self.table.update_item(
             Key=key,
             UpdateExpression=expression,
             ExpressionAttributeNames=names,
@@ -101,10 +88,10 @@ class Model:
             #ReturnValues='ALL_NEW'
         )
 
-        print(json.dumps(response))
-
     '''
     def update_if(self, key, data):
+        response = None
+
         try:
             response = self.table.update_item(
                 Key=key,
@@ -116,17 +103,10 @@ class Model:
                 ReturnValues='UPDATED_NEW'
             )
 
-        except ClientError as ex:
-            if ex.response['Error']['Code'] == 'ConditionalCheckFailedException':
-                print(ex.response['Error']['Message'])
+        except ClientError:
+            pass
 
-            else:
-                raise
-
-        else:
-            print('PutItem succeeded:')
-
-        print(json.dumps(response))
+        return response
     '''
 
     def increase(self, key, data):
@@ -144,7 +124,7 @@ class Model:
             names['attr' + str(i)] = name
             values[':value' + str(i)] = value
 
-        response = self.table.update_item(
+        return self.table.update_item(
             Key=key,
             UpdateExpression=expression,
             ExpressionAttributeNames=names,
@@ -153,7 +133,7 @@ class Model:
         )
 
     def append(self, key, attr, value):
-        response = self.table.update_item(
+        return self.table.update_item(
             Key=key,
             UpdateExpression='set ' + attr + ' = list_append(' + attr + ', :value)',
             ExpressionAttributeValues={
@@ -162,15 +142,13 @@ class Model:
             ReturnValues='UPDATED_NEW'
         )
 
-        print(json.dumps(response))
-
     def delete(self, key):
-        response = self.table.delete_item(Key=key)
-
-        print(json.dumps(response))
+        return self.table.delete_item(Key=key)
 
     '''
     def delete_if(self, key, attr, value):
+        response = None
+
         try:
             response = self.table.delete_item(
                 Key=key,
@@ -180,15 +158,9 @@ class Model:
                 }
             )
 
-        except ClientError as ex:
-            if ex.response['Error']['Code'] == 'ConditionalCheckFailedException':
-                print(ex.response['Error']['Message'])
+        except ClientError:
+            pass
 
-            else:
-                raise
-
-        else:
-            print('PutItem succeeded:')
-
-        print(json.dumps(response))
+        return response
     '''
+
